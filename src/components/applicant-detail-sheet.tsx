@@ -130,6 +130,19 @@ export default function ApplicantDetailSheet({
                       <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">UID</p>
                       <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">{applicant.uid}</p>
                     </div>
+                    <div className="col-span-2">
+                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">Date joined tryouts</p>
+                      <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">
+                        {new Date(applicant.createdAt).toLocaleDateString(undefined, {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}{" "}
+                        <span className="text-neutral-500 dark:text-neutral-600">
+                          at {new Date(applicant.createdAt).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
+                        </span>
+                      </p>
+                    </div>
                     <div>
                       <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">Tryout type</p>
                       <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">
