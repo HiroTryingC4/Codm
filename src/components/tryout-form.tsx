@@ -187,9 +187,16 @@ export default function TryoutForm() {
           </p>
         )}
         {result?.success && (
-          <p className="animate-fade-in-up text-sm text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-300 dark:border-emerald-500/30 rounded-lg px-3 py-2">
-            Thanks — your tryout application has been submitted!
-          </p>
+          <div className="animate-fade-in-up flex items-start gap-3 text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-300 dark:border-emerald-500/30 rounded-lg px-4 py-3">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mt-0.5 shrink-0">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <path d="M22 4 12 14.01l-3-3" />
+            </svg>
+            <div>
+              <p className="font-semibold">Successful!</p>
+              <p className="text-sm opacity-90">Your tryout application has been submitted.</p>
+            </div>
+          </div>
         )}
 
         <button
