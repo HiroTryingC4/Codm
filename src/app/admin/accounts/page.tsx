@@ -1,10 +1,7 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import CreateAccountForm from "@/components/create-account-form";
-import LogoutButton from "@/components/logout-button";
-import ThemeToggle from "@/components/theme-toggle";
 
 export const dynamic = "force-dynamic";
 
@@ -24,24 +21,12 @@ export default async function AccountsPage() {
 
   return (
     <main className="min-h-screen">
-      <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 sm:px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
-        <div>
-          <p className="text-xs font-semibold tracking-widest text-orange-600 dark:text-orange-500 uppercase">
-            Accounts
-          </p>
-          <h1 className="font-bold text-neutral-900 dark:text-white">Admin Accounts</h1>
-        </div>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <Link
-            href="/admin"
-            className="text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors hover:-translate-x-0.5 inline-block duration-150"
-          >
-            Back to board
-          </Link>
-          <ThemeToggle />
-          <LogoutButton />
-        </div>
-      </header>
+      <div className="px-4 sm:px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
+        <p className="text-xs font-semibold tracking-widest text-orange-600 dark:text-orange-500 uppercase">
+          Accounts
+        </p>
+        <h1 className="font-bold text-neutral-900 dark:text-white">Admin Accounts</h1>
+      </div>
 
       <div className="p-4 sm:p-6 max-w-lg space-y-6">
         <div className="space-y-2">

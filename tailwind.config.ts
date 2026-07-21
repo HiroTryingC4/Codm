@@ -18,11 +18,16 @@ const config: Config = {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(0)" },
         },
+        "slide-in-left": {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.4s ease-out both",
         "fade-in-up": "fade-in-up 0.45s ease-out both",
         "slide-in-right": "slide-in-right 0.3s ease-out both",
+        "slide-in-left": "slide-in-left 0.3s ease-out both",
       },
     },
   },
