@@ -51,13 +51,6 @@ export default function BoardClient({
       <div className="absolute inset-0 bg-white/90 dark:bg-neutral-950/90 transition-colors duration-300" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(234,88,12,0.1),_transparent_60%)]" />
 
-      <div className="relative px-4 sm:px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 bg-white/60 dark:bg-neutral-950/60 backdrop-blur-sm">
-        <p className="text-xs font-semibold tracking-widest text-gold-700 dark:text-gold-500 uppercase">
-          Board
-        </p>
-        <h1 className="font-bold text-neutral-900 dark:text-white">Admin — Applicants</h1>
-      </div>
-
       <main className="relative p-4 sm:p-6">
         <div className="max-w-5xl mx-auto mb-6">
           <div className="relative max-w-xs">

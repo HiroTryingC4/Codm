@@ -80,13 +80,6 @@ export default async function AnalyticsPage() {
 
   return (
     <main className="min-h-screen">
-      <div className="px-4 sm:px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
-        <p className="text-xs font-semibold tracking-widest text-gold-700 dark:text-gold-500 uppercase">
-          Analytics
-        </p>
-        <h1 className="font-bold text-neutral-900 dark:text-white">Tryout Analytics</h1>
-      </div>
-
       <div className="p-4 sm:p-6 max-w-4xl space-y-6">
         <div className="grid grid-cols-3 gap-3">
           <div className="animate-fade-in-up rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4">
