@@ -19,7 +19,7 @@ export default function KanbanColumn({
   const colors = STATUS_COLORS[status];
 
   return (
-    <div>
+    <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/50 backdrop-blur-sm shadow-lg shadow-neutral-300/30 dark:shadow-black/30 p-4 transition-colors">
       <h2 className="flex items-center gap-1.5 text-xs font-semibold tracking-widest uppercase mb-3">
         <span className={`h-1.5 w-1.5 rounded-full ${colors.dot}`} />
         <span className={colors.heading}>{title}</span>

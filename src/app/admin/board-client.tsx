@@ -41,8 +41,15 @@ export default function BoardClient({
   }
 
   return (
-    <>
-      <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 sm:px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
+    <div className="relative min-h-screen">
+      <div
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/images/admin-cover.jpg')" }}
+      />
+      <div className="fixed inset-0 bg-white/90 dark:bg-neutral-950/90 transition-colors duration-300" />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(234,88,12,0.1),_transparent_60%)]" />
+
+      <header className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 sm:px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 bg-white/60 dark:bg-neutral-950/60 backdrop-blur-sm">
         <div>
           <p className="text-xs font-semibold tracking-widest text-orange-600 dark:text-orange-500 uppercase">
             Board
@@ -70,7 +77,7 @@ export default function BoardClient({
         </div>
       </header>
 
-      <main className="p-4 sm:p-6">
+      <main className="relative p-4 sm:p-6">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
           <KanbanColumn
             title="Pending"
@@ -125,6 +132,6 @@ export default function BoardClient({
           />
         )}
       </main>
-    </>
+    </div>
   );
 }
