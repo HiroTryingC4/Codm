@@ -8,6 +8,16 @@ import ThemeToggle from "./theme-toggle";
 
 const NAV_LINKS = [
   {
+    href: "/admin/analytics",
+    label: "Analytics",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+        <path d="M3 3v18h18" />
+        <path d="M18.7 8 12 14.7l-3.5-3.5L4 15.7" />
+      </svg>
+    ),
+  },
+  {
     href: "/admin",
     label: "Board",
     icon: (
@@ -16,16 +26,6 @@ const NAV_LINKS = [
         <rect x="14" y="3" width="7" height="5" rx="1" />
         <rect x="14" y="12" width="7" height="9" rx="1" />
         <rect x="3" y="16" width="7" height="5" rx="1" />
-      </svg>
-    ),
-  },
-  {
-    href: "/admin/analytics",
-    label: "Analytics",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-        <path d="M3 3v18h18" />
-        <path d="M18.7 8 12 14.7l-3.5-3.5L4 15.7" />
       </svg>
     ),
   },
