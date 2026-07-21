@@ -27,6 +27,7 @@ export default function ApplicantDetailSheet({
   const [loading, setLoading] = useState(true);
   const [commentText, setCommentText] = useState("");
   const [posting, setPosting] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(true);
 
   async function load() {
     setLoading(true);
@@ -95,14 +96,73 @@ export default function ApplicantDetailSheet({
               </span>
               <p className="mt-2 text-xs text-neutral-500">
                 Applied {new Date(applicant.createdAt).toLocaleString()}
-                {applicant.recruitedBy && (
-                  <>
-                    {" "}
-                    · Recruited by{" "}
-                    <span className="text-neutral-700 dark:text-neutral-300">{applicant.recruitedBy}</span>
-                  </>
-                )}
               </p>
+            </div>
+
+            <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setDetailsOpen((v) => !v)}
+                className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-semibold text-neutral-500 uppercase tracking-wide bg-neutral-50 dark:bg-neutral-900/60 hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors"
+              >
+                Application Details
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className={`w-4 h-4 transition-transform duration-200 ${detailsOpen ? "rotate-180" : ""}`}
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+              {detailsOpen && (
+                <div className="animate-fade-in-up px-3 py-3 space-y-3 border-t border-neutral-200 dark:border-neutral-800">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">In-game name</p>
+                      <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">{applicant.inGameName}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">UID</p>
+                      <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">{applicant.uid}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">Tryout type</p>
+                      <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">
+                        {TYPE_LABEL[applicant.tryoutType]}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">Mode</p>
+                      <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">
+                        {MODE_LABEL[applicant.mode]}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">Role / class</p>
+                      <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">
+                        {applicant.role || <span className="text-neutral-400 dark:text-neutral-600">Not specified</span>}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">Recruited by</p>
+                      <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">
+                        {applicant.recruitedBy || <span className="text-neutral-400 dark:text-neutral-600">N/A</span>}
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">Why they want in</p>
+                    <p className="text-sm text-neutral-900 dark:text-neutral-100 whitespace-pre-wrap break-words">
+                      {applicant.motivation || <span className="text-neutral-400 dark:text-neutral-600">No answer given</span>}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
 
             <CommentList comments={applicant.comments} />
