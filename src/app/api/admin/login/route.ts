@@ -9,7 +9,7 @@ import {
 import type { AdminRole } from "@/types";
 
 export async function POST(request: NextRequest) {
-  const { name, password } = await request.json();
+  const { name, password, rememberMe } = await request.json();
 
   if (typeof name !== "string" || typeof password !== "string") {
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
@@ -32,7 +32,8 @@ export async function POST(request: NextRequest) {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: ADMIN_SESSION_MAX_AGE,
+    // Omitting maxAge makes it a session cookie that clears when the browser closes.
+    ...(rememberMe ? { maxAge: ADMIN_SESSION_MAX_AGE } : {}),
   });
   return response;
 }
