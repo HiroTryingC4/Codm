@@ -1,0 +1,78 @@
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { prisma } from "@/lib/prisma";
+import { getSession } from "@/lib/auth";
+import CreateAccountForm from "@/components/create-account-form";
+import LogoutButton from "@/components/logout-button";
+import ThemeToggle from "@/components/theme-toggle";
+
+export const dynamic = "force-dynamic";
+
+const ROLE_BADGE: Record<string, string> = {
+  HEAD: "text-orange-700 dark:text-orange-400 bg-orange-50 dark:bg-orange-500/10 border-orange-300 dark:border-orange-500/30",
+  ADMIN: "text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700",
+};
+
+export default async function AccountsPage() {
+  const session = await getSession();
+  if (!session) redirect("/admin/login");
+
+  const admins = await prisma.admin.findMany({
+    select: { id: true, name: true, role: true, createdAt: true },
+    orderBy: { createdAt: "asc" },
+  });
+
+  return (
+    <main className="min-h-screen">
+      <header className="flex items-center justify-between px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
+        <div>
+          <p className="text-xs font-semibold tracking-widest text-orange-600 dark:text-orange-500 uppercase">
+            Accounts
+          </p>
+          <h1 className="font-bold text-neutral-900 dark:text-white">Admin Accounts</h1>
+        </div>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/admin"
+            className="text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors hover:-translate-x-0.5 inline-block duration-150"
+          >
+            Back to board
+          </Link>
+          <ThemeToggle />
+          <LogoutButton />
+        </div>
+      </header>
+
+      <div className="p-6 max-w-lg space-y-6">
+        <div className="space-y-2">
+          {admins.map((admin, i) => (
+            <div
+              key={admin.id}
+              style={{ animationDelay: `${i * 60}ms` }}
+              className="animate-fade-in-up flex items-center justify-between rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 transition-colors hover:border-neutral-300 dark:hover:border-neutral-700"
+            >
+              <div>
+                <p className="font-medium text-neutral-900 dark:text-neutral-100">
+                  {admin.name}
+                  {admin.id === session.adminId && (
+                    <span className="ml-2 text-xs text-neutral-500 dark:text-neutral-600">(you)</span>
+                  )}
+                </p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-600 mt-0.5">
+                  Created {new Date(admin.createdAt).toLocaleDateString()}
+                </p>
+              </div>
+              <span
+                className={`text-xs font-semibold rounded-full border px-2.5 py-0.5 ${ROLE_BADGE[admin.role]}`}
+              >
+                {admin.role}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {session.role === "HEAD" && <CreateAccountForm />}
+      </div>
+    </main>
+  );
+}

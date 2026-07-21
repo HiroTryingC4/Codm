@@ -1,0 +1,49 @@
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { getSession, hashPassword } from "@/lib/auth";
+
+export async function GET() {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const admins = await prisma.admin.findMany({
+    select: { id: true, name: true, role: true, createdAt: true },
+    orderBy: { createdAt: "asc" },
+  });
+
+  return NextResponse.json({ admins });
+}
+
+export async function POST(request: NextRequest) {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  if (session.role !== "HEAD") {
+    return NextResponse.json({ error: "Only the head admin can create accounts" }, { status: 403 });
+  }
+
+  const { name, password } = await request.json();
+
+  if (typeof name !== "string" || !name.trim() || typeof password !== "string" || password.length < 8) {
+    return NextResponse.json(
+      { error: "Name is required and password must be at least 8 characters." },
+      { status: 400 }
+    );
+  }
+
+  const existing = await prisma.admin.findUnique({ where: { name: name.trim() } });
+  if (existing) {
+    return NextResponse.json({ error: "An admin with that name already exists." }, { status: 409 });
+  }
+
+  const passwordHash = await hashPassword(password);
+  const admin = await prisma.admin.create({
+    data: { name: name.trim(), passwordHash, role: "ADMIN" },
+    select: { id: true, name: true, role: true, createdAt: true },
+  });
+
+  return NextResponse.json({ admin });
+}

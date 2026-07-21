@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// TryoutType (COMPETITIVE|CASUAL), Mode (SOLO|TEAM), status (PENDING|REVIEWED|ACCEPTED|REJECTED)
+// are plain strings validated in application code — see src/types/index.ts for the TS unions.
+// (Kept as strings rather than native Postgres enums since the schema started on SQLite,
+// which has no enum support — no need to churn it now that both work.)
+
+model Applicant {
+  id           String @id @default(cuid())
+  inGameName   String
+  uid          String
+  tryoutType   String
+  mode         String
+  role         String?
+  motivation   String
+  recruitedBy  String?
+  status       String @default("PENDING")
+
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Comment {
+  id          String    @id @default(cuid())
+  applicantId String
+  applicant   Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  adminId     String
+  admin       Admin     @relation(fields: [adminId], references: [id])
+  text        String
+  createdAt   DateTime  @default(now())
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  name         String   @unique
+  passwordHash String
+  role         String // "HEAD" | "ADMIN" — see src/types/index.ts AdminRole
+  createdAt    DateTime @default(now())
+
+  comments Comment[]
+}
