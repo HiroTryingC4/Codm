@@ -71,7 +71,7 @@ export default function BoardClient({
       </header>
 
       <main className="p-6">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
           <KanbanColumn
             title="Pending"
             status="PENDING"
@@ -96,7 +96,7 @@ export default function BoardClient({
         </div>
 
         {rejected.length > 0 && (
-          <div className="mt-8 max-w-5xl">
+          <div className="mt-8 max-w-5xl mx-auto">
             <button
               onClick={() => setShowRejected((v) => !v)}
               className="text-xs font-semibold text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors"
