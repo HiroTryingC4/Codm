@@ -24,14 +24,14 @@ export default async function AccountsPage() {
 
   return (
     <main className="min-h-screen">
-      <header className="flex items-center justify-between px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
+      <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 sm:px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
         <div>
           <p className="text-xs font-semibold tracking-widest text-orange-600 dark:text-orange-500 uppercase">
             Accounts
           </p>
           <h1 className="font-bold text-neutral-900 dark:text-white">Admin Accounts</h1>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <Link
             href="/admin"
             className="text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors hover:-translate-x-0.5 inline-block duration-150"
@@ -43,16 +43,16 @@ export default async function AccountsPage() {
         </div>
       </header>
 
-      <div className="p-6 max-w-lg space-y-6">
+      <div className="p-4 sm:p-6 max-w-lg space-y-6">
         <div className="space-y-2">
           {admins.map((admin, i) => (
             <div
               key={admin.id}
               style={{ animationDelay: `${i * 60}ms` }}
-              className="animate-fade-in-up flex items-center justify-between rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 transition-colors hover:border-neutral-300 dark:hover:border-neutral-700"
+              className="animate-fade-in-up flex flex-wrap items-center justify-between gap-2 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 transition-colors hover:border-neutral-300 dark:hover:border-neutral-700"
             >
-              <div>
-                <p className="font-medium text-neutral-900 dark:text-neutral-100">
+              <div className="min-w-0">
+                <p className="font-medium text-neutral-900 dark:text-neutral-100 truncate">
                   {admin.name}
                   {admin.id === session.adminId && (
                     <span className="ml-2 text-xs text-neutral-500 dark:text-neutral-600">(you)</span>
@@ -63,7 +63,7 @@ export default async function AccountsPage() {
                 </p>
               </div>
               <span
-                className={`text-xs font-semibold rounded-full border px-2.5 py-0.5 ${ROLE_BADGE[admin.role]}`}
+                className={`shrink-0 text-xs font-semibold rounded-full border px-2.5 py-0.5 ${ROLE_BADGE[admin.role]}`}
               >
                 {admin.role}
               </span>

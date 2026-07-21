@@ -42,14 +42,14 @@ export default function BoardClient({
 
   return (
     <>
-      <header className="flex items-center justify-between px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
+      <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 sm:px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
         <div>
           <p className="text-xs font-semibold tracking-widest text-orange-600 dark:text-orange-500 uppercase">
             Board
           </p>
           <h1 className="font-bold text-neutral-900 dark:text-white">Admin — Applicants</h1>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <span className="text-sm text-neutral-500 dark:text-neutral-600">
             Signed in as <span className="text-neutral-800 dark:text-neutral-300">{currentAdmin.name}</span>
           </span>
@@ -70,7 +70,7 @@ export default function BoardClient({
         </div>
       </header>
 
-      <main className="p-6">
+      <main className="p-4 sm:p-6">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
           <KanbanColumn
             title="Pending"
