@@ -54,14 +54,14 @@ export default function AdminSidebar({
   const linkClass = (href: string) =>
     `flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 ${
       isActive(href)
-        ? "bg-orange-600 text-white"
+        ? "bg-gold-600 text-white"
         : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-900"
     }`;
 
   const sidebarBody = (
     <div className="flex flex-col h-full">
       <div className="px-5 py-5 border-b border-neutral-200 dark:border-neutral-800">
-        <p className="text-xs font-semibold tracking-widest text-orange-600 dark:text-orange-500 uppercase">
+        <p className="text-xs font-semibold tracking-widest text-gold-600 dark:text-gold-500 uppercase">
           Last Game Reborn
         </p>
         <h1 className="font-bold text-neutral-900 dark:text-white">Admin Panel</h1>

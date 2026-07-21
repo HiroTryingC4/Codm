@@ -58,7 +58,7 @@ export default function AdminLoginPage() {
         <ThemeToggle />
       </div>
       <div className="animate-fade-in-up w-full max-w-sm rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/40 p-8 shadow-2xl shadow-neutral-300/40 dark:shadow-black/40 transition-colors">
-        <p className="text-xs font-semibold tracking-widest text-orange-600 dark:text-orange-500 uppercase mb-1">
+        <p className="text-xs font-semibold tracking-widest text-gold-600 dark:text-gold-500 uppercase mb-1">
           Restricted
         </p>
         <h1 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6">Admin Login</h1>
@@ -74,7 +74,7 @@ export default function AdminLoginPage() {
               autoFocus
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2.5 text-sm text-neutral-900 dark:text-neutral-100 outline-none transition-colors focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+              className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2.5 text-sm text-neutral-900 dark:text-neutral-100 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
             />
           </div>
           <div>
@@ -87,7 +87,7 @@ export default function AdminLoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2.5 text-sm text-neutral-900 dark:text-neutral-100 outline-none transition-colors focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+              className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2.5 text-sm text-neutral-900 dark:text-neutral-100 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
             />
           </div>
           {error && (
@@ -98,7 +98,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full rounded-lg bg-orange-600 text-white py-2.5 font-semibold transition-all duration-150 hover:bg-orange-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="w-full rounded-lg bg-gold-600 text-white py-2.5 font-semibold transition-all duration-150 hover:bg-gold-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
             {submitting ? "Logging in..." : "Log in"}
           </button>

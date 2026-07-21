@@ -6,7 +6,7 @@ import CreateAccountForm from "@/components/create-account-form";
 export const dynamic = "force-dynamic";
 
 const ROLE_BADGE: Record<string, string> = {
-  HEAD: "text-orange-700 dark:text-orange-400 bg-orange-50 dark:bg-orange-500/10 border-orange-300 dark:border-orange-500/30",
+  HEAD: "text-gold-700 dark:text-gold-400 bg-gold-50 dark:bg-gold-500/10 border-gold-300 dark:border-gold-500/30",
   ADMIN: "text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700",
 };
 
@@ -22,7 +22,7 @@ export default async function AccountsPage() {
   return (
     <main className="min-h-screen">
       <div className="px-4 sm:px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
-        <p className="text-xs font-semibold tracking-widest text-orange-600 dark:text-orange-500 uppercase">
+        <p className="text-xs font-semibold tracking-widest text-gold-600 dark:text-gold-500 uppercase">
           Accounts
         </p>
         <h1 className="font-bold text-neutral-900 dark:text-white">Admin Accounts</h1>

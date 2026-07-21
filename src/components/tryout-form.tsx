@@ -17,7 +17,7 @@ const MODES: Toggle<"SOLO" | "TEAM">[] = [
 ];
 
 const inputClass =
-  "w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2.5 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-orange-500 focus:ring-1 focus:ring-orange-500";
+  "w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2.5 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500";
 
 const labelClass = "block text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-1.5";
 
@@ -65,7 +65,7 @@ export default function TryoutForm() {
   return (
     <div className="animate-fade-in-up rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/40 p-6 sm:p-8 shadow-2xl shadow-neutral-300/40 dark:shadow-black/40 transition-colors">
       <div className="mb-6">
-        <p className="text-xs font-semibold tracking-widest text-orange-600 dark:text-orange-500 uppercase mb-1">
+        <p className="text-xs font-semibold tracking-widest text-gold-600 dark:text-gold-500 uppercase mb-1">
           Player Application
         </p>
         <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">Tryout Form</h1>
@@ -97,7 +97,7 @@ export default function TryoutForm() {
                 onClick={() => setTryoutType(t.value)}
                 className={`flex-1 py-2.5 text-sm font-medium transition-all duration-150 active:scale-95 ${
                   tryoutType === t.value
-                    ? "bg-orange-600 text-white"
+                    ? "bg-gold-600 text-white"
                     : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
                 }`}
               >
@@ -118,7 +118,7 @@ export default function TryoutForm() {
                 onClick={() => setMode(m.value)}
                 className={`flex-1 py-2.5 text-sm font-medium transition-all duration-150 active:scale-95 ${
                   mode === m.value
-                    ? "bg-orange-600 text-white"
+                    ? "bg-gold-600 text-white"
                     : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
                 }`}
               >
@@ -161,7 +161,7 @@ export default function TryoutForm() {
               setRulesOpen(true);
               setHasReadRules(true);
             }}
-            className="w-full rounded-lg border border-orange-500 text-orange-600 dark:text-orange-500 py-2 text-sm font-semibold transition-all duration-150 hover:bg-orange-50 dark:hover:bg-orange-500/10 hover:scale-[1.01] active:scale-[0.99]"
+            className="w-full rounded-lg border border-gold-500 text-gold-600 dark:text-gold-500 py-2 text-sm font-semibold transition-all duration-150 hover:bg-gold-50 dark:hover:bg-gold-500/10 hover:scale-[1.01] active:scale-[0.99]"
           >
             Read Clan Rules
           </button>
@@ -178,7 +178,7 @@ export default function TryoutForm() {
               checked={rulesAgreed}
               disabled={!hasReadRules}
               onChange={(e) => setRulesAgreed(e.target.checked)}
-              className="mt-0.5 accent-orange-600"
+              className="mt-0.5 accent-gold-600"
             />
             I have read and agree to the clan rules
           </label>
@@ -210,7 +210,7 @@ export default function TryoutForm() {
         <button
           type="submit"
           disabled={submitting || !rulesAgreed}
-          className="w-full rounded-lg bg-orange-600 text-white py-2.5 font-semibold transition-all duration-150 hover:bg-orange-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          className="w-full rounded-lg bg-gold-600 text-white py-2.5 font-semibold transition-all duration-150 hover:bg-gold-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
           {submitting ? "Submitting..." : "Submit application"}
         </button>

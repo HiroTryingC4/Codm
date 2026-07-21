@@ -49,7 +49,7 @@ export default function ClanRulesModal({
               key={i}
               className="flex gap-2 text-sm text-neutral-700 dark:text-neutral-300"
             >
-              <span className="text-orange-600 dark:text-orange-500 font-semibold shrink-0">
+              <span className="text-gold-600 dark:text-gold-500 font-semibold shrink-0">
                 {i + 1}.
               </span>
               {rule}
@@ -59,7 +59,7 @@ export default function ClanRulesModal({
 
         <button
           onClick={onClose}
-          className="w-full rounded-lg bg-orange-600 text-white py-2.5 font-semibold transition-all duration-150 hover:bg-orange-500 hover:scale-[1.02] active:scale-[0.98]"
+          className="w-full rounded-lg bg-gold-600 text-white py-2.5 font-semibold transition-all duration-150 hover:bg-gold-500 hover:scale-[1.02] active:scale-[0.98]"
         >
           Got it
         </button>

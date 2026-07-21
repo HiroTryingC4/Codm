@@ -47,7 +47,7 @@ export default function CreateAccountForm() {
         onChange={(e) => setName(e.target.value)}
         placeholder="Name"
         required
-        className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+        className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
       />
       <input
         value={password}
@@ -56,7 +56,7 @@ export default function CreateAccountForm() {
         placeholder="Password (min 8 characters)"
         required
         minLength={8}
-        className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+        className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
       />
       {error && (
         <p className="animate-fade-in-up text-sm text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-500/10 border border-red-300 dark:border-red-500/30 rounded-lg px-3 py-2">
@@ -66,7 +66,7 @@ export default function CreateAccountForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="w-full rounded-lg bg-orange-600 text-white py-2 text-sm font-semibold transition-all duration-150 hover:bg-orange-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100"
+        className="w-full rounded-lg bg-gold-600 text-white py-2 text-sm font-semibold transition-all duration-150 hover:bg-gold-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100"
       >
         {submitting ? "Creating..." : "Create account"}
       </button>

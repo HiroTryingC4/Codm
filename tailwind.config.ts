@@ -5,6 +5,21 @@ const config: Config = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
+      colors: {
+        gold: {
+          50: "#fdf9ec",
+          100: "#faf0cd",
+          200: "#f5df9b",
+          300: "#eecb64",
+          400: "#e5b23a",
+          500: "#d4a017",
+          600: "#b3830f",
+          700: "#8f660e",
+          800: "#755314",
+          900: "#624616",
+          950: "#392509",
+        },
+      },
       keyframes: {
         "fade-in": {
           "0%": { opacity: "0" },

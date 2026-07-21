@@ -116,7 +116,7 @@ export default function ApplicantDetailSheet({
                 onChange={(e) => setCommentText(e.target.value)}
                 rows={3}
                 placeholder="Comment"
-                className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+                className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
               />
               <button
                 type="submit"
@@ -139,7 +139,7 @@ export default function ApplicantDetailSheet({
             <div className="flex gap-2 pt-2">
               <button
                 onClick={() => handleStatus("ACCEPTED")}
-                className="flex-1 rounded-lg bg-orange-600 text-white py-2 font-medium transition-all duration-150 hover:bg-orange-500 hover:scale-[1.02] active:scale-[0.98]"
+                className="flex-1 rounded-lg bg-gold-600 text-white py-2 font-medium transition-all duration-150 hover:bg-gold-500 hover:scale-[1.02] active:scale-[0.98]"
               >
                 Accept
               </button>
