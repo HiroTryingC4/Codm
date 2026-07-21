@@ -36,8 +36,17 @@ export default function TryoutForm() {
   const [hasReadRules, setHasReadRules] = useState(false);
   const [rulesAgreed, setRulesAgreed] = useState(false);
 
+  const [uid, setUid] = useState("");
+  const uidError = uid.length > 0 && !/^\d+$/.test(uid) ? "UID must contain numbers only." : null;
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (!/^\d+$/.test(uid)) {
+      setResult({ success: false, error: "UID must contain numbers only." });
+      return;
+    }
+
     setSubmitting(true);
     setResult(null);
 
@@ -51,6 +60,7 @@ export default function TryoutForm() {
         formRef.current?.reset();
         setRulesAgreed(false);
         setHasReadRules(false);
+        setUid("");
       }
     } catch {
       setResult({
@@ -83,7 +93,22 @@ export default function TryoutForm() {
           <label className={labelClass} htmlFor="uid">
             UID
           </label>
-          <input id="uid" name="uid" required className={inputClass} />
+          <input
+            id="uid"
+            name="uid"
+            required
+            inputMode="numeric"
+            pattern="[0-9]*"
+            value={uid}
+            onChange={(e) => setUid(e.target.value)}
+            aria-invalid={!!uidError}
+            className={`${inputClass} ${
+              uidError ? "border-red-400 dark:border-red-500/60 focus:border-red-500 focus:ring-red-500" : ""
+            }`}
+          />
+          {uidError && (
+            <p className="mt-1.5 text-xs text-red-600 dark:text-red-400">{uidError}</p>
+          )}
         </div>
 
         <div>

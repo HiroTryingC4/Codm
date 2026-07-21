@@ -24,6 +24,10 @@ export async function submitTryoutApplication(
     return { success: false, error: "In-game name and UID are required." };
   }
 
+  if (!/^\d+$/.test(uid)) {
+    return { success: false, error: "UID must contain numbers only." };
+  }
+
   if (tryoutType !== "COMPETITIVE" && tryoutType !== "CASUAL") {
     return { success: false, error: "Please select a tryout type." };
   }
