@@ -58,7 +58,7 @@ export default function AdminLoginPage() {
         <ThemeToggle />
       </div>
       <div className="animate-fade-in-up w-full max-w-sm rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/40 p-8 shadow-2xl shadow-neutral-300/40 dark:shadow-black/40 transition-colors">
-        <p className="text-xs font-semibold tracking-widest text-gold-600 dark:text-gold-500 uppercase mb-1">
+        <p className="text-xs font-semibold tracking-widest text-gold-700 dark:text-gold-500 uppercase mb-1">
           Restricted
         </p>
         <h1 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6">Admin Login</h1>

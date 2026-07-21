@@ -49,7 +49,7 @@ export default function ClanRulesModal({
               key={i}
               className="flex gap-2 text-sm text-neutral-700 dark:text-neutral-300"
             >
-              <span className="text-gold-600 dark:text-gold-500 font-semibold shrink-0">
+              <span className="text-gold-700 dark:text-gold-500 font-semibold shrink-0">
                 {i + 1}.
               </span>
               {rule}

@@ -65,7 +65,7 @@ export default function TryoutForm() {
   return (
     <div className="animate-fade-in-up rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/40 p-6 sm:p-8 shadow-2xl shadow-neutral-300/40 dark:shadow-black/40 transition-colors">
       <div className="mb-6">
-        <p className="text-xs font-semibold tracking-widest text-gold-600 dark:text-gold-500 uppercase mb-1">
+        <p className="text-xs font-semibold tracking-widest text-gold-700 dark:text-gold-500 uppercase mb-1">
           Player Application
         </p>
         <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">Tryout Form</h1>
@@ -161,7 +161,7 @@ export default function TryoutForm() {
               setRulesOpen(true);
               setHasReadRules(true);
             }}
-            className="w-full rounded-lg border border-gold-500 text-gold-600 dark:text-gold-500 py-2 text-sm font-semibold transition-all duration-150 hover:bg-gold-50 dark:hover:bg-gold-500/10 hover:scale-[1.01] active:scale-[0.99]"
+            className="w-full rounded-lg border border-gold-500 text-gold-700 dark:text-gold-500 py-2 text-sm font-semibold transition-all duration-150 hover:bg-gold-50 dark:hover:bg-gold-500/10 hover:scale-[1.01] active:scale-[0.99]"
           >
             Read Clan Rules
           </button>
