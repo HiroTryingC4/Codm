@@ -41,16 +41,24 @@ export default function TryoutForm() {
     setSubmitting(true);
     setResult(null);
 
-    const formData = new FormData(e.currentTarget);
-    formData.set("rulesAgreed", rulesAgreed ? "true" : "false");
-    const res = await submitTryoutApplication(formData);
+    try {
+      const formData = new FormData(e.currentTarget);
+      formData.set("rulesAgreed", rulesAgreed ? "true" : "false");
+      const res = await submitTryoutApplication(formData);
 
-    setSubmitting(false);
-    setResult(res);
-    if (res.success) {
-      formRef.current?.reset();
-      setRulesAgreed(false);
-      setHasReadRules(false);
+      setResult(res);
+      if (res.success) {
+        formRef.current?.reset();
+        setRulesAgreed(false);
+        setHasReadRules(false);
+      }
+    } catch {
+      setResult({
+        success: false,
+        error: "Something went wrong submitting your application. Please try again.",
+      });
+    } finally {
+      setSubmitting(false);
     }
   }
 
