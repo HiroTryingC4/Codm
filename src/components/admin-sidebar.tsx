@@ -56,12 +56,6 @@ const NAV_LINKS = [
   },
 ];
 
-function getInitials(name: string) {
-  const parts = name.trim().split(/\s+/);
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-  return (parts[0][0] + parts[1][0]).toUpperCase();
-}
-
 export default function AdminSidebar({
   currentAdmin,
 }: {
@@ -199,9 +193,6 @@ export default function AdminSidebar({
 
       <div className="px-3 py-4 border-t border-neutral-200 dark:border-neutral-800 space-y-3">
         <div className="flex items-center gap-2.5 px-1">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold-600 text-white text-xs font-semibold">
-            {getInitials(currentAdmin.name)}
-          </div>
           <div className="min-w-0 flex-1">
             <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">
               {currentAdmin.name}
