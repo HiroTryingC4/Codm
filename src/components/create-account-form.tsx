@@ -84,6 +84,11 @@ export default function CreateAccountForm() {
           Head Admin
         </button>
       </div>
+      <p className="text-xs text-neutral-500 dark:text-neutral-600 leading-snug">
+        {role === "HEAD"
+          ? "Head Admin: full board access, plus can create/manage admin accounts."
+          : "Admin: full board access (review, comment, accept/reject), can't create accounts."}
+      </p>
       {error && (
         <p className="animate-fade-in-up text-sm text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-500/10 border border-red-300 dark:border-red-500/30 rounded-lg px-3 py-2">
           {error}
