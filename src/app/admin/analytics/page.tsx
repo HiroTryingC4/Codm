@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
+import { getAllowedGames } from "@/lib/access";
+import type { GameType } from "@/types";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +22,11 @@ const STATUS_DOT: Record<string, string> = {
   REJECTED: "bg-red-500",
 };
 
+const GAME_LABEL: Record<GameType, string> = {
+  MP: "Multiplayer",
+  BR: "Battle Royale",
+};
+
 function monthKey(date: Date) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
 }
@@ -36,10 +43,24 @@ export default async function AnalyticsPage() {
   const session = await getSession();
   if (!session) redirect("/admin/login");
 
-  const [total, statusGroups, all] = await Promise.all([
-    prisma.applicant.count(),
-    prisma.applicant.groupBy({ by: ["status"], _count: { status: true } }),
-    prisma.applicant.findMany({ select: { createdAt: true } }),
+  const allowedGames = getAllowedGames(session.role);
+
+  const [total, statusGroups, gameStatusGroups, all] = await Promise.all([
+    prisma.applicant.count({ where: { game: { in: allowedGames } } }),
+    prisma.applicant.groupBy({
+      by: ["status"],
+      where: { game: { in: allowedGames } },
+      _count: { status: true },
+    }),
+    prisma.applicant.groupBy({
+      by: ["game", "status"],
+      where: { game: { in: allowedGames } },
+      _count: { status: true },
+    }),
+    prisma.applicant.findMany({
+      where: { game: { in: allowedGames } },
+      select: { createdAt: true },
+    }),
   ]);
 
   const statusCounts: Record<string, number> = Object.fromEntries(
@@ -54,6 +75,18 @@ export default async function AnalyticsPage() {
   const decidedCount = acceptedCount + rejectedCount;
   const acceptanceRate = decidedCount > 0 ? (acceptedCount / decidedCount) * 100 : null;
   const rejectionRate = decidedCount > 0 ? (rejectedCount / decidedCount) * 100 : null;
+
+  const perGame: Record<GameType, { total: number; accepted: number; rejected: number }> = {
+    MP: { total: 0, accepted: 0, rejected: 0 },
+    BR: { total: 0, accepted: 0, rejected: 0 },
+  };
+  for (const g of gameStatusGroups) {
+    const game = g.game as GameType;
+    if (!perGame[game]) continue;
+    perGame[game].total += g._count.status;
+    if (g.status === "ACCEPTED") perGame[game].accepted += g._count.status;
+    if (g.status === "REJECTED") perGame[game].rejected += g._count.status;
+  }
 
   const monthCounts = new Map<string, number>();
   for (const a of all) {
@@ -114,6 +147,40 @@ export default async function AnalyticsPage() {
             </p>
           </div>
         </div>
+
+        {allowedGames.length > 1 && (
+          <div className="animate-fade-in-up rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4">
+            <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-3">
+              MP vs Battle Royale
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              {(["MP", "BR"] as const).map((game) => {
+                const stats = perGame[game];
+                const decided = stats.accepted + stats.rejected;
+                const rate = decided > 0 ? (stats.accepted / decided) * 100 : null;
+                return (
+                  <div
+                    key={game}
+                    className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-3"
+                  >
+                    <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-2">
+                      {GAME_LABEL[game]}
+                    </p>
+                    <p className="text-xl font-bold text-neutral-900 dark:text-white">
+                      {stats.total}
+                      <span className="text-xs font-normal text-neutral-500 dark:text-neutral-600 ml-1">
+                        applications
+                      </span>
+                    </p>
+                    <p className="text-sm text-neutral-500 dark:text-neutral-600 mt-1">
+                      {rate === null ? "—" : `${rate.toFixed(0)}% accepted`}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         <div className="animate-fade-in-up rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4">
           <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-3">
