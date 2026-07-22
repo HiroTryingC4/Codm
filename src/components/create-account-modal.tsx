@@ -153,7 +153,7 @@ export default function CreateAccountModal() {
                     {ROLE_LABEL[role]}: {ROLE_DESCRIPTION[role]}
                   </p>
                   <p className="text-xs text-neutral-500 dark:text-neutral-600 leading-snug">
-                    A random password will be generated — you'll get one chance to copy it.
+                    A random password will be generated for this account.
                   </p>
                   {error && (
                     <p className="animate-fade-in-up text-sm text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-500/10 border border-red-300 dark:border-red-500/30 rounded-lg px-3 py-2">
@@ -216,8 +216,8 @@ export default function CreateAccountModal() {
                 <div className="space-y-4">
                   <h2 className="text-lg font-bold text-neutral-900 dark:text-white">Account Created</h2>
                   <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                    Share this password with <span className="font-medium text-neutral-900 dark:text-neutral-100">{name}</span> —
-                    it won't be shown again. They should change it from their Profile page after logging in.
+                    Share this password with <span className="font-medium text-neutral-900 dark:text-neutral-100">{name}</span>.
+                    They can change it anytime from their Profile page after logging in.
                   </p>
                   <div className="flex items-center justify-between gap-2 rounded-lg border border-gold-300 dark:border-gold-500/30 bg-gold-50 dark:bg-gold-500/10 px-3 py-2.5">
                     <span className="font-mono text-sm text-neutral-900 dark:text-neutral-100 select-all">
