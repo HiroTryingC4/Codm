@@ -6,15 +6,27 @@ import ClanRulesModal from "./clan-rules-modal";
 
 type Toggle<T extends string> = { value: T; label: string };
 
+const GAMES: Toggle<"MP" | "BR">[] = [
+  { value: "MP", label: "Multiplayer" },
+  { value: "BR", label: "Battle Royale" },
+];
+
 const TRYOUT_TYPES: Toggle<"COMPETITIVE" | "CASUAL">[] = [
   { value: "COMPETITIVE", label: "Competitive" },
   { value: "CASUAL", label: "Casual" },
 ];
 
-const MODES: Toggle<"SOLO" | "TEAM">[] = [
-  { value: "SOLO", label: "Solo" },
-  { value: "TEAM", label: "Team" },
-];
+const MODES_BY_GAME: Record<"MP" | "BR", Toggle<"SOLO" | "TEAM" | "DUO" | "SQUAD">[]> = {
+  MP: [
+    { value: "SOLO", label: "Solo" },
+    { value: "TEAM", label: "Team" },
+  ],
+  BR: [
+    { value: "SOLO", label: "Solo" },
+    { value: "DUO", label: "Duo" },
+    { value: "SQUAD", label: "Squad" },
+  ],
+};
 
 const inputClass =
   "w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2.5 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500";
@@ -23,10 +35,16 @@ const labelClass = "block text-sm font-medium text-neutral-600 dark:text-neutral
 
 export default function TryoutForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const [game, setGame] = useState<"MP" | "BR">("MP");
   const [tryoutType, setTryoutType] = useState<"COMPETITIVE" | "CASUAL">(
     "COMPETITIVE"
   );
-  const [mode, setMode] = useState<"SOLO" | "TEAM">("SOLO");
+  const [mode, setMode] = useState<"SOLO" | "TEAM" | "DUO" | "SQUAD">("SOLO");
+
+  function handleGameChange(next: "MP" | "BR") {
+    setGame(next);
+    setMode("SOLO");
+  }
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<{ success: boolean; error?: string } | null>(
     null
@@ -61,6 +79,9 @@ export default function TryoutForm() {
         setRulesAgreed(false);
         setHasReadRules(false);
         setUid("");
+        setGame("MP");
+        setTryoutType("COMPETITIVE");
+        setMode("SOLO");
       }
     } catch {
       setResult({
@@ -82,6 +103,27 @@ export default function TryoutForm() {
       </div>
 
       <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+        <div>
+          <label className={labelClass}>Which game are you trying out for?</label>
+          <input type="hidden" name="game" value={game} />
+          <div className="flex rounded-lg overflow-hidden border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900">
+            {GAMES.map((g) => (
+              <button
+                type="button"
+                key={g.value}
+                onClick={() => handleGameChange(g.value)}
+                className={`flex-1 py-2.5 text-sm font-medium transition-all duration-150 active:scale-95 ${
+                  game === g.value
+                    ? "bg-gold-600 text-white"
+                    : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
+                }`}
+              >
+                {g.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div>
           <label className={labelClass} htmlFor="inGameName">
             In-game name
@@ -136,7 +178,7 @@ export default function TryoutForm() {
           <label className={labelClass}>Mode</label>
           <input type="hidden" name="mode" value={mode} />
           <div className="flex rounded-lg overflow-hidden border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-            {MODES.map((m) => (
+            {MODES_BY_GAME[game].map((m) => (
               <button
                 type="button"
                 key={m.value}

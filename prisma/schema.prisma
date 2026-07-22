@@ -7,13 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// TryoutType (COMPETITIVE|CASUAL), Mode (SOLO|TEAM), status (PENDING|REVIEWED|ACCEPTED|REJECTED)
-// are plain strings validated in application code — see src/types/index.ts for the TS unions.
+// Game (MP|BR), TryoutType (COMPETITIVE|CASUAL), Mode (SOLO|TEAM|DUO|SQUAD),
+// status (PENDING|REVIEWED|ACCEPTED|REJECTED) are plain strings validated in
+// application code — see src/types/index.ts for the TS unions.
 // (Kept as strings rather than native Postgres enums since the schema started on SQLite,
 // which has no enum support — no need to churn it now that both work.)
 
 model Applicant {
   id           String @id @default(cuid())
+  game         String @default("MP")
   inGameName   String
   uid          String
   tryoutType   String

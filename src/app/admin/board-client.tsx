@@ -22,13 +22,17 @@ export default function BoardClient({
   const selectedId = searchParams.get("applicant");
   const [showRejected, setShowRejected] = useState(false);
   const [search, setSearch] = useState("");
+  const [gameFilter, setGameFilter] = useState<"ALL" | "MP" | "BR">("ALL");
 
   const query = search.trim().toLowerCase();
-  const matches = (a: Applicant) => a.inGameName.toLowerCase().includes(query);
-  const filteredPending = query ? pending.filter(matches) : pending;
-  const filteredReviewed = query ? reviewed.filter(matches) : reviewed;
-  const filteredAccepted = query ? accepted.filter(matches) : accepted;
-  const filteredRejected = query ? rejected.filter(matches) : rejected;
+  const matches = (a: Applicant) =>
+    (!query || a.inGameName.toLowerCase().includes(query)) &&
+    (gameFilter === "ALL" || a.game === gameFilter);
+  const needsFilter = query.length > 0 || gameFilter !== "ALL";
+  const filteredPending = needsFilter ? pending.filter(matches) : pending;
+  const filteredReviewed = needsFilter ? reviewed.filter(matches) : reviewed;
+  const filteredAccepted = needsFilter ? accepted.filter(matches) : accepted;
+  const filteredRejected = needsFilter ? rejected.filter(matches) : rejected;
 
   function selectApplicant(id: string) {
     router.push(`/admin?applicant=${id}`);
@@ -52,8 +56,8 @@ export default function BoardClient({
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(234,88,12,0.1),_transparent_60%)]" />
 
       <main className="relative p-4 sm:p-6">
-        <div className="max-w-5xl mx-auto mb-6">
-          <div className="relative max-w-xs">
+        <div className="max-w-5xl mx-auto mb-6 flex flex-wrap items-center gap-3">
+          <div className="relative max-w-xs flex-1 min-w-[200px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -74,6 +78,21 @@ export default function BoardClient({
               placeholder="Search by IGN..."
               className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 pl-9 pr-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
             />
+          </div>
+          <div className="flex rounded-lg overflow-hidden border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900 shrink-0">
+            {(["ALL", "MP", "BR"] as const).map((g) => (
+              <button
+                key={g}
+                onClick={() => setGameFilter(g)}
+                className={`px-3 py-2 text-sm font-medium transition-all duration-150 active:scale-95 ${
+                  gameFilter === g
+                    ? "bg-gold-600 text-white"
+                    : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
+                }`}
+              >
+                {g === "ALL" ? "All Games" : g}
+              </button>
+            ))}
           </div>
         </div>
 

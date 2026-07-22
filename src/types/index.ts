@@ -1,5 +1,6 @@
+export type GameType = "MP" | "BR";
 export type TryoutType = "COMPETITIVE" | "CASUAL";
-export type Mode = "SOLO" | "TEAM";
+export type Mode = "SOLO" | "TEAM" | "DUO" | "SQUAD";
 export type ApplicantStatus = "PENDING" | "REVIEWED" | "ACCEPTED" | "REJECTED";
 export type AdminRole = "HEAD" | "ADMIN";
 
@@ -19,6 +20,7 @@ export interface CommentDTO {
 
 export interface ApplicantSummary {
   id: string;
+  game: GameType;
   inGameName: string;
   uid: string;
   tryoutType: TryoutType;

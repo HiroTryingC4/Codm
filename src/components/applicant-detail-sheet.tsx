@@ -12,6 +12,13 @@ const TYPE_LABEL: Record<string, string> = {
 const MODE_LABEL: Record<string, string> = {
   SOLO: "Solo",
   TEAM: "Team",
+  DUO: "Duo",
+  SQUAD: "Squad",
+};
+
+const GAME_LABEL: Record<string, string> = {
+  MP: "Multiplayer",
+  BR: "Battle Royale",
 };
 
 export default function ApplicantDetailSheet({
@@ -91,9 +98,14 @@ export default function ApplicantDetailSheet({
           <div className="p-4 space-y-4 overflow-y-auto flex-1">
             <div>
               <h2 className="text-lg font-bold text-neutral-900 dark:text-white">{applicant.inGameName}</h2>
-              <span className="inline-block mt-1.5 text-xs border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 rounded-full px-2.5 py-0.5">
-                {TYPE_LABEL[applicant.tryoutType]} - {MODE_LABEL[applicant.mode]}
-              </span>
+              <div className="flex flex-wrap gap-1.5 mt-1.5">
+                <span className="inline-block text-xs border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 rounded-full px-2.5 py-0.5">
+                  {GAME_LABEL[applicant.game] || applicant.game}
+                </span>
+                <span className="inline-block text-xs border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 rounded-full px-2.5 py-0.5">
+                  {TYPE_LABEL[applicant.tryoutType]} - {MODE_LABEL[applicant.mode]}
+                </span>
+              </div>
               <p className="mt-2 text-xs text-neutral-500">
                 Applied {new Date(applicant.createdAt).toLocaleString()}
               </p>
@@ -129,6 +141,12 @@ export default function ApplicantDetailSheet({
                     <div>
                       <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">UID</p>
                       <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">{applicant.uid}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">Game</p>
+                      <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">
+                        {GAME_LABEL[applicant.game] || applicant.game}
+                      </p>
                     </div>
                     <div className="col-span-2">
                       <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">Date joined tryouts</p>
