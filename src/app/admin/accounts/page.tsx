@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import CreateAccountModal from "@/components/create-account-modal";
+import RemoveAccountButton from "@/components/remove-account-button";
 
 export const dynamic = "force-dynamic";
 
@@ -29,9 +30,11 @@ type AdminRow = {
 function AccountList({
   admins,
   currentAdminId,
+  canRemove,
 }: {
   admins: AdminRow[];
   currentAdminId: string;
+  canRemove: boolean;
 }) {
   if (admins.length === 0) {
     return <p className="text-sm text-neutral-400 dark:text-neutral-700 italic">None yet</p>;
@@ -55,11 +58,16 @@ function AccountList({
               Created {new Date(admin.createdAt).toLocaleDateString()}
             </p>
           </div>
-          <span
-            className={`shrink-0 text-xs font-semibold rounded-full border px-2.5 py-0.5 ${ROLE_BADGE[admin.role] || ROLE_BADGE.ADMIN}`}
-          >
-            {ROLE_LABEL[admin.role] || admin.role}
-          </span>
+          <div className="flex items-center gap-2 shrink-0">
+            <span
+              className={`text-xs font-semibold rounded-full border px-2.5 py-0.5 ${ROLE_BADGE[admin.role] || ROLE_BADGE.ADMIN}`}
+            >
+              {ROLE_LABEL[admin.role] || admin.role}
+            </span>
+            {canRemove && admin.id !== currentAdminId && (
+              <RemoveAccountButton adminId={admin.id} adminName={admin.name} />
+            )}
+          </div>
         </div>
       ))}
     </div>
@@ -92,13 +100,21 @@ export default async function AccountsPage() {
             <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-2">
               Head Admins ({heads.length})
             </p>
-            <AccountList admins={heads} currentAdminId={session.adminId} />
+            <AccountList
+              admins={heads}
+              currentAdminId={session.adminId}
+              canRemove={session.role === "HEAD"}
+            />
           </div>
           <div>
             <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-2">
               Admins ({regular.length})
             </p>
-            <AccountList admins={regular} currentAdminId={session.adminId} />
+            <AccountList
+              admins={regular}
+              currentAdminId={session.adminId}
+              canRemove={session.role === "HEAD"}
+            />
           </div>
         </div>
       </div>
