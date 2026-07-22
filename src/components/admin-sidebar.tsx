@@ -71,6 +71,7 @@ export default function AdminSidebar({
   const router = useRouter();
   const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
+  const [gameMenuOpen, setGameMenuOpen] = useState(false);
 
   const allowedGames = getAllowedGames(currentAdmin.role);
   const rawGameParam = searchParams.get("game");
@@ -90,8 +91,11 @@ export default function AdminSidebar({
   function handleGameSelect(value: "ALL" | GameType) {
     if (value !== "ALL" && !allowedGames.includes(value)) return;
     setOpen(false);
+    setGameMenuOpen(false);
     router.push(value === "ALL" ? "/admin" : `/admin?game=${value}`);
   }
+
+  const currentGameLabel = GAME_OPTIONS.find((o) => o.value === currentGame)?.label ?? "All Games";
 
   const linkClass = (href: string) =>
     `flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 ${
@@ -121,29 +125,65 @@ export default function AdminSidebar({
               {link.label}
             </Link>
             {link.href === "/admin" && (
-              <div className="mt-1 mb-1 ml-3 flex rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-                {GAME_OPTIONS.map((opt) => {
-                  const locked = opt.value !== "ALL" && !allowedGames.includes(opt.value);
-                  const selected = currentGame === opt.value;
-                  return (
-                    <button
-                      key={opt.value}
-                      type="button"
-                      disabled={locked}
-                      onClick={() => handleGameSelect(opt.value)}
-                      title={locked ? "You don't have access to this game" : undefined}
-                      className={`flex-1 py-1.5 text-xs font-medium transition-all duration-150 ${
-                        locked
-                          ? "text-neutral-300 dark:text-neutral-700 cursor-not-allowed"
-                          : selected
-                          ? "bg-gold-600 text-white"
-                          : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 active:scale-95"
-                      }`}
-                    >
-                      {opt.label}
-                    </button>
-                  );
-                })}
+              <div className="relative mt-1 mb-1 ml-3">
+                <button
+                  type="button"
+                  onClick={() => setGameMenuOpen((v) => !v)}
+                  className="w-full flex items-center justify-between gap-2 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-3 py-1.5 text-xs font-medium text-neutral-700 dark:text-neutral-300 transition-colors hover:border-neutral-300 dark:hover:border-neutral-700"
+                >
+                  {currentGameLabel}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`w-3.5 h-3.5 text-neutral-400 dark:text-neutral-600 transition-transform duration-200 ${gameMenuOpen ? "rotate-180" : ""}`}
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+
+                {gameMenuOpen && (
+                  <>
+                    <div
+                      onClick={() => setGameMenuOpen(false)}
+                      className="fixed inset-0 z-10"
+                    />
+                    <div className="animate-fade-in-up absolute left-0 right-0 top-full mt-1 z-20 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-lg overflow-hidden">
+                      {GAME_OPTIONS.map((opt) => {
+                        const locked = opt.value !== "ALL" && !allowedGames.includes(opt.value);
+                        const selected = currentGame === opt.value;
+                        return (
+                          <button
+                            key={opt.value}
+                            type="button"
+                            disabled={locked}
+                            onClick={() => handleGameSelect(opt.value)}
+                            title={locked ? "You don't have access to this game" : undefined}
+                            className={`w-full flex items-center justify-between px-3 py-2 text-xs font-medium text-left transition-colors ${
+                              locked
+                                ? "text-neutral-300 dark:text-neutral-700 cursor-not-allowed"
+                                : selected
+                                ? "bg-gold-600 text-white"
+                                : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                            }`}
+                          >
+                            {opt.label}
+                            {locked && (
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+                                <rect x="3" y="11" width="18" height="11" rx="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                              </svg>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
               </div>
             )}
           </div>
