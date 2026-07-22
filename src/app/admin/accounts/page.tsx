@@ -31,16 +31,18 @@ function AccountList({
   admins,
   currentAdminId,
   canRemove,
+  wide = false,
 }: {
   admins: AdminRow[];
   currentAdminId: string;
   canRemove: boolean;
+  wide?: boolean;
 }) {
   if (admins.length === 0) {
     return <p className="text-sm text-neutral-400 dark:text-neutral-700 italic">None yet</p>;
   }
   return (
-    <div className="space-y-2">
+    <div className={`grid grid-cols-1 gap-2 ${wide ? "xl:grid-cols-2" : ""}`}>
       {admins.map((admin, i) => (
         <div
           key={admin.id}
@@ -88,14 +90,14 @@ export default async function AccountsPage() {
 
   return (
     <main className="min-h-screen">
-      <div className="p-4 sm:p-6 max-w-3xl space-y-4">
+      <div className="p-4 sm:p-6 max-w-6xl space-y-4">
         {session.role === "HEAD" && (
           <div className="flex justify-end">
             <CreateAccountModal />
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div>
             <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-2">
               Head Admins ({heads.length})
@@ -106,7 +108,7 @@ export default async function AccountsPage() {
               canRemove={session.role === "HEAD"}
             />
           </div>
-          <div>
+          <div className="lg:col-span-2">
             <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-2">
               Admins ({regular.length})
             </p>
@@ -114,6 +116,7 @@ export default async function AccountsPage() {
               admins={regular}
               currentAdminId={session.adminId}
               canRemove={session.role === "HEAD"}
+              wide
             />
           </div>
         </div>

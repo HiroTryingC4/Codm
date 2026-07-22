@@ -113,8 +113,8 @@ export default async function AnalyticsPage() {
 
   return (
     <main className="min-h-screen">
-      <div className="p-4 sm:p-6 max-w-4xl space-y-6">
-        <div className="grid grid-cols-3 gap-3">
+      <div className="p-4 sm:p-6 max-w-6xl space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="animate-fade-in-up rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4">
             <p className="text-xs text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-1">
               Total Applications
@@ -148,68 +148,70 @@ export default async function AnalyticsPage() {
           </div>
         </div>
 
-        {allowedGames.length > 1 && (
+        <div className={`grid grid-cols-1 gap-4 ${allowedGames.length > 1 ? "lg:grid-cols-2" : ""}`}>
+          {allowedGames.length > 1 && (
+            <div className="animate-fade-in-up rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4">
+              <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-3">
+                Breakdown by Game
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {(["MP", "BR"] as const).map((game) => {
+                  const stats = perGame[game];
+                  const decided = stats.accepted + stats.rejected;
+                  const rate = decided > 0 ? (stats.accepted / decided) * 100 : null;
+                  return (
+                    <div
+                      key={game}
+                      className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-3"
+                    >
+                      <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-2">
+                        {GAME_LABEL[game]}
+                      </p>
+                      <p className="text-xl font-bold text-neutral-900 dark:text-white">
+                        {stats.total}
+                        <span className="text-xs font-normal text-neutral-500 dark:text-neutral-600 ml-1">
+                          applications
+                        </span>
+                      </p>
+                      <p className="text-sm text-neutral-500 dark:text-neutral-600 mt-1">
+                        {rate === null ? "—" : `${rate.toFixed(0)}% accepted`}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           <div className="animate-fade-in-up rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4">
             <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-3">
-              Breakdown by Game
+              Breakdown by Status
             </p>
-            <div className="grid grid-cols-2 gap-3">
-              {(["MP", "BR"] as const).map((game) => {
-                const stats = perGame[game];
-                const decided = stats.accepted + stats.rejected;
-                const rate = decided > 0 ? (stats.accepted / decided) * 100 : null;
+            <div className="space-y-2.5">
+              {STATUS_LIST.map((status) => {
+                const count = statusCounts[status];
+                const pct = total > 0 ? (count / total) * 100 : 0;
                 return (
-                  <div
-                    key={game}
-                    className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-3"
-                  >
-                    <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-2">
-                      {GAME_LABEL[game]}
-                    </p>
-                    <p className="text-xl font-bold text-neutral-900 dark:text-white">
-                      {stats.total}
-                      <span className="text-xs font-normal text-neutral-500 dark:text-neutral-600 ml-1">
-                        applications
+                  <div key={status}>
+                    <div className="flex items-center justify-between text-sm mb-1">
+                      <span className="flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300">
+                        <span className={`h-1.5 w-1.5 rounded-full ${STATUS_DOT[status]}`} />
+                        {STATUS_LABEL[status]}
                       </span>
-                    </p>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-600 mt-1">
-                      {rate === null ? "—" : `${rate.toFixed(0)}% accepted`}
-                    </p>
+                      <span className="text-neutral-500 dark:text-neutral-600">
+                        {count} ({pct.toFixed(0)}%)
+                      </span>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-neutral-100 dark:bg-neutral-800 overflow-hidden">
+                      <div
+                        className={`h-full rounded-full ${STATUS_DOT[status]} transition-all duration-500`}
+                        style={{ width: `${pct}%` }}
+                      />
+                    </div>
                   </div>
                 );
               })}
             </div>
-          </div>
-        )}
-
-        <div className="animate-fade-in-up rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4">
-          <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-3">
-            Breakdown by Status
-          </p>
-          <div className="space-y-2.5">
-            {STATUS_LIST.map((status) => {
-              const count = statusCounts[status];
-              const pct = total > 0 ? (count / total) * 100 : 0;
-              return (
-                <div key={status}>
-                  <div className="flex items-center justify-between text-sm mb-1">
-                    <span className="flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300">
-                      <span className={`h-1.5 w-1.5 rounded-full ${STATUS_DOT[status]}`} />
-                      {STATUS_LABEL[status]}
-                    </span>
-                    <span className="text-neutral-500 dark:text-neutral-600">
-                      {count} ({pct.toFixed(0)}%)
-                    </span>
-                  </div>
-                  <div className="h-1.5 rounded-full bg-neutral-100 dark:bg-neutral-800 overflow-hidden">
-                    <div
-                      className={`h-full rounded-full ${STATUS_DOT[status]} transition-all duration-500`}
-                      style={{ width: `${pct}%` }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
           </div>
         </div>
 
