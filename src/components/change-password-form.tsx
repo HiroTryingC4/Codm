@@ -98,7 +98,7 @@ export default function ChangePasswordForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="animate-fade-in-up rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4 space-y-3 max-w-sm"
+      className="animate-fade-in-up rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4 space-y-3"
     >
       <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide">
         Change Password
