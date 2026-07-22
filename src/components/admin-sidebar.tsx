@@ -216,7 +216,15 @@ export default function AdminSidebar({
                 : "hover:bg-neutral-100 dark:hover:bg-neutral-900"
             }`}
           >
-            {PROFILE_ICON}
+            <div
+              className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${
+                isActive("/admin/profile")
+                  ? "bg-white/15 text-white"
+                  : "bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400"
+              }`}
+            >
+              {PROFILE_ICON}
+            </div>
             <div className="min-w-0">
               <p
                 className={`text-sm font-semibold truncate ${
