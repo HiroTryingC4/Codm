@@ -124,6 +124,8 @@ export default function AdminSidebar({
                     e.preventDefault();
                     setGameMenuOpen((v) => !v);
                     router.push(currentGame === "ALL" ? "/admin" : `/admin?game=${currentGame}`);
+                  } else {
+                    setGameMenuOpen(false);
                   }
                   setOpen(false);
                 }}
@@ -148,13 +150,8 @@ export default function AdminSidebar({
               </Link>
 
               {isBoard && gameMenuOpen && (
-                <>
-                  <div
-                    onClick={() => setGameMenuOpen(false)}
-                    className="fixed inset-0 z-10"
-                  />
-                  <div className="animate-fade-in-up absolute left-0 right-0 top-full mt-1 z-20 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-lg overflow-hidden">
-                    {GAME_OPTIONS.map((opt) => {
+                <div className="animate-fade-in-up mt-1 mb-1 ml-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 overflow-hidden">
+                  {GAME_OPTIONS.map((opt) => {
                       const locked = opt.value !== "ALL" && !allowedGames.includes(opt.value);
                       const selected = currentGame === opt.value;
                       return (
@@ -182,8 +179,7 @@ export default function AdminSidebar({
                         </button>
                       );
                     })}
-                  </div>
-                </>
+                </div>
               )}
             </div>
           );
