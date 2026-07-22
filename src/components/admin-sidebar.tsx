@@ -14,6 +14,13 @@ const ROLE_LABEL: Record<AdminRole, string> = {
   BR_ADMIN: "BR Admin",
 };
 
+const ROLE_BADGE: Record<AdminRole, string> = {
+  HEAD: "text-gold-700 dark:text-gold-400 bg-gold-50 dark:bg-gold-500/10 border-gold-300 dark:border-gold-500/30",
+  ADMIN: "text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700",
+  MP_ADMIN: "text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 border-blue-300 dark:border-blue-500/30",
+  BR_ADMIN: "text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-500/10 border-purple-300 dark:border-purple-500/30",
+};
+
 const GAME_OPTIONS: { value: "ALL" | GameType; label: string }[] = [
   { value: "ALL", label: "All Games" },
   { value: "MP", label: "MP" },
@@ -204,12 +211,14 @@ export default function AdminSidebar({
       <div className="px-3 py-4 border-t border-neutral-200 dark:border-neutral-800 space-y-3">
         <div className="flex items-center gap-2.5 px-1">
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">
+            <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 truncate">
               {currentAdmin.name}
             </p>
-            <p className="text-xs text-neutral-500 dark:text-neutral-600 uppercase tracking-wide">
+            <span
+              className={`inline-block mt-1 text-[10px] font-semibold rounded-full border px-2 py-0.5 ${ROLE_BADGE[currentAdmin.role]}`}
+            >
               {ROLE_LABEL[currentAdmin.role]}
-            </p>
+            </span>
           </div>
           <ThemeToggle />
         </div>
