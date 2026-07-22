@@ -101,6 +101,7 @@ export default function BoardClient({
             applicants={filteredPending}
             selectedId={selectedId}
             onSelect={selectApplicant}
+            showGameBadge={gameFilter === "ALL"}
           />
           <KanbanColumn
             title="Reviewed"
@@ -108,6 +109,7 @@ export default function BoardClient({
             applicants={filteredReviewed}
             selectedId={selectedId}
             onSelect={selectApplicant}
+            showGameBadge={gameFilter === "ALL"}
           />
           <KanbanColumn
             title="Accepted"
@@ -115,6 +117,7 @@ export default function BoardClient({
             applicants={filteredAccepted}
             selectedId={selectedId}
             onSelect={selectApplicant}
+            showGameBadge={gameFilter === "ALL"}
           />
         </div>
 
@@ -134,6 +137,7 @@ export default function BoardClient({
                   applicants={filteredRejected}
                   selectedId={selectedId}
                   onSelect={selectApplicant}
+                  showGameBadge={gameFilter === "ALL"}
                 />
               </div>
             )}

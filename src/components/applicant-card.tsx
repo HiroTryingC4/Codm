@@ -24,11 +24,13 @@ export default function ApplicantCard({
   onClick,
   highlighted,
   animationDelayMs = 0,
+  showGameBadge = true,
 }: {
   applicant: Applicant;
   onClick: () => void;
   highlighted?: boolean;
   animationDelayMs?: number;
+  showGameBadge?: boolean;
 }) {
   const colors = STATUS_COLORS[applicant.status as ApplicantStatus];
 
@@ -42,11 +44,13 @@ export default function ApplicantCard({
     >
       <div className="flex items-center gap-1.5">
         <span className="font-semibold text-neutral-900 dark:text-neutral-100">{applicant.inGameName}</span>
-        <span
-          className={`shrink-0 text-[10px] font-semibold rounded-full border px-1.5 py-0.5 ${GAME_BADGE[applicant.game] || GAME_BADGE.MP}`}
-        >
-          {applicant.game}
-        </span>
+        {showGameBadge && (
+          <span
+            className={`shrink-0 text-[10px] font-semibold rounded-full border px-1.5 py-0.5 ${GAME_BADGE[applicant.game] || GAME_BADGE.MP}`}
+          >
+            {applicant.game}
+          </span>
+        )}
       </div>
       <div className="text-sm text-neutral-500">
         {TYPE_LABEL[applicant.tryoutType]} - {MODE_LABEL[applicant.mode]}
