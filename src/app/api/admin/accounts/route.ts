@@ -34,8 +34,8 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (role !== "ADMIN" && role !== "HEAD") {
-    return NextResponse.json({ error: "Role must be ADMIN or HEAD." }, { status: 400 });
+  if (role !== "MP_ADMIN" && role !== "BR_ADMIN" && role !== "HEAD") {
+    return NextResponse.json({ error: "Role must be MP_ADMIN, BR_ADMIN, or HEAD." }, { status: 400 });
   }
 
   const existing = await prisma.admin.findUnique({ where: { name: name.trim() } });

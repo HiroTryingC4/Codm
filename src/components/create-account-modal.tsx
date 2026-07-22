@@ -5,6 +5,25 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 
 type Step = "form" | "confirm";
+type NewAccountRole = "MP_ADMIN" | "BR_ADMIN" | "HEAD";
+
+const ROLE_OPTIONS: { value: NewAccountRole; label: string }[] = [
+  { value: "MP_ADMIN", label: "MP Admin" },
+  { value: "BR_ADMIN", label: "BR Admin" },
+  { value: "HEAD", label: "Head Admin" },
+];
+
+const ROLE_LABEL: Record<NewAccountRole, string> = {
+  MP_ADMIN: "MP Admin",
+  BR_ADMIN: "BR Admin",
+  HEAD: "Head Admin",
+};
+
+const ROLE_DESCRIPTION: Record<NewAccountRole, string> = {
+  MP_ADMIN: "Can only see and manage Multiplayer applicants. Can't create accounts.",
+  BR_ADMIN: "Can only see and manage Battle Royale applicants. Can't create accounts.",
+  HEAD: "Full access to both games, plus can create/manage admin accounts.",
+};
 
 export default function CreateAccountModal() {
   const router = useRouter();
@@ -13,7 +32,7 @@ export default function CreateAccountModal() {
   const [step, setStep] = useState<Step>("form");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<"ADMIN" | "HEAD">("ADMIN");
+  const [role, setRole] = useState<NewAccountRole>("MP_ADMIN");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -25,7 +44,7 @@ export default function CreateAccountModal() {
     setStep("form");
     setName("");
     setPassword("");
-    setRole("ADMIN");
+    setRole("MP_ADMIN");
     setError(null);
   }
 
@@ -114,33 +133,23 @@ export default function CreateAccountModal() {
                     className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
                   />
                   <div className="flex rounded-lg overflow-hidden border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-                    <button
-                      type="button"
-                      onClick={() => setRole("ADMIN")}
-                      className={`flex-1 py-2 text-sm font-medium transition-all duration-150 active:scale-95 ${
-                        role === "ADMIN"
-                          ? "bg-gold-600 text-white"
-                          : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
-                      }`}
-                    >
-                      Admin
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setRole("HEAD")}
-                      className={`flex-1 py-2 text-sm font-medium transition-all duration-150 active:scale-95 ${
-                        role === "HEAD"
-                          ? "bg-gold-600 text-white"
-                          : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
-                      }`}
-                    >
-                      Head Admin
-                    </button>
+                    {ROLE_OPTIONS.map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setRole(opt.value)}
+                        className={`flex-1 py-2 text-sm font-medium transition-all duration-150 active:scale-95 ${
+                          role === opt.value
+                            ? "bg-gold-600 text-white"
+                            : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
                   </div>
                   <p className="text-xs text-neutral-500 dark:text-neutral-600 leading-snug">
-                    {role === "HEAD"
-                      ? "Head Admin: full board access, plus can create/manage admin accounts."
-                      : "Admin: full board access (review, comment, accept/reject), can't create accounts."}
+                    {ROLE_LABEL[role]}: {ROLE_DESCRIPTION[role]}
                   </p>
                   {error && (
                     <p className="animate-fade-in-up text-sm text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-500/10 border border-red-300 dark:border-red-500/30 rounded-lg px-3 py-2">
@@ -165,14 +174,12 @@ export default function CreateAccountModal() {
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-neutral-500 dark:text-neutral-600">Role</span>
                       <span className="font-medium text-neutral-900 dark:text-neutral-100">
-                        {role === "HEAD" ? "Head Admin" : "Admin"}
+                        {ROLE_LABEL[role]}
                       </span>
                     </div>
                   </div>
                   <p className="text-xs text-neutral-500 dark:text-neutral-600 leading-snug">
-                    {role === "HEAD"
-                      ? "They'll be able to manage the board and create/manage other admin accounts."
-                      : "They'll be able to manage the board but won't be able to create accounts."}
+                    {ROLE_DESCRIPTION[role]}
                   </p>
                   {error && (
                     <p className="animate-fade-in-up text-sm text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-500/10 border border-red-300 dark:border-red-500/30 rounded-lg px-3 py-2">

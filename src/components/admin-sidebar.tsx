@@ -2,9 +2,23 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import type { AdminRole } from "@/types";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import type { AdminRole, GameType } from "@/types";
+import { getAllowedGames } from "@/lib/access";
 import ThemeToggle from "./theme-toggle";
+
+const ROLE_LABEL: Record<AdminRole, string> = {
+  HEAD: "Head Admin",
+  ADMIN: "Admin",
+  MP_ADMIN: "MP Admin",
+  BR_ADMIN: "BR Admin",
+};
+
+const GAME_OPTIONS: { value: "ALL" | GameType; label: string }[] = [
+  { value: "ALL", label: "All Games" },
+  { value: "MP", label: "MP" },
+  { value: "BR", label: "BR" },
+];
 
 const NAV_LINKS = [
   {
@@ -55,7 +69,13 @@ export default function AdminSidebar({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
+
+  const allowedGames = getAllowedGames(currentAdmin.role);
+  const rawGameParam = searchParams.get("game");
+  const currentGame =
+    rawGameParam && allowedGames.includes(rawGameParam as GameType) ? rawGameParam : "ALL";
 
   async function handleLogout() {
     await fetch("/api/admin/logout", { method: "POST" });
@@ -65,6 +85,12 @@ export default function AdminSidebar({
 
   function isActive(href: string) {
     return href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
+  }
+
+  function handleGameSelect(value: "ALL" | GameType) {
+    if (value !== "ALL" && !allowedGames.includes(value)) return;
+    setOpen(false);
+    router.push(value === "ALL" ? "/admin" : `/admin?game=${value}`);
   }
 
   const linkClass = (href: string) =>
@@ -85,15 +111,42 @@ export default function AdminSidebar({
 
       <nav className="flex-1 px-3 py-4 space-y-1">
         {NAV_LINKS.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            onClick={() => setOpen(false)}
-            className={linkClass(link.href)}
-          >
-            {link.icon}
-            {link.label}
-          </Link>
+          <div key={link.href}>
+            <Link
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className={linkClass(link.href)}
+            >
+              {link.icon}
+              {link.label}
+            </Link>
+            {link.href === "/admin" && (
+              <div className="mt-1 mb-1 ml-3 flex rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
+                {GAME_OPTIONS.map((opt) => {
+                  const locked = opt.value !== "ALL" && !allowedGames.includes(opt.value);
+                  const selected = currentGame === opt.value;
+                  return (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      disabled={locked}
+                      onClick={() => handleGameSelect(opt.value)}
+                      title={locked ? "You don't have access to this game" : undefined}
+                      className={`flex-1 py-1.5 text-xs font-medium transition-all duration-150 ${
+                        locked
+                          ? "text-neutral-300 dark:text-neutral-700 cursor-not-allowed"
+                          : selected
+                          ? "bg-gold-600 text-white"
+                          : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 active:scale-95"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         ))}
         <Link
           href="/"
@@ -118,7 +171,7 @@ export default function AdminSidebar({
               {currentAdmin.name}
             </p>
             <p className="text-xs text-neutral-500 dark:text-neutral-600 uppercase tracking-wide">
-              {currentAdmin.role === "HEAD" ? "Head Admin" : "Admin"}
+              {ROLE_LABEL[currentAdmin.role]}
             </p>
           </div>
           <ThemeToggle />

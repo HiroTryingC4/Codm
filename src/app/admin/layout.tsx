@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getSession } from "@/lib/auth";
 import AdminSidebar from "@/components/admin-sidebar";
 
@@ -16,7 +17,9 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950 sm:flex">
-      <AdminSidebar currentAdmin={{ name: session.name, role: session.role }} />
+      <Suspense fallback={null}>
+        <AdminSidebar currentAdmin={{ name: session.name, role: session.role }} />
+      </Suspense>
       <div className="flex-1 min-w-0">{children}</div>
     </div>
   );
