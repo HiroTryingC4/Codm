@@ -25,13 +25,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Only the head admin can create accounts" }, { status: 403 });
   }
 
-  const { name, password } = await request.json();
+  const { name, password, role } = await request.json();
 
   if (typeof name !== "string" || !name.trim() || typeof password !== "string" || password.length < 8) {
     return NextResponse.json(
       { error: "Name is required and password must be at least 8 characters." },
       { status: 400 }
     );
+  }
+
+  if (role !== "ADMIN" && role !== "HEAD") {
+    return NextResponse.json({ error: "Role must be ADMIN or HEAD." }, { status: 400 });
   }
 
   const existing = await prisma.admin.findUnique({ where: { name: name.trim() } });
@@ -41,7 +45,7 @@ export async function POST(request: NextRequest) {
 
   const passwordHash = await hashPassword(password);
   const admin = await prisma.admin.create({
-    data: { name: name.trim(), passwordHash, role: "ADMIN" },
+    data: { name: name.trim(), passwordHash, role },
     select: { id: true, name: true, role: true, createdAt: true },
   });
 
