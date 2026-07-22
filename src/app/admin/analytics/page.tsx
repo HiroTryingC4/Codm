@@ -151,7 +151,7 @@ export default async function AnalyticsPage() {
         {allowedGames.length > 1 && (
           <div className="animate-fade-in-up rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4">
             <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-600 uppercase tracking-wide mb-3">
-              MP vs Battle Royale
+              Breakdown by Game
             </p>
             <div className="grid grid-cols-2 gap-3">
               {(["MP", "BR"] as const).map((game) => {
