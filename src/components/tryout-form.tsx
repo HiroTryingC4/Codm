@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { submitTryoutApplication } from "@/app/actions";
 import ClanRulesModal from "./clan-rules-modal";
+import { useGameBackground } from "./home-background";
 
 type Toggle<T extends string> = { value: T; label: string };
 
@@ -35,7 +36,7 @@ const labelClass = "block text-sm font-medium text-neutral-600 dark:text-neutral
 
 export default function TryoutForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const [game, setGame] = useState<"MP" | "BR">("MP");
+  const { game, setGame } = useGameBackground();
   const [tryoutType, setTryoutType] = useState<"COMPETITIVE" | "CASUAL">(
     "COMPETITIVE"
   );
