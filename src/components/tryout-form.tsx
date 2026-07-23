@@ -129,7 +129,13 @@ export default function TryoutForm() {
           <label className={labelClass} htmlFor="inGameName">
             In-game name
           </label>
-          <input id="inGameName" name="inGameName" required className={inputClass} />
+          <input
+            id="inGameName"
+            name="inGameName"
+            required
+            placeholder="ex: LG | Juan"
+            className={inputClass}
+          />
         </div>
 
         <div>
@@ -142,6 +148,7 @@ export default function TryoutForm() {
             required
             inputMode="numeric"
             pattern="[0-9]*"
+            placeholder="ex: 6798543213456789"
             value={uid}
             onChange={(e) => setUid(e.target.value)}
             aria-invalid={!!uidError}
@@ -152,6 +159,38 @@ export default function TryoutForm() {
           {uidError && (
             <p className="mt-1.5 text-xs text-red-600 dark:text-red-400">{uidError}</p>
           )}
+        </div>
+
+        <div>
+          <label className={labelClass} htmlFor="fbName">
+            FB Name
+          </label>
+          <input
+            id="fbName"
+            name="fbName"
+            required
+            placeholder="ex: Juan Dela Cruz"
+            className={inputClass}
+          />
+        </div>
+
+        <div>
+          <label className={labelClass} htmlFor="cityProvince">
+            City / Province
+          </label>
+          <input id="cityProvince" name="cityProvince" required className={inputClass} />
+        </div>
+
+        <div>
+          <label className={labelClass} htmlFor="streamerMode">
+            Streamer Mode <span className="text-neutral-500 dark:text-neutral-600">(optional)</span>
+          </label>
+          <input
+            id="streamerMode"
+            name="streamerMode"
+            placeholder="ex: 7QxxYwd891"
+            className={inputClass}
+          />
         </div>
 
         <div>

@@ -185,6 +185,24 @@ export default function ApplicantDetailSheet({
                         {applicant.recruitedBy || <span className="text-neutral-400 dark:text-neutral-600">N/A</span>}
                       </p>
                     </div>
+                    <div>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">FB name</p>
+                      <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">
+                        {applicant.fbName || <span className="text-neutral-400 dark:text-neutral-600">Not specified</span>}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">City / Province</p>
+                      <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">
+                        {applicant.cityProvince || <span className="text-neutral-400 dark:text-neutral-600">Not specified</span>}
+                      </p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">Streamer Mode</p>
+                      <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">
+                        {applicant.streamerMode || <span className="text-neutral-400 dark:text-neutral-600">Not provided</span>}
+                      </p>
+                    </div>
                   </div>
                   <div>
                     <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">Why they want in</p>

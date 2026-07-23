@@ -33,6 +33,9 @@ export interface ApplicantSummary {
 }
 
 export interface ApplicantDetail extends ApplicantSummary {
+  fbName: string;
+  cityProvince: string;
+  streamerMode: string | null;
   role: string | null;
   motivation: string;
   recruitedBy: string | null;

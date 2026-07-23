@@ -19,6 +19,9 @@ export async function submitTryoutApplication(
   const game = String(formData.get("game") || "");
   const inGameName = String(formData.get("inGameName") || "").trim();
   const uid = String(formData.get("uid") || "").trim();
+  const fbName = String(formData.get("fbName") || "").trim();
+  const cityProvince = String(formData.get("cityProvince") || "").trim();
+  const streamerMode = String(formData.get("streamerMode") || "").trim();
   const tryoutType = String(formData.get("tryoutType") || "");
   const mode = String(formData.get("mode") || "");
   const role = String(formData.get("role") || "").trim();
@@ -36,6 +39,10 @@ export async function submitTryoutApplication(
 
   if (!/^\d+$/.test(uid)) {
     return { success: false, error: "UID must contain numbers only." };
+  }
+
+  if (!fbName || !cityProvince) {
+    return { success: false, error: "FB name and City/Province are required." };
   }
 
   if (tryoutType !== "COMPETITIVE" && tryoutType !== "CASUAL") {
@@ -58,6 +65,9 @@ export async function submitTryoutApplication(
       game: game as GameType,
       inGameName,
       uid,
+      fbName,
+      cityProvince,
+      streamerMode: streamerMode || null,
       tryoutType: tryoutType as TryoutType,
       mode: mode as Mode,
       role: role || null,
