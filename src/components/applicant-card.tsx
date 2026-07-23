@@ -14,6 +14,13 @@ const MODE_LABEL: Record<string, string> = {
   SQUAD: "Squad",
 };
 
+const STATUS_LABEL: Record<string, string> = {
+  PENDING: "Pending",
+  REVIEWED: "Reviewed",
+  ACCEPTED: "Accepted",
+  REJECTED: "Rejected",
+};
+
 export default function ApplicantCard({
   applicant,
   onClick,
@@ -35,7 +42,16 @@ export default function ApplicantCard({
         highlighted ? "ring-2 ring-gold-500" : ""
       }`}
     >
-      <div className="font-semibold text-neutral-900 dark:text-neutral-100">{applicant.inGameName}</div>
+      <div className="flex items-center justify-between gap-2">
+        <span className="font-semibold text-neutral-900 dark:text-neutral-100 truncate">
+          {applicant.inGameName}
+        </span>
+        <span
+          className={`shrink-0 text-[10px] font-semibold rounded-full border px-2 py-0.5 ${colors.badge}`}
+        >
+          {STATUS_LABEL[applicant.status]}
+        </span>
+      </div>
       <div className="text-sm text-neutral-500">
         {TYPE_LABEL[applicant.tryoutType]} - {MODE_LABEL[applicant.mode]}
       </div>

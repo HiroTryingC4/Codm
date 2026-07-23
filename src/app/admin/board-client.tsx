@@ -3,32 +3,19 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { Applicant } from "@prisma/client";
-import KanbanColumn from "@/components/kanban-column";
+import ApplicantCard from "@/components/applicant-card";
 import ApplicantDetailSheet from "@/components/applicant-detail-sheet";
 
-export default function BoardClient({
-  pending,
-  reviewed,
-  accepted,
-  rejected,
-}: {
-  pending: Applicant[];
-  reviewed: Applicant[];
-  accepted: Applicant[];
-  rejected: Applicant[];
-}) {
+export default function BoardClient({ applicants }: { applicants: Applicant[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedId = searchParams.get("applicant");
-  const [showRejected, setShowRejected] = useState(false);
   const [search, setSearch] = useState("");
 
   const query = search.trim().toLowerCase();
-  const matches = (a: Applicant) => a.inGameName.toLowerCase().includes(query);
-  const filteredPending = query ? pending.filter(matches) : pending;
-  const filteredReviewed = query ? reviewed.filter(matches) : reviewed;
-  const filteredAccepted = query ? accepted.filter(matches) : accepted;
-  const filteredRejected = query ? rejected.filter(matches) : rejected;
+  const filtered = query
+    ? applicants.filter((a) => a.inGameName.toLowerCase().includes(query))
+    : applicants;
 
   function selectApplicant(id: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -57,7 +44,7 @@ export default function BoardClient({
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(234,88,12,0.1),_transparent_60%)]" />
 
       <main className="relative p-4 sm:p-6">
-        <div className="max-w-5xl mx-auto mb-6">
+        <div className="max-w-3xl mx-auto space-y-4">
           <div className="relative max-w-xs">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -80,53 +67,27 @@ export default function BoardClient({
               className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 pl-9 pr-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
             />
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          <KanbanColumn
-            title="Pending"
-            status="PENDING"
-            applicants={filteredPending}
-            selectedId={selectedId}
-            onSelect={selectApplicant}
-          />
-          <KanbanColumn
-            title="Reviewed"
-            status="REVIEWED"
-            applicants={filteredReviewed}
-            selectedId={selectedId}
-            onSelect={selectApplicant}
-          />
-          <KanbanColumn
-            title="Accepted"
-            status="ACCEPTED"
-            applicants={filteredAccepted}
-            selectedId={selectedId}
-            onSelect={selectApplicant}
-          />
-        </div>
-
-        {rejected.length > 0 && (
-          <div className="mt-8 max-w-5xl mx-auto">
-            <button
-              onClick={() => setShowRejected((v) => !v)}
-              className="text-xs font-semibold text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors"
-            >
-              {showRejected ? "Hide" : "Show"} Rejected ({filteredRejected.length})
-            </button>
-            {showRejected && (
-              <div className="animate-fade-in-up mt-3 max-w-xs">
-                <KanbanColumn
-                  title="Rejected"
-                  status="REJECTED"
-                  applicants={filteredRejected}
-                  selectedId={selectedId}
-                  onSelect={selectApplicant}
+          <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/50 backdrop-blur-sm shadow-lg shadow-neutral-300/30 dark:shadow-black/30 p-4 transition-colors">
+            <h2 className="text-xs font-semibold tracking-widest uppercase text-neutral-500 dark:text-neutral-400 mb-3">
+              Members ({filtered.length})
+            </h2>
+            <div className="space-y-2">
+              {filtered.length === 0 && (
+                <p className="text-sm text-neutral-400 dark:text-neutral-700 italic">No members found</p>
+              )}
+              {filtered.map((applicant, i) => (
+                <ApplicantCard
+                  key={applicant.id}
+                  applicant={applicant}
+                  highlighted={applicant.id === selectedId}
+                  onClick={() => selectApplicant(applicant.id)}
+                  animationDelayMs={i * 30}
                 />
-              </div>
-            )}
+              ))}
+            </div>
           </div>
-        )}
+        </div>
 
         {selectedId && (
           <ApplicantDetailSheet

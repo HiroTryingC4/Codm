@@ -10,33 +10,13 @@ export default async function AdminBoardPage() {
   const session = await getSession();
   if (!session) redirect("/admin/login");
 
-  const [pending, reviewed, accepted, rejected] = await Promise.all([
-    prisma.applicant.findMany({
-      where: { status: "PENDING" },
-      orderBy: { createdAt: "asc" },
-    }),
-    prisma.applicant.findMany({
-      where: { status: "REVIEWED" },
-      orderBy: { createdAt: "asc" },
-    }),
-    prisma.applicant.findMany({
-      where: { status: "ACCEPTED" },
-      orderBy: { createdAt: "asc" },
-    }),
-    prisma.applicant.findMany({
-      where: { status: "REJECTED" },
-      orderBy: { createdAt: "asc" },
-    }),
-  ]);
+  const applicants = await prisma.applicant.findMany({
+    orderBy: { createdAt: "desc" },
+  });
 
   return (
     <Suspense>
-      <BoardClient
-        pending={pending}
-        reviewed={reviewed}
-        accepted={accepted}
-        rejected={rejected}
-      />
+      <BoardClient applicants={applicants} />
     </Suspense>
   );
 }
