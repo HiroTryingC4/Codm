@@ -1,17 +1,5 @@
 import type { Applicant } from "@prisma/client";
 
-const TYPE_LABEL: Record<string, string> = {
-  COMPETITIVE: "Competitive",
-  CASUAL: "Casual",
-};
-
-const MODE_LABEL: Record<string, string> = {
-  SOLO: "Solo",
-  TEAM: "Team",
-  DUO: "Duo",
-  SQUAD: "Squad",
-};
-
 export default function ApplicantCard({
   applicant,
   onClick,
@@ -32,11 +20,9 @@ export default function ApplicantCard({
       }`}
     >
       <div className="font-semibold text-neutral-900 dark:text-neutral-100 truncate">
-        {applicant.inGameName}
+        {applicant.fbName || applicant.inGameName}
       </div>
-      <div className="text-sm text-neutral-500">
-        {TYPE_LABEL[applicant.tryoutType]} - {MODE_LABEL[applicant.mode]}
-      </div>
+      <div className="text-sm text-neutral-500 truncate">IGN: {applicant.inGameName}</div>
     </button>
   );
 }
