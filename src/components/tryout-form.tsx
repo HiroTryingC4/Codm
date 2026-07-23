@@ -87,6 +87,18 @@ export default function TryoutForm() {
         </div>
 
         <div>
+          <label className={labelClass} htmlFor="gcashNumber">
+            GCash Number <span className="text-neutral-500 dark:text-neutral-600">(optional)</span>
+          </label>
+          <input
+            id="gcashNumber"
+            name="gcashNumber"
+            placeholder="ex: 09171234567"
+            className={inputClass}
+          />
+        </div>
+
+        <div>
           <label className={labelClass} htmlFor="uid">
             UID
           </label>
@@ -139,6 +151,9 @@ export default function TryoutForm() {
             placeholder="ex: 7QxxYwd891"
             className={inputClass}
           />
+          <p className="mt-1.5 text-xs text-neutral-500 dark:text-neutral-600">
+            (Call of Duty member only)
+          </p>
         </div>
 
         <div className="rounded-lg border border-neutral-300 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 p-3 space-y-3">

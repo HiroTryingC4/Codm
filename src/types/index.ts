@@ -34,6 +34,7 @@ export interface ApplicantSummary {
 
 export interface ApplicantDetail extends ApplicantSummary {
   fbName: string;
+  gcashNumber: string | null;
   cityProvince: string;
   streamerMode: string | null;
   teamName: string | null;

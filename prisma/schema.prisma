@@ -19,6 +19,7 @@ model Applicant {
   inGameName   String
   uid          String
   fbName       String  @default("")
+  gcashNumber  String?
   cityProvince String  @default("")
   streamerMode String?
   tryoutType   String

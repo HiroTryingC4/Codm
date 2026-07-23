@@ -20,6 +20,7 @@ export async function submitTryoutApplication(
   const inGameName = String(formData.get("inGameName") || "").trim();
   const uid = String(formData.get("uid") || "").trim();
   const fbName = String(formData.get("fbName") || "").trim();
+  const gcashNumber = String(formData.get("gcashNumber") || "").trim();
   const cityProvince = String(formData.get("cityProvince") || "").trim();
   const streamerMode = String(formData.get("streamerMode") || "").trim();
   const tryoutType = String(formData.get("tryoutType") || "");
@@ -72,6 +73,7 @@ export async function submitTryoutApplication(
       inGameName,
       uid,
       fbName,
+      gcashNumber: gcashNumber || null,
       cityProvince,
       streamerMode: streamerMode || null,
       tryoutType: tryoutType as TryoutType,
