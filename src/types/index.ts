@@ -11,13 +11,6 @@ export interface AdminSummary {
   createdAt: string;
 }
 
-export interface CommentDTO {
-  id: string;
-  authorName: string;
-  text: string;
-  createdAt: string;
-}
-
 export interface ApplicantSummary {
   id: string;
   game: GameType;
@@ -38,5 +31,4 @@ export interface ApplicantDetail extends ApplicantSummary {
   motivation: string;
   recruitedBy: string | null;
   createdAt: string;
-  comments: CommentDTO[];
 }

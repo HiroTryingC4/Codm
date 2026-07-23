@@ -13,29 +13,11 @@ export async function GET(
 
   const applicant = await prisma.applicant.findUnique({
     where: { id: params.id },
-    include: {
-      comments: {
-        include: { admin: { select: { name: true } } },
-        orderBy: { createdAt: "asc" },
-      },
-    },
   });
 
   if (!applicant) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  const { comments, ...rest } = applicant;
-
-  return NextResponse.json({
-    applicant: {
-      ...rest,
-      comments: comments.map((c) => ({
-        id: c.id,
-        text: c.text,
-        createdAt: c.createdAt,
-        authorName: c.admin.name,
-      })),
-    },
-  });
+  return NextResponse.json({ applicant });
 }

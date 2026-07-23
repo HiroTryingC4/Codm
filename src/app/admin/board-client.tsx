@@ -30,10 +30,6 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
     router.push(qs ? `/admin?${qs}` : "/admin");
   }
 
-  function refreshBoard() {
-    router.refresh();
-  }
-
   return (
     <div className="relative min-h-screen">
       <div
@@ -44,7 +40,7 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(234,88,12,0.1),_transparent_60%)]" />
 
       <main className="relative p-4 sm:p-6">
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-5xl mx-auto space-y-4">
           <div className="relative max-w-xs">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -72,29 +68,26 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
             <h2 className="text-xs font-semibold tracking-widest uppercase text-neutral-500 dark:text-neutral-400 mb-3">
               Members ({filtered.length})
             </h2>
-            <div className="space-y-2">
-              {filtered.length === 0 && (
-                <p className="text-sm text-neutral-400 dark:text-neutral-700 italic">No members found</p>
-              )}
-              {filtered.map((applicant, i) => (
-                <ApplicantCard
-                  key={applicant.id}
-                  applicant={applicant}
-                  highlighted={applicant.id === selectedId}
-                  onClick={() => selectApplicant(applicant.id)}
-                  animationDelayMs={i * 30}
-                />
-              ))}
-            </div>
+            {filtered.length === 0 ? (
+              <p className="text-sm text-neutral-400 dark:text-neutral-700 italic">No members found</p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {filtered.map((applicant, i) => (
+                  <ApplicantCard
+                    key={applicant.id}
+                    applicant={applicant}
+                    highlighted={applicant.id === selectedId}
+                    onClick={() => selectApplicant(applicant.id)}
+                    animationDelayMs={i * 30}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
         {selectedId && (
-          <ApplicantDetailSheet
-            applicantId={selectedId}
-            onClose={closeDetail}
-            onStatusChanged={refreshBoard}
-          />
+          <ApplicantDetailSheet applicantId={selectedId} onClose={closeDetail} />
         )}
       </main>
     </div>
