@@ -14,7 +14,12 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
 
   const query = search.trim().toLowerCase();
   const filtered = query
-    ? applicants.filter((a) => a.inGameName.toLowerCase().includes(query))
+    ? applicants.filter(
+        (a) =>
+          a.inGameName.toLowerCase().includes(query) ||
+          a.fbName.toLowerCase().includes(query) ||
+          a.gcashNumber.toLowerCase().includes(query)
+      )
     : applicants;
 
   function selectApplicant(id: string) {
@@ -41,7 +46,7 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
 
       <main className="relative p-4 sm:p-6">
         <div className="max-w-5xl mx-auto space-y-4">
-          <div className="relative max-w-xs">
+          <div className="relative max-w-sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -59,7 +64,7 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by IGN..."
+              placeholder="Search by IGN, name, or number..."
               className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 pl-9 pr-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
             />
           </div>

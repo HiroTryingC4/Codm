@@ -23,6 +23,9 @@ export default function ApplicantCard({
         {applicant.fbName || applicant.inGameName}
       </div>
       <div className="text-sm text-neutral-500 truncate">IGN: {applicant.inGameName}</div>
+      {applicant.gcashNumber && (
+        <div className="text-sm text-neutral-500 truncate">Number: {applicant.gcashNumber}</div>
+      )}
     </button>
   );
 }
