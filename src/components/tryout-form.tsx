@@ -126,14 +126,14 @@ export default function TryoutForm() {
         </div>
 
         <div>
-          <label className={labelClass} htmlFor="inGameName">
-            In-game name
+          <label className={labelClass} htmlFor="fbName">
+            FB Name
           </label>
           <input
-            id="inGameName"
-            name="inGameName"
+            id="fbName"
+            name="fbName"
             required
-            placeholder="ex: LG | Juan"
+            placeholder="ex: Juan Dela Cruz"
             className={inputClass}
           />
         </div>
@@ -162,14 +162,14 @@ export default function TryoutForm() {
         </div>
 
         <div>
-          <label className={labelClass} htmlFor="fbName">
-            FB Name
+          <label className={labelClass} htmlFor="inGameName">
+            In-game name
           </label>
           <input
-            id="fbName"
-            name="fbName"
+            id="inGameName"
+            name="inGameName"
             required
-            placeholder="ex: Juan Dela Cruz"
+            placeholder="ex: LG | Juan"
             className={inputClass}
           />
         </div>
