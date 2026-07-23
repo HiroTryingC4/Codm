@@ -9,14 +9,12 @@ export default function KanbanColumn({
   applicants,
   selectedId,
   onSelect,
-  showGameBadge = true,
 }: {
   title: string;
   status: ApplicantStatus;
   applicants: Applicant[];
   selectedId: string | null;
   onSelect: (id: string) => void;
-  showGameBadge?: boolean;
 }) {
   const colors = STATUS_COLORS[status];
 
@@ -38,7 +36,6 @@ export default function KanbanColumn({
             highlighted={applicant.id === selectedId}
             onClick={() => onSelect(applicant.id)}
             animationDelayMs={i * 50}
-            showGameBadge={showGameBadge}
           />
         ))}
       </div>

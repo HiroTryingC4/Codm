@@ -8,20 +8,11 @@ export const dynamic = "force-dynamic";
 const ROLE_LABEL: Record<string, string> = {
   HEAD: "Head Admin",
   ADMIN: "Admin",
-  MP_ADMIN: "MP Admin",
-  BR_ADMIN: "BR Admin",
 };
 
 const ROLE_BADGE: Record<string, string> = {
   HEAD: "text-gold-700 dark:text-gold-400 bg-gold-50 dark:bg-gold-500/10 border-gold-300 dark:border-gold-500/30",
   ADMIN: "text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700",
-  MP_ADMIN: "text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 border-blue-300 dark:border-blue-500/30",
-  BR_ADMIN: "text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-500/10 border-purple-300 dark:border-purple-500/30",
-};
-
-const GAME_BADGE: Record<string, string> = {
-  MP: "text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 border-blue-300 dark:border-blue-500/30",
-  BR: "text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-500/10 border-purple-300 dark:border-purple-500/30",
 };
 
 export default async function ProfilePage() {
@@ -30,7 +21,7 @@ export default async function ProfilePage() {
 
   const comments = await prisma.comment.findMany({
     where: { adminId: session.adminId },
-    include: { applicant: { select: { inGameName: true, game: true } } },
+    include: { applicant: { select: { inGameName: true } } },
     orderBy: { createdAt: "desc" },
     take: 50,
   });
@@ -94,13 +85,6 @@ export default async function ProfilePage() {
                       <div className="flex items-center gap-1.5 min-w-0">
                         <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">
                           {comment.applicant.inGameName}
-                        </span>
-                        <span
-                          className={`shrink-0 text-[10px] font-semibold rounded-full border px-1.5 py-0.5 ${
-                            GAME_BADGE[comment.applicant.game] || GAME_BADGE.MP
-                          }`}
-                        >
-                          {comment.applicant.game}
                         </span>
                       </div>
                       <span className="shrink-0 text-xs text-neutral-500 dark:text-neutral-600">

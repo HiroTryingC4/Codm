@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
-import { canAccessGame } from "@/lib/access";
 
 export async function POST(
   request: NextRequest,
@@ -14,13 +13,10 @@ export async function POST(
 
   const applicant = await prisma.applicant.findUnique({
     where: { id: params.id },
-    select: { game: true },
+    select: { id: true },
   });
   if (!applicant) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
-  }
-  if (!canAccessGame(session.role, applicant.game)) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const { text } = await request.json();

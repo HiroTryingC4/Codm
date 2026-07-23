@@ -2,11 +2,7 @@ export type GameType = "MP" | "BR";
 export type TryoutType = "COMPETITIVE" | "CASUAL";
 export type Mode = "SOLO" | "TEAM" | "DUO" | "SQUAD";
 export type ApplicantStatus = "PENDING" | "REVIEWED" | "ACCEPTED" | "REJECTED";
-// "ADMIN" is a legacy role kept for backward compatibility with accounts
-// created before MP/BR-scoped roles existed — it behaves like HEAD for
-// game access (sees both), just without account-creation rights. New
-// accounts are only ever created as HEAD, MP_ADMIN, or BR_ADMIN.
-export type AdminRole = "HEAD" | "ADMIN" | "MP_ADMIN" | "BR_ADMIN";
+export type AdminRole = "HEAD" | "ADMIN";
 
 export interface AdminSummary {
   id: string;

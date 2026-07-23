@@ -2,30 +2,19 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type { AdminRole, GameType } from "@/types";
-import { getAllowedGames } from "@/lib/access";
+import { usePathname, useRouter } from "next/navigation";
+import type { AdminRole } from "@/types";
 import ThemeToggle from "./theme-toggle";
 
 const ROLE_LABEL: Record<AdminRole, string> = {
   HEAD: "Head Admin",
   ADMIN: "Admin",
-  MP_ADMIN: "MP Admin",
-  BR_ADMIN: "BR Admin",
 };
 
 const ROLE_BADGE: Record<AdminRole, string> = {
   HEAD: "text-gold-700 dark:text-gold-400 bg-gold-50 dark:bg-gold-500/10 border-gold-300 dark:border-gold-500/30",
   ADMIN: "text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700",
-  MP_ADMIN: "text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 border-blue-300 dark:border-blue-500/30",
-  BR_ADMIN: "text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-500/10 border-purple-300 dark:border-purple-500/30",
 };
-
-const GAME_OPTIONS: { value: "ALL" | GameType; label: string }[] = [
-  { value: "ALL", label: "All Games" },
-  { value: "MP", label: "MP" },
-  { value: "BR", label: "BR" },
-];
 
 const NAV_LINKS = [
   {
@@ -77,14 +66,7 @@ export default function AdminSidebar({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
-  const [gameMenuOpen, setGameMenuOpen] = useState(false);
-
-  const allowedGames = getAllowedGames(currentAdmin.role);
-  const rawGameParam = searchParams.get("game");
-  const currentGame =
-    rawGameParam && allowedGames.includes(rawGameParam as GameType) ? rawGameParam : "ALL";
 
   async function handleLogout() {
     await fetch("/api/admin/logout", { method: "POST" });
@@ -95,14 +77,6 @@ export default function AdminSidebar({
   function isActive(href: string) {
     return href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
   }
-
-  function handleGameSelect(value: "ALL" | GameType) {
-    if (value !== "ALL" && !allowedGames.includes(value)) return;
-    setOpen(false);
-    setGameMenuOpen(false);
-    router.push(value === "ALL" ? "/admin" : `/admin?game=${value}`);
-  }
-
 
   const linkClass = (href: string) =>
     `flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 ${
@@ -121,77 +95,17 @@ export default function AdminSidebar({
       </div>
 
       <nav className="flex-1 px-3 py-4 space-y-1">
-        {NAV_LINKS.map((link) => {
-          const isBoard = link.href === "/admin";
-          return (
-            <div key={link.href} className="relative">
-              <Link
-                href={link.href}
-                onClick={(e) => {
-                  if (isBoard) {
-                    e.preventDefault();
-                    setGameMenuOpen((v) => !v);
-                    router.push(currentGame === "ALL" ? "/admin" : `/admin?game=${currentGame}`);
-                  } else {
-                    setGameMenuOpen(false);
-                  }
-                  setOpen(false);
-                }}
-                className={linkClass(link.href)}
-              >
-                {link.icon}
-                <span className="flex-1">{link.label}</span>
-                {isBoard && (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 ${gameMenuOpen ? "rotate-180" : ""}`}
-                  >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
-                )}
-              </Link>
-
-              {isBoard && gameMenuOpen && (
-                <div className="animate-fade-in-up mt-1 mb-1 ml-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 overflow-hidden">
-                  {GAME_OPTIONS.map((opt) => {
-                      const locked = opt.value !== "ALL" && !allowedGames.includes(opt.value);
-                      const selected = currentGame === opt.value;
-                      return (
-                        <button
-                          key={opt.value}
-                          type="button"
-                          disabled={locked}
-                          onClick={() => handleGameSelect(opt.value)}
-                          title={locked ? "You don't have access to this game" : undefined}
-                          className={`w-full flex items-center justify-between px-3 py-2 text-xs font-medium text-left transition-colors ${
-                            locked
-                              ? "text-neutral-300 dark:text-neutral-700 cursor-not-allowed"
-                              : selected
-                              ? "bg-gold-600 text-white"
-                              : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                          }`}
-                        >
-                          {opt.label}
-                          {locked && (
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
-                              <rect x="3" y="11" width="18" height="11" rx="2" />
-                              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                            </svg>
-                          )}
-                        </button>
-                      );
-                    })}
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {NAV_LINKS.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            onClick={() => setOpen(false)}
+            className={linkClass(link.href)}
+          >
+            {link.icon}
+            {link.label}
+          </Link>
+        ))}
         <Link
           href="/"
           onClick={() => setOpen(false)}

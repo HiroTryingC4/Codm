@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { Applicant } from "@prisma/client";
-import type { GameType } from "@/types";
 import KanbanColumn from "@/components/kanban-column";
 import ApplicantDetailSheet from "@/components/applicant-detail-sheet";
 
@@ -12,13 +11,11 @@ export default function BoardClient({
   reviewed,
   accepted,
   rejected,
-  allowedGames,
 }: {
   pending: Applicant[];
   reviewed: Applicant[];
   accepted: Applicant[];
   rejected: Applicant[];
-  allowedGames: GameType[];
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -26,21 +23,12 @@ export default function BoardClient({
   const [showRejected, setShowRejected] = useState(false);
   const [search, setSearch] = useState("");
 
-  const rawGameParam = searchParams.get("game");
-  const gameFilter =
-    rawGameParam && allowedGames.includes(rawGameParam as GameType)
-      ? (rawGameParam as GameType)
-      : "ALL";
-
   const query = search.trim().toLowerCase();
-  const matches = (a: Applicant) =>
-    (!query || a.inGameName.toLowerCase().includes(query)) &&
-    (gameFilter === "ALL" || a.game === gameFilter);
-  const needsFilter = query.length > 0 || gameFilter !== "ALL";
-  const filteredPending = needsFilter ? pending.filter(matches) : pending;
-  const filteredReviewed = needsFilter ? reviewed.filter(matches) : reviewed;
-  const filteredAccepted = needsFilter ? accepted.filter(matches) : accepted;
-  const filteredRejected = needsFilter ? rejected.filter(matches) : rejected;
+  const matches = (a: Applicant) => a.inGameName.toLowerCase().includes(query);
+  const filteredPending = query ? pending.filter(matches) : pending;
+  const filteredReviewed = query ? reviewed.filter(matches) : reviewed;
+  const filteredAccepted = query ? accepted.filter(matches) : accepted;
+  const filteredRejected = query ? rejected.filter(matches) : rejected;
 
   function selectApplicant(id: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -101,7 +89,6 @@ export default function BoardClient({
             applicants={filteredPending}
             selectedId={selectedId}
             onSelect={selectApplicant}
-            showGameBadge={gameFilter === "ALL"}
           />
           <KanbanColumn
             title="Reviewed"
@@ -109,7 +96,6 @@ export default function BoardClient({
             applicants={filteredReviewed}
             selectedId={selectedId}
             onSelect={selectApplicant}
-            showGameBadge={gameFilter === "ALL"}
           />
           <KanbanColumn
             title="Accepted"
@@ -117,7 +103,6 @@ export default function BoardClient({
             applicants={filteredAccepted}
             selectedId={selectedId}
             onSelect={selectApplicant}
-            showGameBadge={gameFilter === "ALL"}
           />
         </div>
 
@@ -137,7 +122,6 @@ export default function BoardClient({
                   applicants={filteredRejected}
                   selectedId={selectedId}
                   onSelect={selectApplicant}
-                  showGameBadge={gameFilter === "ALL"}
                 />
               </div>
             )}

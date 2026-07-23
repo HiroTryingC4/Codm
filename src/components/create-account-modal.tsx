@@ -5,24 +5,21 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 
 type Step = "form" | "confirm" | "created";
-type NewAccountRole = "MP_ADMIN" | "BR_ADMIN" | "HEAD";
+type NewAccountRole = "ADMIN" | "HEAD";
 
 const ROLE_OPTIONS: { value: NewAccountRole; label: string }[] = [
-  { value: "MP_ADMIN", label: "MP Admin" },
-  { value: "BR_ADMIN", label: "BR Admin" },
+  { value: "ADMIN", label: "Admin" },
   { value: "HEAD", label: "Head Admin" },
 ];
 
 const ROLE_LABEL: Record<NewAccountRole, string> = {
-  MP_ADMIN: "MP Admin",
-  BR_ADMIN: "BR Admin",
+  ADMIN: "Admin",
   HEAD: "Head Admin",
 };
 
 const ROLE_DESCRIPTION: Record<NewAccountRole, string> = {
-  MP_ADMIN: "Can only see and manage Multiplayer applicants. Can't create accounts.",
-  BR_ADMIN: "Can only see and manage Battle Royale applicants. Can't create accounts.",
-  HEAD: "Full access to both games, plus can create/manage admin accounts.",
+  ADMIN: "Full board access (review, comment, accept/reject), can't create accounts.",
+  HEAD: "Full board access, plus can create/manage admin accounts.",
 };
 
 export default function CreateAccountModal() {
@@ -31,7 +28,7 @@ export default function CreateAccountModal() {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<Step>("form");
   const [name, setName] = useState("");
-  const [role, setRole] = useState<NewAccountRole>("MP_ADMIN");
+  const [role, setRole] = useState<NewAccountRole>("ADMIN");
   const [generatedPassword, setGeneratedPassword] = useState("");
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -44,7 +41,7 @@ export default function CreateAccountModal() {
   function reset() {
     setStep("form");
     setName("");
-    setRole("MP_ADMIN");
+    setRole("ADMIN");
     setGeneratedPassword("");
     setCopied(false);
     setError(null);

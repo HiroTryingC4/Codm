@@ -9,15 +9,11 @@ export const dynamic = "force-dynamic";
 const ROLE_BADGE: Record<string, string> = {
   HEAD: "text-gold-700 dark:text-gold-400 bg-gold-50 dark:bg-gold-500/10 border-gold-300 dark:border-gold-500/30",
   ADMIN: "text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700",
-  MP_ADMIN: "text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 border-blue-300 dark:border-blue-500/30",
-  BR_ADMIN: "text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-500/10 border-purple-300 dark:border-purple-500/30",
 };
 
 const ROLE_LABEL: Record<string, string> = {
   HEAD: "HEAD",
   ADMIN: "ADMIN",
-  MP_ADMIN: "MP ADMIN",
-  BR_ADMIN: "BR ADMIN",
 };
 
 type AdminRow = {
