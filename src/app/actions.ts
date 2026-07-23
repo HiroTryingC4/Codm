@@ -43,8 +43,8 @@ export async function submitTryoutApplication(
     return { success: false, error: "UID must contain numbers only." };
   }
 
-  if (!fbName || !cityProvince) {
-    return { success: false, error: "FB name and City/Province are required." };
+  if (!fbName || !cityProvince || !gcashNumber) {
+    return { success: false, error: "FB name, GCash number, and City/Province are required." };
   }
 
   if (tryoutType !== "COMPETITIVE" && tryoutType !== "CASUAL") {
@@ -73,7 +73,7 @@ export async function submitTryoutApplication(
       inGameName,
       uid,
       fbName,
-      gcashNumber: gcashNumber || null,
+      gcashNumber,
       cityProvince,
       streamerMode: streamerMode || null,
       tryoutType: tryoutType as TryoutType,

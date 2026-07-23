@@ -88,11 +88,12 @@ export default function TryoutForm() {
 
         <div>
           <label className={labelClass} htmlFor="gcashNumber">
-            GCash Number <span className="text-neutral-500 dark:text-neutral-600">(optional)</span>
+            GCash Number
           </label>
           <input
             id="gcashNumber"
             name="gcashNumber"
+            required
             placeholder="ex: 09171234567"
             className={inputClass}
           />
