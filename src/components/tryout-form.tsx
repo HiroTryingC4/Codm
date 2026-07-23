@@ -5,30 +5,6 @@ import { submitTryoutApplication } from "@/app/actions";
 import ClanRulesModal from "./clan-rules-modal";
 import { useGameBackground } from "./home-background";
 
-type Toggle<T extends string> = { value: T; label: string };
-
-const GAMES: Toggle<"MP" | "BR">[] = [
-  { value: "MP", label: "Multiplayer" },
-  { value: "BR", label: "Battle Royale" },
-];
-
-const TRYOUT_TYPES: Toggle<"COMPETITIVE" | "CASUAL">[] = [
-  { value: "COMPETITIVE", label: "Competitive" },
-  { value: "CASUAL", label: "Casual" },
-];
-
-const MODES_BY_GAME: Record<"MP" | "BR", Toggle<"SOLO" | "TEAM" | "DUO" | "SQUAD">[]> = {
-  MP: [
-    { value: "SOLO", label: "Solo" },
-    { value: "TEAM", label: "Team" },
-  ],
-  BR: [
-    { value: "SOLO", label: "Solo" },
-    { value: "DUO", label: "Duo" },
-    { value: "SQUAD", label: "Squad" },
-  ],
-};
-
 const inputClass =
   "w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2.5 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500";
 
@@ -36,16 +12,8 @@ const labelClass = "block text-sm font-medium text-neutral-600 dark:text-neutral
 
 export default function TryoutForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const { game, setGame } = useGameBackground();
-  const [tryoutType, setTryoutType] = useState<"COMPETITIVE" | "CASUAL">(
-    "COMPETITIVE"
-  );
-  const [mode, setMode] = useState<"SOLO" | "TEAM" | "DUO" | "SQUAD">("SOLO");
+  const { game } = useGameBackground();
 
-  function handleGameChange(next: "MP" | "BR") {
-    setGame(next);
-    setMode("SOLO");
-  }
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<{ success: boolean; error?: string } | null>(
     null
@@ -80,9 +48,6 @@ export default function TryoutForm() {
         setRulesAgreed(false);
         setHasReadRules(false);
         setUid("");
-        setGame("MP");
-        setTryoutType("COMPETITIVE");
-        setMode("SOLO");
       }
     } catch {
       setResult({
@@ -104,26 +69,9 @@ export default function TryoutForm() {
       </div>
 
       <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
-        <div>
-          <label className={labelClass}>Which game are you trying out for?</label>
-          <input type="hidden" name="game" value={game} />
-          <div className="flex rounded-lg overflow-hidden border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-            {GAMES.map((g) => (
-              <button
-                type="button"
-                key={g.value}
-                onClick={() => handleGameChange(g.value)}
-                className={`flex-1 py-2.5 text-sm font-medium transition-all duration-150 active:scale-95 ${
-                  game === g.value
-                    ? "bg-gold-600 text-white"
-                    : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
-                }`}
-              >
-                {g.label}
-              </button>
-            ))}
-          </div>
-        </div>
+        <input type="hidden" name="game" value={game} />
+        <input type="hidden" name="tryoutType" value="COMPETITIVE" />
+        <input type="hidden" name="mode" value="SOLO" />
 
         <div>
           <label className={labelClass} htmlFor="fbName">
@@ -194,86 +142,10 @@ export default function TryoutForm() {
         </div>
 
         <div>
-          <label className={labelClass}>Tryout type</label>
-          <input type="hidden" name="tryoutType" value={tryoutType} />
-          <div className="flex rounded-lg overflow-hidden border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-            {TRYOUT_TYPES.map((t) => (
-              <button
-                type="button"
-                key={t.value}
-                onClick={() => setTryoutType(t.value)}
-                className={`flex-1 py-2.5 text-sm font-medium transition-all duration-150 active:scale-95 ${
-                  tryoutType === t.value
-                    ? "bg-gold-600 text-white"
-                    : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
-                }`}
-              >
-                {t.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <label className={labelClass}>Mode</label>
-          <input type="hidden" name="mode" value={mode} />
-          <div className="flex rounded-lg overflow-hidden border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-            {MODES_BY_GAME[game].map((m) => (
-              <button
-                type="button"
-                key={m.value}
-                onClick={() => setMode(m.value)}
-                className={`flex-1 py-2.5 text-sm font-medium transition-all duration-150 active:scale-95 ${
-                  mode === m.value
-                    ? "bg-gold-600 text-white"
-                    : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
-                }`}
-              >
-                {m.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {(mode === "TEAM" || mode === "SQUAD") && (
-          <div className="animate-fade-in-up">
-            <label className={labelClass} htmlFor="teamName">
-              Team name
-            </label>
-            <input
-              id="teamName"
-              name="teamName"
-              required
-              placeholder="ex: Last Game Reborn"
-              className={inputClass}
-            />
-          </div>
-        )}
-
-        <div>
           <label className={labelClass} htmlFor="role">
             Role / class <span className="text-neutral-500 dark:text-neutral-600">(optional)</span>
           </label>
           <input id="role" name="role" className={inputClass} />
-        </div>
-
-        <div>
-          <label className={labelClass} htmlFor="motivation">
-            Why you want in
-          </label>
-          <textarea id="motivation" name="motivation" rows={3} className={inputClass} />
-        </div>
-
-        <div>
-          <label className={labelClass} htmlFor="recruitedBy">
-            Recruited by <span className="text-neutral-500 dark:text-neutral-600">(if applicable)</span>
-          </label>
-          <input
-            id="recruitedBy"
-            name="recruitedBy"
-            placeholder="Name of the clan member who invited you"
-            className={inputClass}
-          />
         </div>
 
         <div className="rounded-lg border border-neutral-300 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 p-3 space-y-3">
