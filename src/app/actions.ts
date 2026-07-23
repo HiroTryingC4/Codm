@@ -24,6 +24,7 @@ export async function submitTryoutApplication(
   const streamerMode = String(formData.get("streamerMode") || "").trim();
   const tryoutType = String(formData.get("tryoutType") || "");
   const mode = String(formData.get("mode") || "");
+  const teamName = String(formData.get("teamName") || "").trim();
   const role = String(formData.get("role") || "").trim();
   const motivation = String(formData.get("motivation") || "").trim();
   const recruitedBy = String(formData.get("recruitedBy") || "").trim();
@@ -53,6 +54,11 @@ export async function submitTryoutApplication(
     return { success: false, error: "Please select a valid mode for the chosen game." };
   }
 
+  const needsTeamName = mode === "TEAM" || mode === "SQUAD";
+  if (needsTeamName && !teamName) {
+    return { success: false, error: "Please enter your team name." };
+  }
+
   if (!rulesAgreed) {
     return {
       success: false,
@@ -70,6 +76,7 @@ export async function submitTryoutApplication(
       streamerMode: streamerMode || null,
       tryoutType: tryoutType as TryoutType,
       mode: mode as Mode,
+      teamName: needsTeamName ? teamName : null,
       role: role || null,
       motivation,
       recruitedBy: recruitedBy || null,

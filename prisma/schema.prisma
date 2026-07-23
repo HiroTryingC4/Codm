@@ -23,6 +23,7 @@ model Applicant {
   streamerMode String?
   tryoutType   String
   mode         String
+  teamName     String?
   role         String?
   motivation   String
   recruitedBy  String?

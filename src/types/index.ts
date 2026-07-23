@@ -36,6 +36,7 @@ export interface ApplicantDetail extends ApplicantSummary {
   fbName: string;
   cityProvince: string;
   streamerMode: string | null;
+  teamName: string | null;
   role: string | null;
   motivation: string;
   recruitedBy: string | null;

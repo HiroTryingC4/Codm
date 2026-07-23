@@ -235,6 +235,21 @@ export default function TryoutForm() {
           </div>
         </div>
 
+        {(mode === "TEAM" || mode === "SQUAD") && (
+          <div className="animate-fade-in-up">
+            <label className={labelClass} htmlFor="teamName">
+              Team name
+            </label>
+            <input
+              id="teamName"
+              name="teamName"
+              required
+              placeholder="ex: Last Game Reborn"
+              className={inputClass}
+            />
+          </div>
+        )}
+
         <div>
           <label className={labelClass} htmlFor="role">
             Role / class <span className="text-neutral-500 dark:text-neutral-600">(optional)</span>
