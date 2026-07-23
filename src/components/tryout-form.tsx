@@ -141,13 +141,6 @@ export default function TryoutForm() {
           />
         </div>
 
-        <div>
-          <label className={labelClass} htmlFor="role">
-            Role / class <span className="text-neutral-500 dark:text-neutral-600">(optional)</span>
-          </label>
-          <input id="role" name="role" className={inputClass} />
-        </div>
-
         <div className="rounded-lg border border-neutral-300 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 p-3 space-y-3">
           <button
             type="button"
