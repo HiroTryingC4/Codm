@@ -65,7 +65,6 @@ export default function TryoutForm() {
         <p className="text-xs font-semibold tracking-widest text-gold-700 dark:text-gold-500 uppercase mb-1">
           Player Information
         </p>
-        <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">Tryout Form</h1>
       </div>
 
       <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
@@ -153,7 +152,7 @@ export default function TryoutForm() {
             className={inputClass}
           />
           <p className="mt-1.5 text-xs text-neutral-500 dark:text-neutral-600">
-            (Call of Duty member only)
+            (For call of duty players only)
           </p>
         </div>
 
