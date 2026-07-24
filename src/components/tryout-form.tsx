@@ -60,7 +60,7 @@ export default function TryoutForm() {
   }
 
   return (
-    <div className="animate-fade-in-up rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/40 p-6 sm:p-8 shadow-2xl shadow-neutral-300/40 dark:shadow-black/40 transition-colors">
+    <div className="animate-fade-in-up rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/95 dark:bg-neutral-900/80 p-6 sm:p-8 shadow-2xl shadow-neutral-300/40 dark:shadow-black/40 transition-colors">
       <div className="mb-6">
         <p className="text-xs font-semibold tracking-widest text-gold-700 dark:text-gold-500 uppercase mb-1">
           Player Information
