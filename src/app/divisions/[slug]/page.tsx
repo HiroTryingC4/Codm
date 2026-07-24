@@ -13,11 +13,11 @@ export default function DivisionPage({ params }: { params: { slug: string } }) {
 
   return (
     <main className="min-h-screen bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white transition-colors">
-      <nav className="border-b border-neutral-200 dark:border-neutral-800">
-        <div className="max-w-4xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+      <nav className="border-b border-neutral-200 dark:border-neutral-800 font-serif">
+        <div className="max-w-2xl mx-auto px-4 sm:px-8 h-14 flex items-center justify-between">
           <Link
             href="/#divisions"
-            className="inline-flex items-center gap-1.5 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+            className="group inline-flex items-center gap-2 text-xs uppercase tracking-widest text-neutral-600 dark:text-neutral-400 hover:text-gold-700 dark:hover:text-gold-500 transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -27,11 +27,13 @@ export default function DivisionPage({ params }: { params: { slug: string } }) {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="w-4 h-4"
+              className="w-3.5 h-3.5 transition-transform duration-150 group-hover:-translate-x-1"
             >
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
-            Back to Divisions
+            <span className="border-b border-transparent group-hover:border-current pb-0.5">
+              Back to Divisions
+            </span>
           </Link>
           <ThemeToggle />
         </div>
