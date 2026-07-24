@@ -16,13 +16,14 @@ const DIVISIONS: {
   name: string;
   tag: string;
   icon: DivisionIcon;
+  img?: string;
   locked?: boolean;
 }[] = [
-  { name: "LG Original", tag: "CODM Battle Royale", icon: "swords" },
-  { name: "LG Reborn", tag: "CODM Multiplayer", icon: "target" },
-  { name: "LG Warzie", tag: "Warzone Mobile", icon: "medal" },
-  { name: "LG Highrise", tag: "Open World", icon: "globe" },
-  { name: "LG Aether", tag: "Mobile Legends", icon: "diamond" },
+  { name: "LG Original", tag: "CODM Battle Royale", icon: "swords", img: "/images/divisions/original.jpg" },
+  { name: "LG Reborn", tag: "CODM Multiplayer", icon: "target", img: "/images/divisions/reborn.jpg" },
+  { name: "LG Warzie", tag: "Warzone Mobile", icon: "medal", img: "/images/divisions/warzie.jpg" },
+  { name: "LG Highrise", tag: "Open World", icon: "globe", img: "/images/divisions/highrise.jpg" },
+  { name: "LG Aether", tag: "Mobile Legends", icon: "diamond", img: "/images/divisions/aether.jpg" },
   { name: "LG Roblox", tag: "Development Phase", icon: "lock", locked: true },
 ];
 
@@ -271,8 +272,19 @@ export default function HomePage() {
             ) : (
               <ScrollReveal key={division.name} delayMs={i * 60}>
                 <div className="group overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 transition-all duration-300 hover:-translate-y-1 hover:border-gold-500 hover:shadow-lg dark:hover:shadow-black/30">
-                  <div className="aspect-video w-full flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 text-gold-600 dark:text-gold-500">
-                    <DivisionIconGlyph icon={division.icon} className="w-10 h-10" />
+                  <div className="aspect-square w-full overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+                    {division.img ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={division.img}
+                        alt={division.name}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gold-600 dark:text-gold-500">
+                        <DivisionIconGlyph icon={division.icon} className="w-10 h-10" />
+                      </div>
+                    )}
                   </div>
                   <div className="p-6">
                     <h4 className="font-bold text-neutral-900 dark:text-white mb-1">{division.name}</h4>
