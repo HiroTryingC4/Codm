@@ -37,28 +37,48 @@ export default function DivisionPage({ params }: { params: { slug: string } }) {
         </div>
       </nav>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-8 py-10 sm:py-16">
-        {division.img && (
-          <div className="max-w-md mx-auto rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 mb-8">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={division.img} alt={division.name} className="w-full h-auto" />
+      <div className="max-w-2xl mx-auto px-4 sm:px-8 py-10 sm:py-16 font-serif">
+        {/* Masthead */}
+        <div className="text-center border-b-4 border-double border-neutral-900 dark:border-neutral-100 pb-4 mb-8">
+          <p className="text-[11px] tracking-[0.3em] uppercase text-gold-700 dark:text-gold-500 mb-3">
+            The Last Game Gazette — Division Report
+          </p>
+          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight leading-none">
+            {division.name}
+          </h1>
+          <div className="flex items-center justify-center gap-3 mt-4 text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-500">
+            <span className="h-px w-8 bg-neutral-400 dark:bg-neutral-700" />
+            <span>{division.tag}</span>
+            <span className="h-px w-8 bg-neutral-400 dark:bg-neutral-700" />
           </div>
+        </div>
+
+        {/* Lead photo */}
+        {division.img && (
+          <figure className="mb-8">
+            <div className="border border-neutral-300 dark:border-neutral-700 p-2 bg-white dark:bg-neutral-900">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={division.img} alt={division.name} className="w-full h-auto" />
+            </div>
+            <figcaption className="text-[11px] italic text-neutral-500 dark:text-neutral-500 mt-2 text-center">
+              Official cover art — LG {division.tag} division.
+            </figcaption>
+          </figure>
         )}
 
-        <p className="text-xs font-semibold tracking-widest text-gold-700 dark:text-gold-500 uppercase mb-2">
-          {division.tag}
-        </p>
-        <h1 className="text-3xl sm:text-5xl font-bold mb-6">{division.name}</h1>
-        <p className="text-base text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl mb-10">
+        {/* Body copy */}
+        <p className="text-[17px] leading-relaxed text-justify text-neutral-800 dark:text-neutral-300 first-letter:float-left first-letter:text-6xl first-letter:font-bold first-letter:pr-2 first-letter:leading-[0.8]">
           {division.description}
         </p>
 
-        <Link
-          href="/apply"
-          className="inline-block rounded-lg bg-gold-600 text-white px-8 py-3 text-sm font-semibold transition-all duration-150 hover:bg-gold-500 hover:scale-[1.02] active:scale-[0.98]"
-        >
-          Join Tryouts
-        </Link>
+        <div className="clear-both mt-12 text-center border-t border-neutral-300 dark:border-neutral-700 pt-8">
+          <Link
+            href="/apply"
+            className="inline-block border-2 border-neutral-900 dark:border-neutral-100 px-8 py-3 text-sm font-semibold uppercase tracking-widest transition-colors duration-150 hover:bg-neutral-900 hover:text-white dark:hover:bg-neutral-100 dark:hover:text-neutral-900"
+          >
+            Join Tryouts
+          </Link>
+        </div>
       </div>
     </main>
   );
