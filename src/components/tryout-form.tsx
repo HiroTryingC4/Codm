@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { submitTryoutApplication } from "@/app/actions";
 import ClanRulesModal from "./clan-rules-modal";
+import SuccessModal from "./success-modal";
 import { useGameBackground } from "./home-background";
 
 const inputClass =
@@ -196,29 +197,17 @@ export default function TryoutForm() {
             {result.error}
           </p>
         )}
-        {result?.success && (
-          <div className="animate-fade-in-up flex items-start gap-3 text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-300 dark:border-emerald-500/30 rounded-lg px-4 py-3">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mt-0.5 shrink-0">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-              <path d="M22 4 12 14.01l-3-3" />
-            </svg>
-            <div>
-              <p className="font-semibold">Successful!</p>
-              <p className="text-sm opacity-90">Your tryout application has been submitted.</p>
-            </div>
-          </div>
-        )}
-
         <button
           type="submit"
           disabled={submitting || !rulesAgreed}
           className="w-full rounded-lg bg-gold-600 text-white py-2.5 font-semibold transition-all duration-150 hover:bg-gold-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
-          {submitting ? "Submitting..." : "Submit application"}
+          {submitting ? "Submitting..." : "Submit information"}
         </button>
       </form>
 
       <ClanRulesModal open={rulesOpen} onClose={() => setRulesOpen(false)} />
+      <SuccessModal open={!!result?.success} onClose={() => setResult(null)} />
     </div>
   );
 }
