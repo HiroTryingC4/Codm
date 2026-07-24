@@ -199,7 +199,7 @@ export default function HomePage() {
         className="relative flex flex-col items-center justify-center min-h-screen px-4 pt-16 text-center overflow-hidden"
       >
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-contain bg-center bg-no-repeat"
           style={{ backgroundImage: "url('/images/cover.jpg')" }}
         />
         <div className="absolute inset-0 bg-white/90 dark:bg-neutral-950/90 transition-colors duration-300" />
@@ -208,6 +208,9 @@ export default function HomePage() {
           <h1 className="text-[96px] sm:text-[140px] font-extrabold leading-none tracking-tighter select-none">
             LG
           </h1>
+          <p className="mt-3 text-xs sm:text-sm font-semibold tracking-[0.5em] uppercase text-neutral-500 dark:text-neutral-500">
+            Last Game
+          </p>
           <p className="mt-2 text-xs sm:text-sm font-semibold tracking-[0.4em] uppercase text-gold-700 dark:text-gold-500">
             Elite Performance. Reborn.
           </p>
