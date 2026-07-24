@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ThemeToggle from "@/components/theme-toggle";
+import ScrollReveal from "@/components/scroll-reveal";
 
 const NAV_LINKS = [
   { href: "#divisions", label: "Divisions" },
@@ -223,7 +224,7 @@ export default function HomePage() {
 
       {/* About / Mission */}
       <section id="about" className="py-24 sm:py-32 border-t border-neutral-200 dark:border-neutral-800 px-4">
-        <div className="max-w-3xl mx-auto text-center space-y-6">
+        <ScrollReveal className="max-w-3xl mx-auto text-center space-y-6">
           <p className={kickerClass}>Our Mission</p>
           <h2 className="text-2xl sm:text-4xl font-bold">
             Defined by precision. Driven by excellence.
@@ -233,12 +234,12 @@ export default function HomePage() {
             structural clarity and refined execution, fostering an environment where elite
             potential meets professional stability.
           </p>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Divisions */}
       <section id="divisions" className="py-24 sm:py-32 px-4 max-w-6xl mx-auto">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-12">
+        <ScrollReveal className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-12">
           <div className="space-y-2">
             <p className={kickerClass}>Divisions</p>
             <h3 className="text-2xl sm:text-4xl font-bold">Operational Commands</h3>
@@ -246,14 +247,14 @@ export default function HomePage() {
           <p className="text-xs text-neutral-500 dark:text-neutral-500 font-medium">
             Active rosters: 05 / 06
           </p>
-        </div>
+        </ScrollReveal>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {DIVISIONS.map((division, i) =>
             division.locked ? (
-              <div
+              <ScrollReveal
                 key={division.name}
-                style={{ animationDelay: `${i * 40}ms` }}
-                className="animate-fade-in-up group relative overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 p-6 opacity-60"
+                delayMs={i * 60}
+                className="group relative overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 p-6 opacity-60"
               >
                 <div className="absolute inset-0 flex items-center justify-center bg-white/70 dark:bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                   <span className="text-xs font-semibold tracking-widest uppercase text-gold-700 dark:text-gold-500">
@@ -265,12 +266,12 @@ export default function HomePage() {
                 </div>
                 <h4 className="font-bold text-neutral-500 dark:text-neutral-500 mb-1">{division.name}</h4>
                 <p className="text-xs text-neutral-400 dark:text-neutral-600">{division.tag}</p>
-              </div>
+              </ScrollReveal>
             ) : (
-              <div
+              <ScrollReveal
                 key={division.name}
-                style={{ animationDelay: `${i * 40}ms` }}
-                className="animate-fade-in-up group rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-6 transition-all duration-300 hover:border-gold-500"
+                delayMs={i * 60}
+                className="group rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-6 transition-colors duration-300 hover:border-gold-500"
               >
                 <div className="flex justify-between items-start mb-10">
                   <span className="text-gold-600 dark:text-gold-500">
@@ -290,7 +291,7 @@ export default function HomePage() {
                     <ArrowForwardIcon />
                   </span>
                 </div>
-              </div>
+              </ScrollReveal>
             )
           )}
         </div>
@@ -299,13 +300,15 @@ export default function HomePage() {
       {/* Timeline */}
       <section id="timeline" className="py-24 sm:py-32 bg-neutral-50 dark:bg-neutral-900/40 border-t border-neutral-200 dark:border-neutral-800">
         <div className="max-w-4xl mx-auto px-4">
-          <p className={`${kickerClass} mb-12`}>Chronicle</p>
+          <ScrollReveal>
+            <p className={`${kickerClass} mb-12`}>Chronicle</p>
+          </ScrollReveal>
           <div className="space-y-16">
             {TIMELINE.map((item, i) => (
-              <div
+              <ScrollReveal
                 key={item.year}
-                style={{ animationDelay: `${i * 60}ms` }}
-                className="animate-fade-in-up flex flex-col sm:flex-row gap-6 sm:gap-10 items-start"
+                delayMs={i * 80}
+                className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-start"
               >
                 <div className="text-3xl font-extrabold text-neutral-300 dark:text-neutral-800 leading-none sm:w-24 shrink-0">
                   {item.year}
@@ -316,7 +319,7 @@ export default function HomePage() {
                     {item.body}
                   </p>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -324,16 +327,16 @@ export default function HomePage() {
 
       {/* Events */}
       <section id="events" className="py-24 sm:py-32 px-4 max-w-4xl mx-auto">
-        <div className="mb-12">
+        <ScrollReveal className="mb-12">
           <p className={`${kickerClass} mb-2`}>Upcoming</p>
           <h3 className="text-2xl sm:text-4xl font-bold">Deployment Schedule</h3>
-        </div>
+        </ScrollReveal>
         <div>
           {EVENTS.map((event, i) => (
-            <div
+            <ScrollReveal
               key={event.title}
-              style={{ animationDelay: `${i * 40}ms` }}
-              className="animate-fade-in-up flex flex-col sm:flex-row items-center justify-between gap-4 py-6 border-b border-neutral-200 dark:border-neutral-800"
+              delayMs={i * 60}
+              className="flex flex-col sm:flex-row items-center justify-between gap-4 py-6 border-b border-neutral-200 dark:border-neutral-800"
             >
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-8 items-center text-center sm:text-left">
                 <div className="text-xs font-semibold text-gold-700 dark:text-gold-500 sm:w-28 shrink-0">
@@ -350,7 +353,7 @@ export default function HomePage() {
               >
                 View Details
               </button>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </section>
@@ -361,11 +364,7 @@ export default function HomePage() {
           <p className={`${kickerClass} mb-12 text-center`}>Leadership</p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10">
             {STAFF.map((member, i) => (
-              <div
-                key={member.name}
-                style={{ animationDelay: `${i * 40}ms` }}
-                className="animate-fade-in-up group text-center"
-              >
+              <ScrollReveal key={member.name} delayMs={i * 60} className="group text-center">
                 <div className="relative w-full aspect-[3/4] max-w-[180px] mx-auto mb-4 rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-800 transition-all duration-300 group-hover:border-gold-500">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -376,7 +375,7 @@ export default function HomePage() {
                 </div>
                 <h5 className="font-bold text-neutral-900 dark:text-white text-sm">{member.name}</h5>
                 <p className="text-xs font-semibold text-gold-700 dark:text-gold-500 mt-1">{member.role}</p>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
