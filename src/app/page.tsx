@@ -16,16 +16,15 @@ const DIVISIONS: {
   name: string;
   tag: string;
   stat: string;
-  badge: string | null;
   icon: DivisionIcon;
   locked?: boolean;
 }[] = [
-  { name: "LG Original", tag: "CODM Battle Royale", stat: "Rank #1 Global", badge: "Elite", icon: "swords" },
-  { name: "LG Reborn", tag: "CODM Multiplayer", stat: "Rank #4 Global", badge: "Elite", icon: "target" },
-  { name: "LG Warzie", tag: "Warzone Mobile", stat: "Rank #7 Global", badge: "Pro", icon: "medal" },
-  { name: "LG Highrise", tag: "Open World", stat: "Tier 1 Exploration", badge: "Open", icon: "globe" },
-  { name: "LG Aether", tag: "Mobile Legends", stat: "Rank #2 Regional", badge: "Elite", icon: "diamond" },
-  { name: "LG Roblox", tag: "Development Phase", stat: "", badge: null, icon: "lock", locked: true },
+  { name: "LG Original", tag: "CODM Battle Royale", stat: "Rank #1 Global", icon: "swords" },
+  { name: "LG Reborn", tag: "CODM Multiplayer", stat: "Rank #4 Global", icon: "target" },
+  { name: "LG Warzie", tag: "Warzone Mobile", stat: "Rank #7 Global", icon: "medal" },
+  { name: "LG Highrise", tag: "Open World", stat: "Tier 1 Exploration", icon: "globe" },
+  { name: "LG Aether", tag: "Mobile Legends", stat: "Rank #2 Regional", icon: "diamond" },
+  { name: "LG Roblox", tag: "Development Phase", stat: "", icon: "lock", locked: true },
 ];
 
 const TIMELINE = [
@@ -81,7 +80,7 @@ const STAFF = [
 
 const SOCIALS = ["Instagram", "Twitter", "Discord", "YouTube"];
 
-function DivisionIconGlyph({ icon }: { icon: DivisionIcon }) {
+function DivisionIconGlyph({ icon, className = "w-7 h-7" }: { icon: DivisionIcon; className?: string }) {
   const common = {
     xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 0 24 24",
@@ -90,7 +89,7 @@ function DivisionIconGlyph({ icon }: { icon: DivisionIcon }) {
     strokeWidth: 2,
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
-    className: "w-7 h-7",
+    className,
   };
   switch (icon) {
     case "swords":
@@ -254,45 +253,40 @@ export default function HomePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {DIVISIONS.map((division, i) =>
             division.locked ? (
-              <ScrollReveal
-                key={division.name}
-                delayMs={i * 60}
-                className="group relative overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 p-6 opacity-60"
-              >
-                <div className="absolute inset-0 flex items-center justify-center bg-white/70 dark:bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                  <span className="text-xs font-semibold tracking-widest uppercase text-gold-700 dark:text-gold-500">
-                    Coming Soon
-                  </span>
+              <ScrollReveal key={division.name} delayMs={i * 60}>
+                <div className="group relative overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 opacity-60 transition-all duration-300 hover:-translate-y-1">
+                  <div className="absolute inset-0 flex items-center justify-center bg-white/70 dark:bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                    <span className="text-xs font-semibold tracking-widest uppercase text-gold-700 dark:text-gold-500">
+                      Coming Soon
+                    </span>
+                  </div>
+                  <div className="aspect-video w-full flex items-center justify-center bg-neutral-100 dark:bg-neutral-900 text-neutral-400 dark:text-neutral-600">
+                    <DivisionIconGlyph icon={division.icon} className="w-10 h-10" />
+                  </div>
+                  <div className="p-6">
+                    <h4 className="font-bold text-neutral-500 dark:text-neutral-500 mb-1">{division.name}</h4>
+                    <p className="text-xs text-neutral-400 dark:text-neutral-600">{division.tag}</p>
+                  </div>
                 </div>
-                <div className="flex justify-between items-start mb-10 text-neutral-400 dark:text-neutral-600">
-                  <DivisionIconGlyph icon={division.icon} />
-                </div>
-                <h4 className="font-bold text-neutral-500 dark:text-neutral-500 mb-1">{division.name}</h4>
-                <p className="text-xs text-neutral-400 dark:text-neutral-600">{division.tag}</p>
               </ScrollReveal>
             ) : (
-              <ScrollReveal
-                key={division.name}
-                delayMs={i * 60}
-                className="group rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-6 transition-colors duration-300 hover:border-gold-500"
-              >
-                <div className="flex justify-between items-start mb-10">
-                  <span className="text-gold-600 dark:text-gold-500">
-                    <DivisionIconGlyph icon={division.icon} />
-                  </span>
-                  <span className="text-[10px] font-semibold rounded-full border border-gold-500 text-gold-700 dark:text-gold-400 px-2.5 py-1">
-                    {division.badge}
-                  </span>
-                </div>
-                <h4 className="font-bold text-neutral-900 dark:text-white mb-1">{division.name}</h4>
-                <p className="text-xs text-neutral-500 dark:text-neutral-500 mb-10">{division.tag}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs font-medium text-neutral-500 dark:text-neutral-500">
-                    {division.stat}
-                  </span>
-                  <span className="text-neutral-400 dark:text-neutral-600 group-hover:text-gold-600 dark:group-hover:text-gold-500 group-hover:translate-x-1 transition-all">
-                    <ArrowForwardIcon />
-                  </span>
+              <ScrollReveal key={division.name} delayMs={i * 60}>
+                <div className="group overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 transition-all duration-300 hover:-translate-y-1 hover:border-gold-500 hover:shadow-lg dark:hover:shadow-black/30">
+                  <div className="aspect-video w-full flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 text-gold-600 dark:text-gold-500">
+                    <DivisionIconGlyph icon={division.icon} className="w-10 h-10" />
+                  </div>
+                  <div className="p-6">
+                    <h4 className="font-bold text-neutral-900 dark:text-white mb-1">{division.name}</h4>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-500 mb-10">{division.tag}</p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-medium text-neutral-500 dark:text-neutral-500">
+                        {division.stat}
+                      </span>
+                      <span className="text-neutral-400 dark:text-neutral-600 group-hover:text-gold-600 dark:group-hover:text-gold-500 group-hover:translate-x-1 transition-all">
+                        <ArrowForwardIcon />
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </ScrollReveal>
             )
