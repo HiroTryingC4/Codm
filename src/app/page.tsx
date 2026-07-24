@@ -170,9 +170,9 @@ export default function HomePage() {
     <div className="bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white transition-colors">
       {/* Nav */}
       <nav className="fixed top-0 inset-x-0 z-50 border-b border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md">
-        <div className="max-w-6xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 h-16 grid grid-cols-[1fr_auto_1fr] items-center">
           <span className="text-xl font-extrabold tracking-tight">LG</span>
-          <div className="hidden md:flex gap-8">
+          <div className="hidden md:flex gap-8 justify-self-center">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
@@ -183,7 +183,7 @@ export default function HomePage() {
               </a>
             ))}
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 justify-self-end">
             <ThemeToggle />
             <Link href="/apply" className={primaryButtonClass}>
               Join Elite
