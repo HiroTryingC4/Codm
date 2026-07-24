@@ -31,9 +31,9 @@ export default function SuccessModal({
             <path d="M22 4 12 14.01l-3-3" />
           </svg>
         </div>
-        <h2 className="text-xl font-bold text-neutral-900 dark:text-white mb-1">Congratulations!</h2>
+        <h2 className="text-xl font-bold text-neutral-900 dark:text-white mb-1">Welcome to the LG family!</h2>
         <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
-          Your information has been submitted successfully.
+          Congratulations on joining us. Your information has been submitted successfully.
         </p>
         <button
           onClick={onClose}
