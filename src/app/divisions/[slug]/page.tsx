@@ -39,12 +39,12 @@ export default function DivisionPage({ params }: { params: { slug: string } }) {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-8 py-10 sm:py-16">
         {division.img && (
-          <div className="rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 mb-8">
+          <div className="rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 mb-8">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={division.img}
               alt={division.name}
-              className="w-full aspect-video object-cover"
+              className="w-full max-h-[70vh] object-contain"
             />
           </div>
         )}
