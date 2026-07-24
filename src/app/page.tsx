@@ -15,16 +15,15 @@ type DivisionIcon = "swords" | "target" | "medal" | "globe" | "diamond" | "lock"
 const DIVISIONS: {
   name: string;
   tag: string;
-  stat: string;
   icon: DivisionIcon;
   locked?: boolean;
 }[] = [
-  { name: "LG Original", tag: "CODM Battle Royale", stat: "Rank #1 Global", icon: "swords" },
-  { name: "LG Reborn", tag: "CODM Multiplayer", stat: "Rank #4 Global", icon: "target" },
-  { name: "LG Warzie", tag: "Warzone Mobile", stat: "Rank #7 Global", icon: "medal" },
-  { name: "LG Highrise", tag: "Open World", stat: "Tier 1 Exploration", icon: "globe" },
-  { name: "LG Aether", tag: "Mobile Legends", stat: "Rank #2 Regional", icon: "diamond" },
-  { name: "LG Roblox", tag: "Development Phase", stat: "", icon: "lock", locked: true },
+  { name: "LG Original", tag: "CODM Battle Royale", icon: "swords" },
+  { name: "LG Reborn", tag: "CODM Multiplayer", icon: "target" },
+  { name: "LG Warzie", tag: "Warzone Mobile", icon: "medal" },
+  { name: "LG Highrise", tag: "Open World", icon: "globe" },
+  { name: "LG Aether", tag: "Mobile Legends", icon: "diamond" },
+  { name: "LG Roblox", tag: "Development Phase", icon: "lock", locked: true },
 ];
 
 const TIMELINE = [
@@ -278,10 +277,7 @@ export default function HomePage() {
                   <div className="p-6">
                     <h4 className="font-bold text-neutral-900 dark:text-white mb-1">{division.name}</h4>
                     <p className="text-xs text-neutral-500 dark:text-neutral-500 mb-10">{division.tag}</p>
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs font-medium text-neutral-500 dark:text-neutral-500">
-                        {division.stat}
-                      </span>
+                    <div className="flex justify-end items-center">
                       <span className="text-neutral-400 dark:text-neutral-600 group-hover:text-gold-600 dark:group-hover:text-gold-500 group-hover:translate-x-1 transition-all">
                         <ArrowForwardIcon />
                       </span>
