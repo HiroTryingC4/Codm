@@ -37,7 +37,7 @@ export default function DivisionModal({
           <img
             src={division.img}
             alt={division.name}
-            className="w-full aspect-square object-cover"
+            className="w-full aspect-video object-cover"
           />
         )}
         <div className="p-6">
