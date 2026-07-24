@@ -197,6 +197,11 @@ export default function HomePage() {
         id="reborn"
         className="relative flex flex-col items-center justify-center min-h-screen px-4 pt-16 text-center overflow-hidden"
       >
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/cover.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-white/90 dark:bg-neutral-950/90 transition-colors duration-300" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(212,160,23,0.12),_transparent_60%)]" />
         <div className="relative animate-fade-in-up">
           <h1 className="text-[96px] sm:text-[140px] font-extrabold leading-none tracking-tighter select-none">
