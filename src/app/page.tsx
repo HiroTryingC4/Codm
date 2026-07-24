@@ -1,11 +1,12 @@
 import Link from "next/link";
+import ThemeToggle from "@/components/theme-toggle";
 
 const NAV_LINKS = [
-  { href: "#divisions", label: "DIVISIONS" },
-  { href: "#timeline", label: "TIMELINE" },
-  { href: "#events", label: "EVENTS" },
-  { href: "#staff", label: "STAFF" },
-  { href: "#reborn", label: "REBORN" },
+  { href: "#divisions", label: "Divisions" },
+  { href: "#timeline", label: "Timeline" },
+  { href: "#events", label: "Events" },
+  { href: "#staff", label: "Staff" },
+  { href: "#reborn", label: "Reborn" },
 ];
 
 type DivisionIcon = "swords" | "target" | "medal" | "globe" | "diamond" | "lock";
@@ -18,66 +19,66 @@ const DIVISIONS: {
   icon: DivisionIcon;
   locked?: boolean;
 }[] = [
-  { name: "LG ORIGINAL", tag: "CODM BATTLE ROYALE", stat: "RANK #1 GLOBAL", badge: "ELITE", icon: "swords" },
-  { name: "LG REBORN", tag: "CODM MULTIPLAYER", stat: "RANK #4 GLOBAL", badge: "ELITE", icon: "target" },
-  { name: "LG WARZIE", tag: "WARZONE MOBILE", stat: "RANK #7 GLOBAL", badge: "PRO", icon: "medal" },
-  { name: "LG HIGHRISE", tag: "OPEN WORLD", stat: "TIER 1 EXPLORATION", badge: "OPEN", icon: "globe" },
-  { name: "LG AETHER", tag: "MOBILE LEGENDS", stat: "RANK #2 REGIONAL", badge: "ELITE", icon: "diamond" },
-  { name: "LG ROBLOX", tag: "DEVELOPMENT PHASE", stat: "", badge: null, icon: "lock", locked: true },
+  { name: "LG Original", tag: "CODM Battle Royale", stat: "Rank #1 Global", badge: "Elite", icon: "swords" },
+  { name: "LG Reborn", tag: "CODM Multiplayer", stat: "Rank #4 Global", badge: "Elite", icon: "target" },
+  { name: "LG Warzie", tag: "Warzone Mobile", stat: "Rank #7 Global", badge: "Pro", icon: "medal" },
+  { name: "LG Highrise", tag: "Open World", stat: "Tier 1 Exploration", badge: "Open", icon: "globe" },
+  { name: "LG Aether", tag: "Mobile Legends", stat: "Rank #2 Regional", badge: "Elite", icon: "diamond" },
+  { name: "LG Roblox", tag: "Development Phase", stat: "", badge: null, icon: "lock", locked: true },
 ];
 
 const TIMELINE = [
   {
     year: "2021",
-    title: "ORG FOUNDED",
+    title: "Org Founded",
     body: "The inception of Last Game. Established as a mobile-first competitive entity with a focus on tactical shooters.",
   },
   {
     year: "2022",
-    title: "FIRST CHAMPIONSHIP",
+    title: "First Championship",
     body: "LG Original secures the Global CODM BR Invitational, marking our first major international trophy.",
   },
   {
     year: "2023",
-    title: "DIVISION EXPANSION",
+    title: "Division Expansion",
     body: 'Launch of the Aether and Warzie divisions. Structural rebranding to "Last Game Reborn" (LG).',
   },
 ];
 
 const EVENTS = [
-  { date: "OCT 24, 2024", title: "CODM BR MASTER SERIES", meta: "QUALIFIERS • ONLINE" },
-  { date: "NOV 02, 2024", title: "WARZONE MOBILE: NIGHT OPS", meta: "TOURNAMENT • LAN EVENT" },
-  { date: "DEC 15, 2024", title: "MLBB REBORN OPEN", meta: "OPEN INVITATIONAL • ONLINE" },
+  { date: "Oct 24, 2024", title: "CODM BR Master Series", meta: "Qualifiers • Online" },
+  { date: "Nov 02, 2024", title: "Warzone Mobile: Night Ops", meta: "Tournament • LAN Event" },
+  { date: "Dec 15, 2024", title: "MLBB Reborn Open", meta: "Open Invitational • Online" },
 ];
 
 const STAFF = [
   {
-    name: "LG.KRONOS",
-    role: "HEAD ADMIN",
+    name: "LG.Kronos",
+    role: "Head Admin",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAGAbXghRF3qPFjszDqdC076-MXiVzt67ATAaZH4mE1axBXq4lza8VzIErfdgZNsytTo_0ieGvrRysIG_Io_czMh-15R-_yZWlNxLf-LdCTUcyP12_YU1mke1KunjrbllzchjhftOX11hfcCmkyNJw0FOazIAZU-sqJgB4a_J4qu5qODwNvBV9LV-Ok73Qnfgi1HD6_aBi6gqfUqn0MOE9wgQD8ebOebUG70WHHwCkU0cc0zdT4lFQil5vTMd32DOkiPvpZX4vvACA",
     alt: "A cinematic black and white portrait of a focused esports executive in a high-end, minimalist suit, standing against a dark, architecturally sharp background with subtle gold lighting accents.",
   },
   {
-    name: "LG.VORTEX",
-    role: "CODM DIRECTOR",
+    name: "LG.Vortex",
+    role: "CODM Director",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCY0cxtBDg1nSDLgX_yT2vxXXIMHQVEwSMirYyz_gF8morsiy1aMrGhWap5XJhflUj1WLk2sWqcreFsc3eiqO96TQD6C1Olq3NOmDtgHXQCuluvCP-PImGIECrFIS_hYufFEuhoAhm4X81qENrE7CkOcT4WmsPxhOIMeMH2TaMelNVm7jWkJulSxGMnWc1nNE_1aF_0IvLHuSg8QleA7f6elplJE4YF247w-bizIQvyAhhghh_jROrh5Bdm71SEA45OCYZ9jodNk5g",
     alt: "A portrait of a sharp, modern esports division manager in a dark techwear jacket, posing in a dimly lit, high-contrast gaming facility with glowing amber and gold elements.",
   },
   {
-    name: "LG.NOVA",
-    role: "OPS MANAGER",
+    name: "LG.Nova",
+    role: "Ops Manager",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCjHWecIp2iA-jr7GCOIanKmfMPV3uCvhyJd249l6o-EtvCgkf7k3klz0PECfZbCw3Lk7c1V6v3DSeoEgub_NPztN5OoJOQL7zjVqr2j6Qn0QR8K65mDMNftRmqKRM5HerH1die-yJuSUk4QePrUrlTnMK2eW87skJi273XdzuTAiFL7_Mp70M_Y2BVdCnDr-7LeQbD1ngJke88cF559NP8j6e7MS4T2AlAL8iBTOmlXtScA8NIRAlPRjajYTALUC65rGR9EMIVDAQ",
     alt: "A professional portrait of an esports operations manager with a calm, authoritative expression, set in a sleek, minimalist command center with dark wood paneling and hidden gold lighting.",
   },
   {
-    name: "LG.ECHO",
-    role: "TALENT SCOUT",
+    name: "LG.Echo",
+    role: "Talent Scout",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBxoflU2NC-fXTz2HD7Ygj-ZP4QrLigua24xaUnFHdXmO5sC3nx7cP8sUtm0SyqRn30Dr4HwUnNR27VX75jwffomtCVYpiGBC-s1gLezdgmHVkF2_wAnkSYoa7Bixt7XB-LEBhsiX7R-RA_Y8YNrOwPy_IDL066kYsx360JOu7DFXmvznSDUVxEETIPPu92FtTgZ3oomBdreED-MXpcrZJ0aWd1uYl7bwYwlGDZDBP584vJxK_-0KIRNVAKhRkgMMALXHLK0wJONFk",
     alt: "A portrait of a competitive gaming talent scout in a minimalist dark environment, featuring sharp shadows and luminous gold rim lighting.",
   },
 ];
 
-const SOCIALS = ["INSTAGRAM", "TWITTER", "DISCORD", "YOUTUBE"];
+const SOCIALS = ["Instagram", "Twitter", "Discord", "YouTube"];
 
 function DivisionIconGlyph({ icon }: { icon: DivisionIcon }) {
   const common = {
@@ -88,7 +89,7 @@ function DivisionIconGlyph({ icon }: { icon: DivisionIcon }) {
     strokeWidth: 2,
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
-    className: "w-8 h-8",
+    className: "w-7 h-7",
   };
   switch (icon) {
     case "swords":
@@ -138,7 +139,7 @@ function DivisionIconGlyph({ icon }: { icon: DivisionIcon }) {
   }
 }
 
-function ArrowForwardIcon({ className = "w-5 h-5" }: { className?: string }) {
+function ArrowForwardIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -155,138 +156,132 @@ function ArrowForwardIcon({ className = "w-5 h-5" }: { className?: string }) {
   );
 }
 
+const kickerClass =
+  "text-xs font-semibold tracking-widest text-gold-700 dark:text-gold-500 uppercase";
+
+const primaryButtonClass =
+  "rounded-lg bg-gold-600 text-white px-8 py-3 text-sm font-semibold transition-all duration-150 hover:bg-gold-500 hover:scale-[1.02] active:scale-[0.98]";
+
+const outlineButtonClass =
+  "rounded-lg border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 px-8 py-3 text-sm font-semibold transition-all duration-150 hover:border-gold-500 hover:text-gold-700 dark:hover:text-gold-400";
+
 export default function HomePage() {
   return (
-    <div className="bg-background text-on-surface font-body-md">
-      {/* Top Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant/10">
-        <div className="flex justify-between items-center max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-20">
-          <div className="font-display-lg text-3xl tracking-tighter text-on-surface">LG</div>
-          <div className="hidden md:flex gap-12">
+    <div className="bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white transition-colors">
+      {/* Nav */}
+      <nav className="fixed top-0 inset-x-0 z-50 border-b border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+          <span className="text-xl font-extrabold tracking-tight">LG</span>
+          <div className="hidden md:flex gap-8">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-all duration-300"
+                className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
               >
                 {link.label}
               </a>
             ))}
           </div>
-          <Link
-            href="/apply"
-            className="bg-secondary text-on-secondary px-8 py-3 font-label-caps text-label-caps hover:brightness-110 transition-all duration-200 active:scale-95"
-          >
-            JOIN ELITE
-          </Link>
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <Link href="/apply" className={primaryButtonClass}>
+              Join Elite
+            </Link>
+          </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero */}
       <section
         id="reborn"
-        className="relative min-h-screen flex flex-col items-center justify-center pt-20 px-margin-mobile md:px-margin-desktop overflow-hidden bg-primary-container"
+        className="relative flex flex-col items-center justify-center min-h-screen px-4 pt-16 text-center overflow-hidden"
       >
-        <div className="relative z-10 text-center space-y-8 max-w-4xl">
-          <h1 className="font-display-lg text-[96px] md:text-[180px] leading-none tracking-[-0.08em] text-on-surface select-none">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(212,160,23,0.12),_transparent_60%)]" />
+        <div className="relative animate-fade-in-up">
+          <h1 className="text-[96px] sm:text-[140px] font-extrabold leading-none tracking-tighter select-none">
             LG
           </h1>
-          <p className="font-label-caps text-label-caps text-secondary tracking-[0.5em] opacity-80 mb-12">
-            ELITE PERFORMANCE. REBORN.
+          <p className="mt-2 text-xs sm:text-sm font-semibold tracking-[0.4em] uppercase text-gold-700 dark:text-gold-500">
+            Elite Performance. Reborn.
           </p>
-          <div className="flex flex-col md:flex-row gap-6 justify-center items-center pt-8">
-            <a
-              href="#divisions"
-              className="bg-secondary text-on-secondary px-12 py-5 font-label-caps text-label-caps hover:brightness-110 transition-all duration-300 w-full md:w-auto"
-            >
-              VIEW TEAMS
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="#divisions" className={`${primaryButtonClass} px-10 py-3.5 w-full sm:w-auto`}>
+              View Teams
             </a>
-            <a
-              href="#about"
-              className="border border-on-surface text-on-surface px-12 py-5 font-label-caps text-label-caps hover:bg-on-surface hover:text-primary-container transition-all duration-300 w-full md:w-auto"
-            >
-              LEARN MORE
+            <a href="#about" className={`${outlineButtonClass} px-10 py-3.5 w-full sm:w-auto`}>
+              Learn More
             </a>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-40 bg-primary-container border-y border-outline-variant/10">
-        <div className="max-w-4xl mx-auto px-margin-mobile md:px-margin-desktop text-center">
-          <h2 className="font-label-caps text-label-caps text-secondary mb-12">OUR MISSION</h2>
-          <p className="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-8">
-            Defined by precision. Driven by excellence. Last Game Reborn is the pinnacle of
-            competitive esports performance.
-          </p>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-            We believe in structural clarity and refined execution. Our organization serves as the
-            architectural foundation for the world&apos;s most disciplined players, fostering an
-            environment where elite potential meets professional stability.
+      {/* About / Mission */}
+      <section id="about" className="py-24 sm:py-32 border-t border-neutral-200 dark:border-neutral-800 px-4">
+        <div className="max-w-3xl mx-auto text-center space-y-6">
+          <p className={kickerClass}>Our Mission</p>
+          <h2 className="text-2xl sm:text-4xl font-bold">
+            Defined by precision. Driven by excellence.
+          </h2>
+          <p className="text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            Last Game Reborn is the pinnacle of competitive esports performance. We believe in
+            structural clarity and refined execution, fostering an environment where elite
+            potential meets professional stability.
           </p>
         </div>
       </section>
 
-      {/* Divisions Showcase */}
-      <section className="py-40 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="divisions">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-          <div className="space-y-4">
-            <h2 className="font-label-caps text-label-caps text-secondary">DIVISIONS</h2>
-            <h3 className="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface">
-              OPERATIONAL COMMANDS
-            </h3>
+      {/* Divisions */}
+      <section id="divisions" className="py-24 sm:py-32 px-4 max-w-6xl mx-auto">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-12">
+          <div className="space-y-2">
+            <p className={kickerClass}>Divisions</p>
+            <h3 className="text-2xl sm:text-4xl font-bold">Operational Commands</h3>
           </div>
-          <p className="font-label-caps text-label-caps text-on-surface-variant pb-2">
-            ACTIVE ROSTERS: 05 / 06
+          <p className="text-xs text-neutral-500 dark:text-neutral-500 font-medium">
+            Active rosters: 05 / 06
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {DIVISIONS.map((division, i) =>
             division.locked ? (
               <div
                 key={division.name}
-                style={{ animationDelay: `${i * 60}ms` }}
-                className="animate-fade-in-up bg-surface/30 border border-outline-variant/10 p-10 opacity-50 relative group overflow-hidden"
+                style={{ animationDelay: `${i * 40}ms` }}
+                className="animate-fade-in-up group relative overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 p-6 opacity-60"
               >
-                <div className="absolute inset-0 bg-[#0B0B0D]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                  <span className="font-label-caps text-label-caps text-secondary">COMING SOON</span>
-                </div>
-                <div className="flex justify-between items-start mb-12">
-                  <span className="text-on-surface-variant">
-                    <DivisionIconGlyph icon={division.icon} />
+                <div className="absolute inset-0 flex items-center justify-center bg-white/70 dark:bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                  <span className="text-xs font-semibold tracking-widest uppercase text-gold-700 dark:text-gold-500">
+                    Coming Soon
                   </span>
                 </div>
-                <h4 className="font-headline-md text-headline-md text-on-surface-variant mb-2">
-                  {division.name}
-                </h4>
-                <p className="font-label-caps text-label-caps text-on-surface-variant/50 mb-12">
-                  {division.tag}
-                </p>
-                <div className="h-0.5 bg-outline-variant/20 w-full" />
+                <div className="flex justify-between items-start mb-10 text-neutral-400 dark:text-neutral-600">
+                  <DivisionIconGlyph icon={division.icon} />
+                </div>
+                <h4 className="font-bold text-neutral-500 dark:text-neutral-500 mb-1">{division.name}</h4>
+                <p className="text-xs text-neutral-400 dark:text-neutral-600">{division.tag}</p>
               </div>
             ) : (
               <div
                 key={division.name}
-                style={{ animationDelay: `${i * 60}ms` }}
-                className="animate-fade-in-up group bg-surface border border-outline-variant/20 p-10 transition-all duration-500 hover:border-secondary"
+                style={{ animationDelay: `${i * 40}ms` }}
+                className="animate-fade-in-up group rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-6 transition-all duration-300 hover:border-gold-500"
               >
-                <div className="flex justify-between items-start mb-12">
-                  <span className="text-secondary">
+                <div className="flex justify-between items-start mb-10">
+                  <span className="text-gold-600 dark:text-gold-500">
                     <DivisionIconGlyph icon={division.icon} />
                   </span>
-                  <span className="font-label-caps text-[10px] border border-secondary text-secondary px-2 py-1">
+                  <span className="text-[10px] font-semibold rounded-full border border-gold-500 text-gold-700 dark:text-gold-400 px-2.5 py-1">
                     {division.badge}
                   </span>
                 </div>
-                <h4 className="font-headline-md text-headline-md text-on-surface mb-2">{division.name}</h4>
-                <p className="font-label-caps text-label-caps text-on-surface-variant mb-12">
-                  {division.tag}
-                </p>
+                <h4 className="font-bold text-neutral-900 dark:text-white mb-1">{division.name}</h4>
+                <p className="text-xs text-neutral-500 dark:text-neutral-500 mb-10">{division.tag}</p>
                 <div className="flex justify-between items-center">
-                  <span className="font-data-point text-data-point text-on-surface-variant">
+                  <span className="text-xs font-medium text-neutral-500 dark:text-neutral-500">
                     {division.stat}
                   </span>
-                  <span className="text-on-surface-variant group-hover:translate-x-2 transition-transform">
+                  <span className="text-neutral-400 dark:text-neutral-600 group-hover:text-gold-600 dark:group-hover:text-gold-500 group-hover:translate-x-1 transition-all">
                     <ArrowForwardIcon />
                   </span>
                 </div>
@@ -296,27 +291,25 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Milestones / Timeline */}
-      <section className="py-40 bg-surface-container-lowest overflow-hidden" id="timeline">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-          <h2 className="font-label-caps text-label-caps text-secondary mb-24">CHRONICLE</h2>
-          <div className="space-y-32">
+      {/* Timeline */}
+      <section id="timeline" className="py-24 sm:py-32 bg-neutral-50 dark:bg-neutral-900/40 border-t border-neutral-200 dark:border-neutral-800">
+        <div className="max-w-4xl mx-auto px-4">
+          <p className={`${kickerClass} mb-12`}>Chronicle</p>
+          <div className="space-y-16">
             {TIMELINE.map((item, i) => (
               <div
                 key={item.year}
-                style={{ animationDelay: `${i * 80}ms` }}
-                className="animate-fade-in-up flex flex-col md:flex-row gap-12 items-start"
+                style={{ animationDelay: `${i * 60}ms` }}
+                className="animate-fade-in-up flex flex-col sm:flex-row gap-6 sm:gap-10 items-start"
               >
-                <div className="font-label-caps text-display-lg text-outline-variant/30 leading-none md:w-1/4">
+                <div className="text-3xl font-extrabold text-neutral-300 dark:text-neutral-800 leading-none sm:w-24 shrink-0">
                   {item.year}
                 </div>
-                <div
-                  className={`md:w-3/4 border-l border-secondary pl-12 ${
-                    i < TIMELINE.length - 1 ? "pb-12" : ""
-                  }`}
-                >
-                  <h4 className="font-headline-md text-headline-md text-on-surface mb-4">{item.title}</h4>
-                  <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">{item.body}</p>
+                <div className="border-l-2 border-gold-500 pl-6">
+                  <h4 className="font-bold text-lg text-neutral-900 dark:text-white mb-2">{item.title}</h4>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 max-w-xl leading-relaxed">
+                    {item.body}
+                  </p>
                 </div>
               </div>
             ))}
@@ -324,63 +317,60 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Events List */}
-      <section className="py-40 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="events">
-        <div className="mb-24">
-          <h2 className="font-label-caps text-label-caps text-secondary mb-4">UPCOMING</h2>
-          <h3 className="font-display-lg text-display-lg text-on-surface">DEPLOYMENT SCHEDULE</h3>
+      {/* Events */}
+      <section id="events" className="py-24 sm:py-32 px-4 max-w-4xl mx-auto">
+        <div className="mb-12">
+          <p className={`${kickerClass} mb-2`}>Upcoming</p>
+          <h3 className="text-2xl sm:text-4xl font-bold">Deployment Schedule</h3>
         </div>
-        <div className="space-y-0">
+        <div>
           {EVENTS.map((event, i) => (
             <div
               key={event.title}
-              style={{ animationDelay: `${i * 60}ms` }}
-              className="animate-fade-in-up group flex flex-col md:flex-row items-center justify-between py-12 border-b border-outline-variant/20 hover:bg-surface-container-high transition-colors px-6"
+              style={{ animationDelay: `${i * 40}ms` }}
+              className="animate-fade-in-up flex flex-col sm:flex-row items-center justify-between gap-4 py-6 border-b border-neutral-200 dark:border-neutral-800"
             >
-              <div className="flex flex-col md:flex-row gap-12 items-center text-center md:text-left">
-                <div className="font-label-caps text-label-caps text-secondary">{event.date}</div>
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-8 items-center text-center sm:text-left">
+                <div className="text-xs font-semibold text-gold-700 dark:text-gold-500 sm:w-28 shrink-0">
+                  {event.date}
+                </div>
                 <div>
-                  <h4 className="font-headline-md text-headline-md text-on-surface">{event.title}</h4>
-                  <p className="font-label-caps text-[10px] text-on-surface-variant">{event.meta}</p>
+                  <h4 className="font-bold text-neutral-900 dark:text-white">{event.title}</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-500">{event.meta}</p>
                 </div>
               </div>
-              <div className="mt-8 md:mt-0">
-                <button
-                  type="button"
-                  className="border border-on-surface text-on-surface px-8 py-3 font-label-caps text-label-caps hover:bg-secondary hover:border-secondary hover:text-on-secondary transition-all"
-                >
-                  VIEW DETAILS
-                </button>
-              </div>
+              <button
+                type="button"
+                className="rounded-lg border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 px-6 py-2 text-xs font-semibold transition-all duration-150 hover:bg-gold-600 hover:border-gold-600 hover:text-white"
+              >
+                View Details
+              </button>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Staff Section */}
-      <section
-        className="py-40 bg-primary-container border-t border-outline-variant/10 px-margin-mobile md:px-margin-desktop"
-        id="staff"
-      >
-        <div className="max-w-container-max mx-auto">
-          <h2 className="font-label-caps text-label-caps text-secondary mb-24 text-center">LEADERSHIP</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      {/* Staff */}
+      <section id="staff" className="py-24 sm:py-32 bg-neutral-50 dark:bg-neutral-900/40 border-t border-neutral-200 dark:border-neutral-800 px-4">
+        <div className="max-w-6xl mx-auto">
+          <p className={`${kickerClass} mb-12 text-center`}>Leadership</p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10">
             {STAFF.map((member, i) => (
               <div
                 key={member.name}
-                style={{ animationDelay: `${i * 60}ms` }}
+                style={{ animationDelay: `${i * 40}ms` }}
                 className="animate-fade-in-up group text-center"
               >
-                <div className="relative w-48 h-64 mx-auto mb-8 bg-surface-container-high border border-outline-variant/20 transition-all duration-500 group-hover:border-secondary overflow-hidden">
+                <div className="relative w-full aspect-[3/4] max-w-[180px] mx-auto mb-4 rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-800 transition-all duration-300 group-hover:border-gold-500">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    className="w-full h-full object-cover grayscale brightness-75 group-hover:brightness-100 transition-all"
+                    className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-300"
                     alt={member.alt}
                     src={member.img}
                   />
                 </div>
-                <h5 className="font-headline-md text-headline-md text-on-surface">{member.name}</h5>
-                <p className="font-label-caps text-label-caps text-secondary mt-2">{member.role}</p>
+                <h5 className="font-bold text-neutral-900 dark:text-white text-sm">{member.name}</h5>
+                <p className="text-xs font-semibold text-gold-700 dark:text-gold-500 mt-1">{member.role}</p>
               </div>
             ))}
           </div>
@@ -388,31 +378,28 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-background border-t border-outline-variant/10">
-        <div className="flex flex-col md:flex-row justify-between items-center py-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto gap-12">
-          <div className="space-y-6 text-center md:text-left">
-            <div className="font-display-lg text-3xl text-on-surface">LG</div>
-            <p className="font-label-caps text-[10px] text-on-surface-variant tracking-widest">
-              © {new Date().getFullYear()} LAST GAME REBORN. ALL RIGHTS RESERVED.
+      <footer className="border-t border-neutral-200 dark:border-neutral-800 px-4 py-10">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="text-center sm:text-left space-y-1">
+            <div className="text-lg font-extrabold tracking-tight">LG</div>
+            <p className="text-xs text-neutral-500 dark:text-neutral-600">
+              © {new Date().getFullYear()} Last Game Reborn. All rights reserved.
             </p>
           </div>
-          <div className="flex flex-col md:flex-row gap-12 items-center">
-            <div className="flex gap-8">
+          <div className="flex flex-col sm:flex-row gap-6 items-center">
+            <div className="flex gap-6">
               {SOCIALS.map((label) => (
                 <a
                   key={label}
                   href="#"
-                  className="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-colors"
+                  className="text-xs font-medium text-neutral-500 dark:text-neutral-500 hover:text-gold-600 dark:hover:text-gold-500 transition-colors"
                 >
                   {label}
                 </a>
               ))}
             </div>
-            <Link
-              href="/apply"
-              className="bg-secondary text-on-secondary px-8 py-3 font-label-caps text-label-caps hover:brightness-110 transition-all duration-200"
-            >
-              JOIN TRYOUTS
+            <Link href="/apply" className={primaryButtonClass}>
+              Join Tryouts
             </Link>
           </div>
         </div>
