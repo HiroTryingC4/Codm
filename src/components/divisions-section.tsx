@@ -29,7 +29,7 @@ export default function DivisionsSection() {
       <ScrollReveal className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-12">
         <div className="space-y-2">
           <p className={kickerClass}>Divisions</p>
-          <h3 className="text-2xl sm:text-4xl font-bold">Operational Commands</h3>
+          <h3 className="font-display text-3xl sm:text-5xl tracking-tight">Operational Commands</h3>
         </div>
         <p className="text-xs text-neutral-500 dark:text-neutral-500 font-medium">
           Active rosters: 05 / 06

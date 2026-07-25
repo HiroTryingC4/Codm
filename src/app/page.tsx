@@ -79,7 +79,7 @@ export default function HomePage() {
       {/* Nav */}
       <nav className="fixed top-0 inset-x-0 z-50 border-b border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-4 sm:px-8 h-16 grid grid-cols-[1fr_auto_1fr] items-center">
-          <span className="text-xl font-extrabold tracking-tight">LG</span>
+          <span className="font-display text-2xl tracking-wide">LG</span>
           <div className="hidden md:flex gap-8 justify-self-center">
             {NAV_LINKS.map((link) => (
               <a
@@ -112,7 +112,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-white/90 dark:bg-neutral-950/90 transition-colors duration-300" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(212,160,23,0.12),_transparent_60%)]" />
         <div className="relative animate-fade-in-up">
-          <h1 className="text-[96px] sm:text-[140px] font-extrabold leading-none tracking-tighter select-none">
+          <h1 className="font-display text-[96px] sm:text-[140px] leading-none tracking-tight select-none">
             LG
           </h1>
           <p className="mt-3 text-xs sm:text-sm font-semibold tracking-[0.5em] uppercase text-neutral-500 dark:text-neutral-500">
@@ -136,7 +136,7 @@ export default function HomePage() {
       <section id="about" className="py-24 sm:py-32 border-t border-neutral-200 dark:border-neutral-800 px-4">
         <ScrollReveal className="max-w-3xl mx-auto text-center space-y-6">
           <p className={kickerClass}>Our Mission</p>
-          <h2 className="text-2xl sm:text-4xl font-bold">
+          <h2 className="font-display text-3xl sm:text-5xl tracking-tight">
             Defined by precision. Driven by excellence.
           </h2>
           <p className="text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
@@ -162,7 +162,7 @@ export default function HomePage() {
                 delayMs={i * 80}
                 className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-start"
               >
-                <div className="text-3xl font-extrabold text-neutral-300 dark:text-neutral-800 leading-none sm:w-24 shrink-0">
+                <div className="font-display text-4xl text-neutral-300 dark:text-neutral-800 leading-none sm:w-24 shrink-0">
                   {item.year}
                 </div>
                 <div className="border-l-2 border-gold-500 pl-6">
@@ -181,7 +181,7 @@ export default function HomePage() {
       <section id="events" className="py-24 sm:py-32 px-4 max-w-4xl mx-auto">
         <ScrollReveal className="mb-12">
           <p className={`${kickerClass} mb-2`}>Upcoming</p>
-          <h3 className="text-2xl sm:text-4xl font-bold">Deployment Schedule</h3>
+          <h3 className="font-display text-3xl sm:text-5xl tracking-tight">Deployment Schedule</h3>
         </ScrollReveal>
         <div>
           {EVENTS.map((event, i) => (
@@ -237,7 +237,7 @@ export default function HomePage() {
       <footer className="border-t border-neutral-200 dark:border-neutral-800 px-4 py-10">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="text-center sm:text-left space-y-1">
-            <div className="text-lg font-extrabold tracking-tight">LG</div>
+            <div className="font-display text-xl tracking-wide">LG</div>
             <p className="text-xs text-neutral-500 dark:text-neutral-600">
               © {new Date().getFullYear()} Last Game Reborn. All rights reserved.
             </p>
