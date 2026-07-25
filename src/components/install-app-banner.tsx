@@ -45,7 +45,6 @@ export default function InstallAppBanner() {
   }
 
   if (isStandalone || dismissed) return null;
-  if (!deferredPrompt && !isIOS) return null;
 
   return (
     <div className="animate-fade-in-up relative w-full max-w-sm mb-4 rounded-xl border border-gold-500/40 bg-gold-50 dark:bg-gold-500/10 px-4 py-3 flex items-start gap-3">
@@ -78,10 +77,15 @@ export default function InstallAppBanner() {
               Add to Home Screen
             </button>
           </>
-        ) : (
+        ) : isIOS ? (
           <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-0.5">
             Tap the Share icon, then &quot;Add to Home Screen&quot;. It&apos;ll be installed to your phone
             like an app.
+          </p>
+        ) : (
+          <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-0.5">
+            Open this page in Chrome or Edge, then look for the install icon in the address bar (or the
+            browser menu → &quot;Install app&quot;) to add it to your device like an app.
           </p>
         )}
       </div>
