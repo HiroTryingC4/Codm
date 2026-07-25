@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ThemeToggle from "@/components/theme-toggle";
+import InstallAppBanner from "@/components/install-app-banner";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -59,7 +60,9 @@ export default function AdminLoginPage() {
       <div className="fixed top-4 right-4 z-10">
         <ThemeToggle />
       </div>
-      <div className="animate-fade-in-up w-full max-w-sm rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/40 p-8 shadow-2xl shadow-neutral-300/40 dark:shadow-black/40 transition-colors">
+      <div className="relative w-full max-w-sm flex flex-col items-center">
+      <InstallAppBanner />
+      <div className="animate-fade-in-up w-full rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/40 p-8 shadow-2xl shadow-neutral-300/40 dark:shadow-black/40 transition-colors">
         <p className="text-xs font-semibold tracking-widest text-gold-700 dark:text-gold-500 uppercase mb-1">
           Restricted
         </p>
@@ -135,6 +138,7 @@ export default function AdminLoginPage() {
             {submitting ? "Logging in..." : "Log in"}
           </button>
         </form>
+      </div>
       </div>
     </main>
   );
