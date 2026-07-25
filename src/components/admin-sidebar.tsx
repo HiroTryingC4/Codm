@@ -107,7 +107,7 @@ export default function AdminSidebar({
           </Link>
         ))}
         <Link
-          href="/apply"
+          href="/"
           onClick={() => setOpen(false)}
           className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all duration-150"
         >
