@@ -26,7 +26,7 @@ export default function HomeBackground({ children }: { children: ReactNode }) {
   return (
     <GameBackgroundContext.Provider value={{ game, setGame }}>
       <div
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500"
+        className="fixed inset-0 bg-contain bg-center bg-no-repeat transition-opacity duration-500"
         style={{ backgroundImage: `url('${BACKGROUND_IMAGE[game]}')` }}
       />
       <div className="fixed inset-0 bg-white/85 dark:bg-neutral-950/80 transition-colors duration-300" />
