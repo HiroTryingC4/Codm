@@ -78,10 +78,37 @@ export default function InstallAppBanner() {
             </button>
           </>
         ) : isIOS ? (
-          <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-0.5">
-            Tap the Share icon, then &quot;Add to Home Screen&quot;. It&apos;ll be installed to your phone
-            like an app.
-          </p>
+          <div className="mt-1.5">
+            <div className="flex items-center gap-2 text-xs text-neutral-700 dark:text-neutral-300">
+              <span className="inline-flex items-center justify-center w-7 h-7 rounded-md border border-gold-500/60 text-gold-600 dark:text-gold-500 shrink-0 animate-fade-in">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-4 h-4"
+                >
+                  <path d="M12 3v10" />
+                  <path d="M8 7l4-4 4 4" />
+                  <rect x="4" y="12" width="16" height="9" rx="2" />
+                </svg>
+              </span>
+              <span>
+                Tap this <strong className="font-semibold">Share</strong> icon in Safari&apos;s toolbar
+              </span>
+            </div>
+            <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1.5">
+              Then scroll down and tap <strong className="font-semibold">&quot;Add to Home Screen&quot;</strong>.
+            </p>
+            <p className="text-[11px] text-neutral-500 dark:text-neutral-500 mt-1.5">
+              A new &quot;LG Admin&quot; icon will appear on your Home Screen — that&apos;s the
+              confirmation it worked. Open the app from there and this banner will disappear
+              automatically.
+            </p>
+          </div>
         ) : (
           <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-0.5">
             Open this page in Chrome or Edge, then look for the install icon in the address bar (or the
