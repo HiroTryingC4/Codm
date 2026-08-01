@@ -16,8 +16,8 @@ export interface ApplicantSummary {
   game: GameType;
   inGameName: string;
   uid: string;
-  tryoutType: TryoutType;
-  mode: Mode;
+  tryoutType: TryoutType | null;
+  mode: Mode | null;
   status: ApplicantStatus;
 }
 
@@ -28,7 +28,7 @@ export interface ApplicantDetail extends ApplicantSummary {
   streamerMode: string | null;
   teamName: string | null;
   role: string | null;
-  motivation: string;
+  motivation: string | null;
   recruitedBy: string | null;
   createdAt: string;
 }

@@ -22,11 +22,11 @@ model Applicant {
   gcashNumber  String  @default("")
   cityProvince String  @default("")
   streamerMode String?
-  tryoutType   String
-  mode         String
+  tryoutType   String?
+  mode         String?
   teamName     String?
   role         String?
-  motivation   String
+  motivation   String?
   recruitedBy  String?
   status       String @default("PENDING")
 
