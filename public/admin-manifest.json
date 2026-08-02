@@ -1,7 +1,7 @@
 {
-  "name": "Last Game Reborn Admin",
+  "name": "Last Game Admin",
   "short_name": "LG Admin",
-  "description": "Admin panel for Last Game Reborn — manage members, review applications, and view analytics.",
+  "description": "Admin panel for Last Game — manage members, review applications, and view analytics.",
   "start_url": "/admin/login",
   "scope": "/admin",
   "display": "standalone",

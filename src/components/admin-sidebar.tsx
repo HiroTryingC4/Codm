@@ -89,7 +89,7 @@ export default function AdminSidebar({
     <div className="flex flex-col h-full">
       <div className="px-5 py-4 border-b border-neutral-200 dark:border-neutral-800">
         <p className="text-xs font-semibold tracking-widest text-gold-700 dark:text-gold-500 uppercase">
-          Last Game Reborn
+          Last Game
         </p>
         <h1 className="font-bold text-neutral-900 dark:text-white">Admin Panel</h1>
       </div>

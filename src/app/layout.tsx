@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Last Game Reborn — Tryouts",
-  description: "Last Game Reborn clan tryout applications and evaluation board",
+  title: "Last Game — Tryouts",
+  description: "Last Game clan tryout applications and evaluation board",
 };
 
 const themeInitScript = `
