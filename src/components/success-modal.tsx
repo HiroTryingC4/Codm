@@ -6,9 +6,15 @@ import { createPortal } from "react-dom";
 export default function SuccessModal({
   open,
   onClose,
+  title = "Welcome to the LG family!",
+  message = "Congratulations on joining us. Your information has been submitted successfully.",
+  buttonLabel = "Got it",
 }: {
   open: boolean;
   onClose: () => void;
+  title?: string;
+  message?: string;
+  buttonLabel?: string;
 }) {
   const [mounted, setMounted] = useState(false);
 
@@ -31,15 +37,15 @@ export default function SuccessModal({
             <path d="M22 4 12 14.01l-3-3" />
           </svg>
         </div>
-        <h2 className="text-xl font-bold text-neutral-900 dark:text-white mb-1">Welcome to the LG family!</h2>
+        <h2 className="text-xl font-bold text-neutral-900 dark:text-white mb-1">{title}</h2>
         <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
-          Congratulations on joining us. Your information has been submitted successfully.
+          {message}
         </p>
         <button
           onClick={onClose}
           className="w-full rounded-lg bg-gold-600 text-white py-2.5 font-semibold transition-all duration-150 hover:bg-gold-500 hover:scale-[1.02] active:scale-[0.98]"
         >
-          Got it
+          {buttonLabel}
         </button>
       </div>
     </div>,

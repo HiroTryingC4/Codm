@@ -26,6 +26,9 @@ export default function ApplicantCard({
       {applicant.gcashNumber && (
         <div className="text-sm text-neutral-500 truncate">Number: {applicant.gcashNumber}</div>
       )}
+      <div className="text-xs text-neutral-400 dark:text-neutral-600 truncate mt-0.5">
+        Joined {new Date(applicant.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}
+      </div>
     </button>
   );
 }

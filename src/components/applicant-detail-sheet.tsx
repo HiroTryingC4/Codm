@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from "react";
 import type { ApplicantDetail } from "@/types";
+import DeleteApplicantButton from "@/components/delete-applicant-button";
 
 export default function ApplicantDetailSheet({
   applicantId,
   onClose,
+  onDeleted,
 }: {
   applicantId: string;
   onClose: () => void;
+  onDeleted: () => void;
 }) {
   const [applicant, setApplicant] = useState<ApplicantDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -126,6 +129,14 @@ export default function ApplicantDetailSheet({
                   </div>
                 </div>
               )}
+            </div>
+
+            <div className="pt-2 border-t border-neutral-200 dark:border-neutral-800">
+              <DeleteApplicantButton
+                applicantId={applicant.id}
+                applicantName={applicant.inGameName}
+                onDeleted={onDeleted}
+              />
             </div>
           </div>
         )}

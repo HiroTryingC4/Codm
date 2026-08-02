@@ -11,16 +11,36 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
   const searchParams = useSearchParams();
   const selectedId = searchParams.get("applicant");
   const [search, setSearch] = useState("");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
+  const [sortBy, setSortBy] = useState<"name" | "date-desc" | "date-asc">("name");
 
   const query = search.trim().toLowerCase();
-  const filtered = query
-    ? applicants.filter(
-        (a) =>
-          a.inGameName.toLowerCase().includes(query) ||
+  const fromTime = dateFrom ? new Date(dateFrom).getTime() : null;
+  const toTime = dateTo ? new Date(dateTo).getTime() + 24 * 60 * 60 * 1000 - 1 : null;
+
+  const filtered = applicants
+    .filter((a) =>
+      query
+        ? a.inGameName.toLowerCase().includes(query) ||
           a.fbName.toLowerCase().includes(query) ||
           a.gcashNumber.toLowerCase().includes(query)
-      )
-    : applicants;
+        : true
+    )
+    .filter((a) => {
+      const created = new Date(a.createdAt).getTime();
+      if (fromTime !== null && created < fromTime) return false;
+      if (toTime !== null && created > toTime) return false;
+      return true;
+    })
+    .sort((a, b) => {
+      if (sortBy === "name") {
+        return (a.fbName || a.inGameName).localeCompare(b.fbName || b.inGameName);
+      }
+      const aTime = new Date(a.createdAt).getTime();
+      const bTime = new Date(b.createdAt).getTime();
+      return sortBy === "date-desc" ? bTime - aTime : aTime - bTime;
+    });
 
   function selectApplicant(id: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -35,6 +55,11 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
     router.push(qs ? `/admin?${qs}` : "/admin");
   }
 
+  function handleDeleted() {
+    closeDetail();
+    router.refresh();
+  }
+
   return (
     <div className="relative min-h-screen">
       <div
@@ -46,27 +71,75 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
 
       <main className="relative p-4 sm:p-6">
         <div className="max-w-5xl mx-auto space-y-4">
-          <div className="relative max-w-sm">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 dark:text-neutral-600"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.3-4.3" />
-            </svg>
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by IGN, name, or number..."
-              className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 pl-9 pr-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
-            />
+          <div className="flex flex-wrap items-end gap-3">
+            <div className="relative w-full max-w-sm">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 dark:text-neutral-600"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search by IGN, name, or number..."
+                className="w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 pl-9 pr-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label className="text-xs text-neutral-500 dark:text-neutral-400">From</label>
+              <input
+                type="date"
+                value={dateFrom}
+                onChange={(e) => setDateFrom(e.target.value)}
+                className="rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label className="text-xs text-neutral-500 dark:text-neutral-400">To</label>
+              <input
+                type="date"
+                value={dateTo}
+                onChange={(e) => setDateTo(e.target.value)}
+                className="rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
+              />
+            </div>
+
+            {(dateFrom || dateTo) && (
+              <button
+                type="button"
+                onClick={() => {
+                  setDateFrom("");
+                  setDateTo("");
+                }}
+                className="rounded-lg border border-neutral-300 dark:border-neutral-800 px-3 py-2 text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors"
+              >
+                Clear dates
+              </button>
+            )}
+
+            <div className="flex flex-col gap-1">
+              <label className="text-xs text-neutral-500 dark:text-neutral-400">Sort by</label>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+                className="rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
+              >
+                <option value="name">Name (A-Z)</option>
+                <option value="date-desc">Date (Newest)</option>
+                <option value="date-asc">Date (Oldest)</option>
+              </select>
+            </div>
           </div>
 
           <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/50 backdrop-blur-sm shadow-lg shadow-neutral-300/30 dark:shadow-black/30 p-4 transition-colors">
@@ -92,7 +165,7 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
         </div>
 
         {selectedId && (
-          <ApplicantDetailSheet applicantId={selectedId} onClose={closeDetail} />
+          <ApplicantDetailSheet applicantId={selectedId} onClose={closeDetail} onDeleted={handleDeleted} />
         )}
       </main>
     </div>

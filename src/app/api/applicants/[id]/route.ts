@@ -21,3 +21,24 @@ export async function GET(
 
   return NextResponse.json({ applicant });
 }
+
+export async function DELETE(
+  _request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const applicant = await prisma.applicant.findUnique({
+    where: { id: params.id },
+  });
+  if (!applicant) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
+  await prisma.applicant.delete({ where: { id: params.id } });
+
+  return NextResponse.json({ success: true });
+}
