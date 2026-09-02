@@ -1,19 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { Applicant } from "@prisma/client";
 import ApplicantCard from "@/components/applicant-card";
 import ApplicantDetailSheet from "@/components/applicant-detail-sheet";
 
-export default function BoardClient({ applicants }: { applicants: Applicant[] }) {
+export default function BoardClient({
+  applicants,
+  title = "Members",
+  emptyLabel = "No members found",
+}: {
+  applicants: Applicant[];
+  title?: string;
+  emptyLabel?: string;
+}) {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const selectedId = searchParams.get("applicant");
   const [search, setSearch] = useState("");
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [sortBy, setSortBy] = useState<"name" | "date-desc" | "date-asc">("name");
+  const [gameFilter, setGameFilter] = useState<"ALL" | "MP" | "BR" | "ML">("ALL");
 
   const query = search.trim().toLowerCase();
   const fromTime = dateFrom ? new Date(dateFrom).getTime() : null;
@@ -27,6 +37,7 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
           a.gcashNumber.toLowerCase().includes(query)
         : true
     )
+    .filter((a) => (gameFilter === "ALL" ? true : a.game === gameFilter))
     .filter((a) => {
       const created = new Date(a.createdAt).getTime();
       if (fromTime !== null && created < fromTime) return false;
@@ -45,18 +56,22 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
   function selectApplicant(id: string) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("applicant", id);
-    router.push(`/admin?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);
   }
 
   function closeDetail() {
     const params = new URLSearchParams(searchParams.toString());
     params.delete("applicant");
     const qs = params.toString();
-    router.push(qs ? `/admin?${qs}` : "/admin");
+    router.push(qs ? `${pathname}?${qs}` : pathname);
   }
 
   function handleDeleted() {
     closeDetail();
+    router.refresh();
+  }
+
+  function handleStatusChanged() {
     router.refresh();
   }
 
@@ -129,6 +144,20 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
             )}
 
             <div className="flex flex-col gap-1">
+              <label className="text-xs text-neutral-500 dark:text-neutral-400">Game</label>
+              <select
+                value={gameFilter}
+                onChange={(e) => setGameFilter(e.target.value as typeof gameFilter)}
+                className="rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500"
+              >
+                <option value="ALL">All games</option>
+                <option value="MP">Multiplayer</option>
+                <option value="BR">Battle Royale</option>
+                <option value="ML">Mobile Legends</option>
+              </select>
+            </div>
+
+            <div className="flex flex-col gap-1">
               <label className="text-xs text-neutral-500 dark:text-neutral-400">Sort by</label>
               <select
                 value={sortBy}
@@ -144,10 +173,10 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
 
           <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/50 backdrop-blur-sm shadow-lg shadow-neutral-300/30 dark:shadow-black/30 p-4 transition-colors">
             <h2 className="text-xs font-semibold tracking-widest uppercase text-neutral-500 dark:text-neutral-400 mb-3">
-              Members ({filtered.length})
+              {title} ({filtered.length})
             </h2>
             {filtered.length === 0 ? (
-              <p className="text-sm text-neutral-400 dark:text-neutral-700 italic">No members found</p>
+              <p className="text-sm text-neutral-400 dark:text-neutral-700 italic">{emptyLabel}</p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {filtered.map((applicant, i) => (
@@ -165,7 +194,12 @@ export default function BoardClient({ applicants }: { applicants: Applicant[] })
         </div>
 
         {selectedId && (
-          <ApplicantDetailSheet applicantId={selectedId} onClose={closeDetail} onDeleted={handleDeleted} />
+          <ApplicantDetailSheet
+            applicantId={selectedId}
+            onClose={closeDetail}
+            onDeleted={handleDeleted}
+            onStatusChanged={handleStatusChanged}
+          />
         )}
       </main>
     </div>

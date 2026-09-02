@@ -6,6 +6,12 @@ import ClanRulesModal from "./clan-rules-modal";
 import SuccessModal from "./success-modal";
 import { useGameBackground } from "./home-background";
 
+const GAMES: { value: "MP" | "BR" | "ML"; label: string }[] = [
+  { value: "MP", label: "Multiplayer" },
+  { value: "BR", label: "Battle Royale" },
+  { value: "ML", label: "Mobile Legends" },
+];
+
 const inputClass =
   "w-full rounded-lg bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 px-3 py-2.5 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-600 outline-none transition-colors focus:border-gold-500 focus:ring-1 focus:ring-gold-500";
 
@@ -13,7 +19,7 @@ const labelClass = "block text-sm font-medium text-neutral-600 dark:text-neutral
 
 export default function TryoutForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const { game } = useGameBackground();
+  const { game, setGame } = useGameBackground();
 
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<{ success: boolean; error?: string } | null>(
@@ -25,13 +31,13 @@ export default function TryoutForm() {
   const [rulesAgreed, setRulesAgreed] = useState(false);
 
   const [uid, setUid] = useState("");
-  const uidError = uid.length > 0 && !/^\d+$/.test(uid) ? "UID must contain numbers only." : null;
+  const uidError = uid.length > 0 && !/^\d+$/.test(uid) ? "UID/ID must contain numbers only." : null;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (!/^\d+$/.test(uid)) {
-      setResult({ success: false, error: "UID must contain numbers only." });
+      setResult({ success: false, error: "UID/ID must contain numbers only." });
       return;
     }
 
@@ -49,6 +55,7 @@ export default function TryoutForm() {
         setRulesAgreed(false);
         setHasReadRules(false);
         setUid("");
+        setGame("MP");
       }
     } catch {
       setResult({
@@ -69,9 +76,29 @@ export default function TryoutForm() {
       </div>
 
       <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
-        <input type="hidden" name="game" value={game} />
         <input type="hidden" name="tryoutType" value="COMPETITIVE" />
         <input type="hidden" name="mode" value="SOLO" />
+
+        <div>
+          <label className={labelClass}>Which game are you trying out for?</label>
+          <input type="hidden" name="game" value={game} />
+          <div className="flex rounded-lg overflow-hidden border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900">
+            {GAMES.map((g) => (
+              <button
+                type="button"
+                key={g.value}
+                onClick={() => setGame(g.value)}
+                className={`flex-1 py-2.5 text-sm font-medium transition-all duration-150 active:scale-95 ${
+                  game === g.value
+                    ? "bg-gold-600 text-white"
+                    : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
+                }`}
+              >
+                {g.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
         <div>
           <label className={labelClass} htmlFor="fbName">
@@ -101,7 +128,7 @@ export default function TryoutForm() {
 
         <div>
           <label className={labelClass} htmlFor="uid">
-            UID
+            UID/ID
           </label>
           <input
             id="uid"
@@ -142,20 +169,22 @@ export default function TryoutForm() {
           <input id="cityProvince" name="cityProvince" required className={inputClass} />
         </div>
 
-        <div>
-          <label className={labelClass} htmlFor="streamerMode">
-            Streamer Mode <span className="text-neutral-500 dark:text-neutral-600">(optional)</span>
-          </label>
-          <input
-            id="streamerMode"
-            name="streamerMode"
-            placeholder="ex: 7QxxYwd891"
-            className={inputClass}
-          />
-          <p className="mt-1.5 text-xs text-neutral-500 dark:text-neutral-600">
-            (For call of duty players only)
-          </p>
-        </div>
+        {game !== "ML" && (
+          <div>
+            <label className={labelClass} htmlFor="streamerMode">
+              Streamer Mode <span className="text-neutral-500 dark:text-neutral-600">(optional)</span>
+            </label>
+            <input
+              id="streamerMode"
+              name="streamerMode"
+              placeholder="ex: 7QxxYwd891"
+              className={inputClass}
+            />
+            <p className="mt-1.5 text-xs text-neutral-500 dark:text-neutral-600">
+              (For call of duty players only)
+            </p>
+          </div>
+        )}
 
         <div className="rounded-lg border border-neutral-300 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 p-3 space-y-3">
           <button

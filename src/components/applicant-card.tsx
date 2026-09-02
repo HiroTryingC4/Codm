@@ -1,4 +1,6 @@
 import type { Applicant } from "@prisma/client";
+import type { ApplicantStatus } from "@/types";
+import { STATUS_BADGE, STATUS_LABEL } from "@/components/applicant-status-actions";
 
 export default function ApplicantCard({
   applicant,
@@ -11,6 +13,9 @@ export default function ApplicantCard({
   highlighted?: boolean;
   animationDelayMs?: number;
 }) {
+  const status: ApplicantStatus =
+    applicant.status in STATUS_LABEL ? (applicant.status as ApplicantStatus) : "PENDING";
+
   return (
     <button
       onClick={onClick}
@@ -19,8 +24,18 @@ export default function ApplicantCard({
         highlighted ? "ring-2 ring-gold-500" : ""
       }`}
     >
-      <div className="font-semibold text-neutral-900 dark:text-neutral-100 truncate">
-        {applicant.fbName || applicant.inGameName}
+      <div className="flex items-center justify-between gap-2">
+        <div className="font-semibold text-neutral-900 dark:text-neutral-100 truncate">
+          {applicant.fbName || applicant.inGameName}
+        </div>
+        <div className="flex shrink-0 items-center gap-1.5">
+          <span className="rounded-full bg-gold-100 dark:bg-gold-500/10 text-gold-700 dark:text-gold-500 text-[10px] font-semibold tracking-wide px-2 py-0.5">
+            {applicant.game}
+          </span>
+          <span className={`rounded-full border text-[10px] font-semibold tracking-wide px-2 py-0.5 ${STATUS_BADGE[status]}`}>
+            {STATUS_LABEL[status]}
+          </span>
+        </div>
       </div>
       <div className="text-sm text-neutral-500 truncate">IGN: {applicant.inGameName}</div>
       {applicant.gcashNumber && (

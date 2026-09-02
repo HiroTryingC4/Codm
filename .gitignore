@@ -19,3 +19,4 @@ next-env.d.ts
 
 # Contains real member PII (names, UIDs) - never commit
 *.xlsx
+/backups/

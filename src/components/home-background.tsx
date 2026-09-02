@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, type ReactNode } from "react";
 
-type GameType = "MP" | "BR";
+type GameType = "MP" | "BR" | "ML";
 
 const GameBackgroundContext = createContext<{
   game: GameType;
@@ -18,6 +18,8 @@ export function useGameBackground() {
 const BACKGROUND_IMAGE: Record<GameType, string> = {
   MP: "/images/cover.jpg",
   BR: "/images/cover-br.jpg",
+  // TODO: swap in a dedicated Mobile Legends cover once one exists.
+  ML: "/images/cover.jpg",
 };
 
 export default function HomeBackground({ children }: { children: ReactNode }) {

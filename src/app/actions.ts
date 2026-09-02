@@ -11,6 +11,7 @@ export interface SubmitResult {
 const MODES_BY_GAME: Record<GameType, Mode[]> = {
   MP: ["SOLO", "TEAM"],
   BR: ["SOLO", "DUO", "SQUAD"],
+  ML: ["SOLO", "TEAM"],
 };
 
 export async function submitTryoutApplication(
@@ -31,20 +32,32 @@ export async function submitTryoutApplication(
   const recruitedBy = String(formData.get("recruitedBy") || "").trim();
   const rulesAgreed = formData.get("rulesAgreed") === "true";
 
-  if (game !== "MP" && game !== "BR") {
+  if (game !== "MP" && game !== "BR" && game !== "ML") {
     return { success: false, error: "Please select which game you're trying out for." };
   }
 
   if (!inGameName || !uid) {
-    return { success: false, error: "In-game name and UID are required." };
+    return { success: false, error: "In-game name and UID/ID are required." };
   }
 
   if (!/^\d+$/.test(uid)) {
-    return { success: false, error: "UID must contain numbers only." };
+    return { success: false, error: "UID/ID must contain numbers only." };
   }
 
   if (!fbName || !cityProvince || !gcashNumber) {
     return { success: false, error: "FB name, GCash number, and City/Province are required." };
+  }
+
+  const duplicate = await prisma.applicant.findFirst({
+    where: {
+      OR: [{ uid }, { fbName: { equals: fbName, mode: "insensitive" } }],
+    },
+  });
+  if (duplicate) {
+    return {
+      success: false,
+      error: "You already submitted with the same name or ID.",
+    };
   }
 
   if (tryoutType !== "COMPETITIVE" && tryoutType !== "CASUAL") {

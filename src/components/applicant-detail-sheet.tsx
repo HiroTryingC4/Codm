@@ -1,17 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { ApplicantDetail } from "@/types";
+import type { ApplicantDetail, ApplicantStatus } from "@/types";
 import DeleteApplicantButton from "@/components/delete-applicant-button";
+import ApplicantStatusActions from "@/components/applicant-status-actions";
 
 export default function ApplicantDetailSheet({
   applicantId,
   onClose,
   onDeleted,
+  onStatusChanged,
 }: {
   applicantId: string;
   onClose: () => void;
   onDeleted: () => void;
+  onStatusChanged?: () => void;
 }) {
   const [applicant, setApplicant] = useState<ApplicantDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -58,6 +61,15 @@ export default function ApplicantDetailSheet({
               </p>
             </div>
 
+            <ApplicantStatusActions
+              applicantId={applicant.id}
+              status={applicant.status}
+              onChanged={(status: ApplicantStatus) => {
+                setApplicant((prev) => (prev ? { ...prev, status } : prev));
+                onStatusChanged?.();
+              }}
+            />
+
             <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 overflow-hidden">
               <button
                 type="button"
@@ -82,11 +94,21 @@ export default function ApplicantDetailSheet({
                 <div className="animate-fade-in-up px-3 py-3 border-t border-neutral-200 dark:border-neutral-800">
                   <div className="grid grid-cols-2 gap-3">
                     <div>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">Game</p>
+                      <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">
+                        {applicant.game === "MP"
+                          ? "Multiplayer"
+                          : applicant.game === "BR"
+                          ? "Battle Royale"
+                          : "Mobile Legends"}
+                      </p>
+                    </div>
+                    <div>
                       <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">In-game name</p>
                       <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">{applicant.inGameName}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">UID</p>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-600 mb-0.5">UID/ID</p>
                       <p className="text-sm text-neutral-900 dark:text-neutral-100 break-words">{applicant.uid}</p>
                     </div>
                     <div>

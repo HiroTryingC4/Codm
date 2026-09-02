@@ -4,6 +4,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Last Game — Tryouts",
   description: "Last Game clan tryout applications and evaluation board",
+  icons: {
+    icon: "/icons/icon-192.png",
+    apple: "/icons/apple-touch-icon.png",
+  },
 };
 
 const themeInitScript = `

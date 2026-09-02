@@ -1,4 +1,4 @@
-export type GameType = "MP" | "BR";
+export type GameType = "MP" | "BR" | "ML";
 export type TryoutType = "COMPETITIVE" | "CASUAL";
 export type Mode = "SOLO" | "TEAM" | "DUO" | "SQUAD";
 export type ApplicantStatus = "PENDING" | "REVIEWED" | "ACCEPTED" | "REJECTED";
